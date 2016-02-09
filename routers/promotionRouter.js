@@ -58,7 +58,7 @@ router
 		if(id == '' || null){
 			return response.status(400).send({"message" : "Parameter missing"}).end();
 		}
-		promotionModel.findOne({"event_category" : id},{'__v': 0},function (err,promotion){
+		promotionModel.find({"event_category" : id},{'__v': 0},function (err,promotion){
 			if(err){
 				return response.status(500).send({"message" : "Internal server error.","code": "PE-One", "err" : err}).end();	
 			}

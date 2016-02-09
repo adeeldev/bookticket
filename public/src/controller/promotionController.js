@@ -31,7 +31,7 @@ angular.module('TurkishApp')
       angular.forEach($scope.uploader.queue, function(value, key) {
           $scope.image = value.file.name;
           $scope.res = $scope.image.split('.');
-          if($scope.res[1] == 'png' || $scope.res[1] == 'jpg'){
+          if($scope.res[1] == 'png' || $scope.res[1] == 'jpg' || $scope.res[1] == 'jpeg' || $scope.res[1] == 'JPEG' || $scope.res[1] == 'gif' ){
              $scope.image1 =  $scope.base_url+$scope.image;
           }
           if($scope.res[1] == 'pdf'){
