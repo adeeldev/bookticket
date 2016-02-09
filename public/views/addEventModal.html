@@ -1,0 +1,29 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{Event.eventTitle}}</h4>
+</div>
+<div class="modal-body" ng-form name='myForm'>
+	<h5 class="pull-right"><strong> Timezone : {{timezone}}</strong></h5>
+	<div class="form-group" ng-if="errCheck" ng-repeat='err in Errors'>
+		<p class='bg-danger'>{{err.text}}</p>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-4" for="email">Event Title</label>
+		<input type="text" name='title' class="form-control" ng-model='Event.eventTitle' placeholder='Title' required>
+	</div>
+	<div class="form-group">
+		<label class="control-label">Date</label>
+		<input date-time name="pickerMinDate" ng-model="Event.eventDate" id="pickerMinDate" min-date="minDate" view="date" min-view="hours" format="MM-DD-YYYY hh:mm a">
+	</div>
+	<div class="form-group">
+		<label class="control-label">Event Location</label>
+		<input placeholder='Location' type="text" class="form-control" name='location' ng-model='Event.eventLocation' required>
+	</div>
+	<div class="form-group" required>
+		<label class="col-sm-4">Description</label>
+		<textarea ng-model='Event.eventDescription' rows="5"class="form-control"></textarea>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click='cancel()'>Close</button>
+	<button type="submit" class="btn btn-primary" ng-click='ok(myForm)'>Save changes</button>
+</div>

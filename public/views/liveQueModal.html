@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <h4 class='modal-title'>Live Question</h4>
+</div>
+<div class="modal-body" ng-show='!isLive'>
+  <h4 class="center">No Live Question</h4>
+</div>
+<div class="modal-body" ng-show='isLive'>
+  <h4 class="pull-right"> No of answers : {{que.userAnswer.length}}</h4>
+  <h4 class=''>Correct Answer : {{que.correctAnswer}}</h4>
+  <div ng-form name='myForm' class="form-horizontal">
+    <div class='form-group'>
+      <label class="control-label col-sm-2" for='question'>Question</label>
+      <div class="col-sm-10">
+        <input type="text" name='question' class="form-control" ng-model='que.question' placeholder='Question' autofocus required>
+      </div>
+    </div>
+    <div class='form-group'>
+      <div class="col-sm-6">
+        <label class="col-sm-2 control-label" for='optionA'>A</label>
+        <div class="col-sm-10">
+          <input type="text" name='optionA' class="form-control" ng-model='que.options.A' placeholder='Option A' required>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <label class="col-sm-2 control-label" for='optionB'>B</label>
+        <div class="col-sm-10">
+          <input type="text" name='optionB' class="form-control" ng-model='que.options.B' placeholder='Option B' required>
+        </div>  
+      </div>
+    </div>
+    <div class='form-group'>
+      <div class="col-sm-6">
+        <label class="col-sm-2 control-label" for='optionC'>C</label>
+        <div class="col-sm-10">
+          <input type="text" name='optionC' class="form-control" ng-model='que.options.C' placeholder='Option C' required>
+        </div>
+      </div>
+      <div class='col-sm-6'>
+        <label class="col-sm-2 control-label" for='optionD'>D</label>
+        <div class="col-sm-10">
+          <input type="text" name='optionD' class="form-control" ng-model='que.options.D' placeholder='Option D' required>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-group">
+      <label class="control-label col-sm-2">Select Winner</label>
+      <div class="col-sm-10">{{winner.email}}
+        <select class="form-control" name='winner' ng-model='winner.email'>
+          <option value="">--Select Winner--</option>
+          <option ng-repeat='option in users' value="{{option.email}}">{{option.email}}</option>
+        </select>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click='cancel()'>Close</button>
+  <!-- <button type="button" class="btn btn-warning" ng-click='closeQue(myForm)'>Add Winner</button> -->
+  <button type="button" class="btn btn-primary" ng-click='save()'>Save Changes</button>
+</div>

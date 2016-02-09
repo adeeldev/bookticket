@@ -1,0 +1,15 @@
+<div class="col-sm-10">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Album</h3>
+		</div>
+		<div class="panel-body">
+			<div class="col-sm-4" ng-repeat='img in album.images'>
+				<img src="{{img.url}}" class="img-responsive">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-sm-2">
+	<button class="btn btn-primary btn-md btn-block" ng-click='addAlbum()'>Add Images</button>
+</div>

@@ -1,0 +1,43 @@
+<a href="/#!/home" class="btn btn-md btn-primary"><span class='glyphicon glyphicon-arrow-left'></span> Back To Home</a>
+<button uib-tooltip='' class="btn btn-primary btn-md pull-right" ng-click='openNew(lg)' ng-disabled='isLived'><span class='glyphicon glyphicon-plus'></span> New Question</button>
+<div class="dropdown pull-right">
+	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Live Detail
+	<span class="caret"></span></button>
+	<ul class="dropdown-menu">
+		<li ng-click='openLive(lg,liveQuestion)'><a href="">Live Question {{remainTime}}</a></li>
+		<li ng-click='queDetail(liveQuestion)'><a href="">View Answers</a></li>
+	</ul>
+</div>
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th ng-repeat='head in fields' ng-click='sort(head)'>
+				{{head | labelCase}}
+				<span ng-show='sort.field === head && !sort.order' class='glyphicon glyphicon-chevron-down'></span>
+				<span ng-show='sort.field === head && sort.order' class='glyphicon glyphicon-chevron-up'></span>
+			</th>
+		</tr>
+	</thead>
+	<tbody ng-if="Questions.length == 0">
+		<tr>
+			<td colspan="8">No Data Found.</td>
+		</tr>
+	</tbody>
+	<tbody ng-if="Questions.length != 0">
+		<tr ng-repeat='Question in Questions | orderBy : sort.field : sort.order'>
+			<td>{{Question.question}} <span class="label label-success" ng-if='!Question.isExpired'> Live</span></td>
+			<td>{{Question.correctAnswer}}</td>
+			<td>{{Question.endTime | date:'MM-dd-yyyy hh:mm a'}}</td>
+			<td ng-if='Question.isExpired == true'>Closed</td>
+			<td ng-if='Question.isExpired == false'>Open</td>
+			<td ng-if='hasWinner(Question)'>{{Question.winner.name}}</td>
+			<td ng-if='hasWinner(Question)'>{{Question.winner.agency}}</td>
+			<td ng-if='!hasWinner(Question)' colspan="2">
+				<button type="button" class="btn btn-default btn-md" ng-click='addWinner(Question)'>Add Winner</button>
+			</td>
+			<td>
+				<button type="button" class="btn btn-success" ng-click='queDetail(Question)'>Answers</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

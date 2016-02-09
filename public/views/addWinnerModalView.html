@@ -1,0 +1,55 @@
+<div class="modal-header">
+	<h4 class='modal-title'>Add Winner</h4>
+</div>
+<div class="modal-body">
+	<uib-alert type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout='2000' ng-show='hasError'>{{alert.msg}}</uib-alert>
+	<div ng-form name='myForm'>
+		<div class="form-group">
+			<label class="control-label">Select Winner</label>
+			<select class="form-control" name='winner' ng-options='email for email in emails' ng-change="selectUser()" ng-model='winnerEmail' required>
+				<option>--Select Winner--</option>
+			</select>
+		</div>
+	</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<td colspan='2' class="bg-info"><strong>User Information</strong></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Name</td>
+				<td>{{selectedUser.name}}</td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td>{{selectedUser.username}}</td>
+			</tr>
+			<tr>
+				<td>Agency Code</td>
+				<td>{{selectedUser.agency}}</td>
+			</tr>
+			<tr>
+				<td>Agency Name</td>
+				<td>{{selectedUser.agencyName}}</td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td>{{selectedUser.city}}</td>
+			</tr>
+			<tr>
+				<td>Telephone</td>
+				<td>{{selectedUser.telephone}}</td>
+			</tr>
+			<tr>
+				<td>Created On</td>
+				<td>{{selectedUser.dateCreated | date :'MM-dd-yyyy hh:mm a'}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click='cancel()'>Close</button>
+	<button type="button" class="btn btn-success" ng-click='ok(myForm)'>Add Winner</button>
+</div>

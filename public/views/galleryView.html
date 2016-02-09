@@ -1,0 +1,15 @@
+<div class="col-sm-10">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Gallery</h3>
+		</div>
+		<div class="panel-body">
+			<div class="col-sm-4" ng-repeat='img in gallery'>
+				<a href='' ng-click='viewAlbum(img._id)'> <img src="{{img.url}}" class="img-thumbnail" height="200" width="300"></a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-sm-2">
+	<a href="/#!/addAlbum"><span class='glyphicon glyphicon-plus'></span> Add Album</a>
+</div>

@@ -1,0 +1,76 @@
+<div class="modal-header">
+	<h4 class="modal-title">New Question</h4>
+</div>
+<div class="modal-body">
+<uib-alert type="danger" close="closeAlert($index)" dismiss-on-timeout='2000' ng-show='error'>{{errorMsg}}</uib-alert>
+	<div class="form-horizontal" ng-form name='myForm'>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="question">Question*</label>
+			<div class="col-sm-10">
+				<input type="text" name='question' class="form-control" ng-model='newQue.question' placeholder='Question' focus required>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class='col-sm-6'>
+				<label class="col-sm-2 control-label" for="optionA">A*</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name='optionA' ng-model='newQue.options.A' required>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="col-sm-2 control-label" for="optionB">B*</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name='optionB' ng-model='newQue.options.B' required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class='col-sm-6'>
+				<label class="col-sm-2 control-label" for="optionC">C*</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name='optionC' ng-model='newQue.options.C' required>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="col-sm-2 control-label" for="optionD">D*</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name='optionD' ng-model='newQue.options.D' required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="correctAnswer">Correct*</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" name='correctAnswer' ng-model='newQue.correctAnswer' required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class='control-label' for='startTime'>Start Time</label>
+			<input date-time name="pickerMinDate" ng-model="newQue.startTime" id="pickerMinDate" min-date="minDate" view="date" min-view="hours" format="MM-DD-YYYY hh:mm a">
+			<!-- <div class="input-group">
+				<input type="text" name="startTime" class="form-control" uib-datepicker-popup='{{format}}' ng-model="newQue.startTime" is-open="status.open1" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open($event,'open1')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</div>
+			<label class="control-label">Date</label> -->
+		</div>
+		<div class="form-group">
+			<label class='control-label' for='endTime'>End Time</label>
+			<input date-time name="pickerMinDate" ng-model="newQue.endTime" id="pickerMinDate" min-date="minDate" view="date" min-view="hours" format="MM-DD-YYYY hh:mm a">
+			<!-- <div class="input-group">
+				<input type="text" name="endTime" class="form-control" uib-datepicker-popup='{{format}}' ng-model="newQue.endTime" is-open="status.open2" min-date="newQue.startTime" max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open($event,'open2')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</div> -->
+		</div>		
+	</div>
+
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click='cancel()'>Close</button>
+	<button type="submit" class="btn btn-primary" ng-click='ok(myForm)'>Add Question</button>
+</div>
+<!-- <label class="control-label">Start Time</label>
+<input date-time name="pickerMinDate" ng-model="dates.today" id="pickerMinDate" min-date="minDate" view="date" min-view="hours" timezone="UTC" format="MM-DD-YYYY HH:mm A"> -->

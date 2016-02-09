@@ -1,0 +1,22 @@
+<form role='form' ng-submit='submit()'>
+	<div class="form-group">
+		<fieldset>
+			<legend>Add Album</legend>
+				<div class='form-group' id='below'>
+					<label for="Album">Album Title</label>
+					<input type="text" id="Album" ng-model='newAlbum.title' name="Album"class="form-control" placeholder="Album Title" required autofocus>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<img class="img-responsive img-thumbnail" id='preview'>
+						<div class = 'form-group'>
+							<label for = "albumFile">Select Image</label>
+							<input type="file" id="albumFile" name="albumFile" file-model='newAlbum.files' onchange="angular.element(this).scope().readURL(this);" accept="image/*" multiple>{{newAlbum.file}}
+						</div>
+						<button type="submit" class='btn btn-lg btn-warning'>Add Album</button>
+						<button type="reset" class='btn btn-lg btn-default'>Reset</button>
+					</div>
+				</div>
+		</fieldset>
+	</div>
+</form>
