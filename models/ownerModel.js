@@ -8,7 +8,12 @@ var ownersSchema = new Schema({
 	owner_name : String,
 	owner_email : String,
 	owner_password : String,
-	organization_name : String
+	organization_name : String,
+	type 			  : String,
+	created : {
+		type: Date,
+		default: Date.now
+	}
 });
 
 ownersSchema.statics.addOwner = function addOwner(data){
@@ -39,6 +44,18 @@ ownersSchema.statics.getOwner = function getOwner (userid){
 	})
 	return defered.promise;
 }   
+
+ownersSchema.statics.getAllOwner = function getAllOwner (){
+	var defered = Q.defer();
+	this.find({},{"__v":0}).sort().exec(function (err,result){
+		if(err){
+			defered.reject(err);
+		}else{
+			defered.resolve(result);
+		}
+	})
+	return defered.promise;
+} 
 
 ownersSchema.statics.getAllOwner = function getAllOwner (){
 	var defered = Q.defer();

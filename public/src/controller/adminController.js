@@ -5,14 +5,12 @@ angular.module('TurkishApp')
 		$scope.login = function login(){
 			adminService.login($scope.Admin)
 				.then(function (result){
-					console.log(result);
 					$cookies.put('user',result.data._id );
-					$cookies.put('username',result.data.username );
+					$cookies.put('type',result.data.type );
 					$rootScope.loggedIn = true;
 					$rootScope.Admin = result.data;
 					$rootScope.loggedIn = true;
 					$scope.uid = $cookies.get('user');
-					console.log($scope.uid);
 					$location.path('/home');
 				})
 				.catch(function (response){
@@ -22,7 +20,7 @@ angular.module('TurkishApp')
 		}
 
 		$scope.uid = $cookies.get('user');
-		console.log($scope.uid);
+		$scope.type = $cookies.get('type');
 		$scope.prompt = function(size){
 			var data = {
 				'admin' : $rootScope.Admin,

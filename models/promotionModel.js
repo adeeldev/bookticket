@@ -16,7 +16,11 @@ var promotionSchema = new Schema({
 	owner_Id : String,
 	banner_Image_url : String,
 	seating_plan_doc_url : String,
-	price : String
+	price : String,
+	created : {
+		type: Date,
+		default: Date.now
+	}
 })
 
 var promotionModel = mongoose.model('promotionModel',promotionSchema);

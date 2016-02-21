@@ -12,9 +12,44 @@ angular.module('TurkishApp')
 				}
 			}
 			return $http(req);
-
 		}
-		// this.test = function(){
-		// 	return 'oyeee ki  eee';
-		// }
+		this.allUser = function(){
+
+			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
+			
+			var req = {
+				method : "get",
+				url :  url,
+				headers : {
+					"Content-Type" : "application/json"
+				}
+			}
+			return $http(req);
+		}
+		this.addAdmin = function (data){
+			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
+			req = {
+				'method' : 'POST',
+				'url' : url + '/addSubAdmin',
+				'header' : {
+					"Content-Type" : "application/json"
+				},
+				'data' : data
+			}
+			return $http(req);
+		}	
+
+		this.removeUser = function(data){
+			var data = {'userid':data};
+			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
+			req = {
+				'method' : 'POST',
+				'url' : url + '/deleteUser',
+				'header' : {
+					"Content-Type" : "application/json"
+				},
+				'data' : data
+			}
+			return $http(req);			
+		}	
 	}]);

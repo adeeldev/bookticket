@@ -1,9 +1,9 @@
 angular.module('TurkishApp')
-	.controller('UserController',['$scope','$rootScope','$location','userService', function ($scope,$rootScope,$location,userService){
+	.controller('UserController',['$scope','$rootScope','$location','userService','$uibModal','$cookies', function ($scope,$rootScope,$location,userService,$uibModal,$cookies){
 		$scope.users = [];
 		$scope.message = 'Hello world';
-		$scope.fields = ["name","email","username","telephone","city","joinOn"];
-		userService.getAllUser()
+		$scope.fields = ["Username","Eamil","Type","joinOn","Delete"];
+		userService.allUser()
 		.then(function (success){
 			$scope.users = success.data;
 		}).catch(function (err){
@@ -20,4 +20,51 @@ angular.module('TurkishApp')
 		}
 		$scope.sort.field = 'name';
 		$scope.sort.order = false;
+
+		$scope.deleteUser = function(userId){
+			console.log(userId);
+
+			userService.removeUser(userId)
+			.then(function (success){
+				if(success){
+					$scope.deleted = 1;
+				userService.allUser()
+		.then(function (success){
+			$scope.users = success.data;
+		}).catch(function (err){
+			console.log(err);
+		})
+				}
+			}).catch(function(err){
+				console.log(err);
+			})
+		}
+
+		$scope.openNew = function(size){
+			var modalInstance = $uibModal.open({
+				animation : $scope.animationsEnabled,
+				templateUrl : '/views/addEventModal.html',
+				controller : 'addModalController',
+				size : size,
+				resolve : {
+					events : function (){
+						return Event;
+					}
+				}
+			})
+			modalInstance.result
+			.then(function (admin) {
+				console.log(admin);
+				return userService.addAdmin(admin);
+		    })
+			.then(function (result){
+				return userService.allUser();
+			})
+			.then(function (allEvent){
+				console.log(allEvent);
+				$scope.noEvent = false;
+				$scope.Events = allEvent.data;
+			})
+		}
+
 	}])

@@ -8,15 +8,15 @@ angular.module('TurkishApp')
 		$scope.maxDate = moment.tz($scope.timezone).add(4, 'd').hour(12).startOf('h');
 		// $scope.Event.eventDate = moment();
 		$scope.ok = function (form){
-			if(form.location.$error.required && form.title.$error.required){
+			if(form.owner_name.$error.required && form.owner_name.$error.required){
 				$scope.errCheck = true;
-				$scope.Errors.push({text : "Title and Location are required."});
-			}else if(form.location.$error.required){
+				$scope.Errors.push({text : "Username are required."});
+			}else if(form.owner_email.$error.required){
 				$scope.errCheck = true;
-				$scope.Errors.push({text : "Location is required."});
-			}else if(form.title.$error.required){
+				$scope.Errors.push({text : "Email is required."});
+			}else if(form.owner_password.$error.required){
 				$scope.errCheck = true;
-				$scope.Errors.push({text : "Title is required."});
+				$scope.Errors.push({text : "Password is required."});
 			}else{
 				if($scope.Event.eventDate == null) {
 					var date = Date.now();

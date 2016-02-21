@@ -12,7 +12,6 @@ var promotionModel = require('../models/promotionModel');
 router
 	.get('/allPromotions',function (request,response){
 		var date = Date.now();
-		console.log(date);
 		promotionModel.find({},{'__v' : 0}).sort({date : '-1'}).exec(function	(err,result){
 			if(err){
 				console.log(err);
@@ -26,7 +25,6 @@ router
 	})
 	.get('/allEvents',function (request,response){
 		var date = Date.now();
-		console.log(date);
 		promotionModel.find({},{'__v' : 0}).sort({date : '-1'}).exec(function	(err,result){
 			if(err){
 				console.log(err);
@@ -40,7 +38,6 @@ router
 	})	
 	.get('/allPromotion',function (request,response){
 		var date = Date.now();
-		console.log(date);
 		promotionModel.find({},{'__v' : 0}).sort({date : '-1'}).exec(function	(err,result){
 			if(err){
 				console.log(err);
@@ -54,7 +51,6 @@ router
 	})
 	.get('/:id', function(request,response){
 		var id = request.params.id;
-		console.log(id);
 		if(id == '' || null){
 			return response.status(400).send({"message" : "Parameter missing"}).end();
 		}
@@ -68,6 +64,22 @@ router
 			response.status(200).send(promotion).end();	
 		})
 	})
+	.post('/getPromotionById', function(request,response){
+		var id = request.body.promotionId;
+		console.log(id);
+		if(id == '' || null){
+			return response.status(400).send({"message" : "Parameter missing"}).end();
+		}
+		promotionModel.find({"_id" : id},{'__v': 0},function (err,promotion){
+			if(err){
+				return response.status(500).send({"message" : "Internal server error.","code": "PE-One", "err" : err}).end();	
+			}
+			if(promotion == null){
+				return response.status(200).send({"message" : "No data found."}).end();	
+			}
+			response.status(200).send(promotion).end();	
+		})
+	})	
 	.post('/addPromotionAdmin',multipartMiddleware,function (request,response){
 
 		var event_name 				=  request.body.event_name,

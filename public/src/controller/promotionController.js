@@ -1,18 +1,19 @@
 angular.module('TurkishApp')
-	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'FileUploader' , '$location', function ($scope, $uibModal, promotionService,  FileUploader, $location){
+	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, promotionService,  FileUploader, $location,$cookies){
 		$scope.message = "Events";
 		$scope.animationsEnabled = true;
 		$scope.promotion_image = '';	
     $scope.url = $location.host();
     $scope.port = $location.port();
     $scope.base_url = 'http://'+$scope.url+':'+$scope.port+'/images/';		
+    $scope.uid = $cookies.get('user');
+    $scope.type = $cookies.get('type');
 	$scope.getPromotions = function(){
 		promotionService.getAllPromotions()
 		.then(function (result){
 			if(result.data.message == "No data found."){
 				$scope.promotions = [];
 			}else{
-        console.log(result.data);
 				$scope.promotions = result.data;
 			}
 		})
@@ -39,25 +40,23 @@ angular.module('TurkishApp')
           }          
       });      
         var promotionData = {
-            event_name            : data.name,
-            event_description     : data.description,
+            event_name            : data.event_name,
+            event_description     : data.event_description,
             banner_Image_url      : $scope.image1, 
             event_start_time      : date._d,
             event_end_time        : endDate._d,
-            total_tickets         : data.tickets, 
-            owner_Id              : '56a4e3517ccb8824a96bf469',
-            event_address         : data.address,
-            event_category        : data.category,
-            location_latituude    : data.latitude,
-            location_longitude    : data.longitude,
+            total_tickets         : data.total_tickets, 
+            owner_Id              : $scope.uid,
+            event_address         : data.event_address,
+            event_category        : data.event_category,
+            location_latituude    : data.location_latituude,
+            location_longitude    : data.location_longitude,
             seating_plan_doc_url  : $scope.image2,
             price                 : data.price
 
         }
-        console.log(promotionData);
         promotionService.addPromotion(promotionData)
         .then(function (promotionResult){
-            console.log(promotionResult.data);
             if(promotionResult.data.length == 0){
                 $scope.promotionResult = true;
             }else{
@@ -74,12 +73,29 @@ angular.module('TurkishApp')
 
     }
 
+    // $scope.updatePromotion = function(promotionId){
+     
+    // promotionService.getPromotion(promotionId)
+    // .then(function (result){
+    //   if(result.data.message == "No data found."){
+    //   }else{
+    //     console.log(result.data);
+    //     $scope.promotions = result.data;
+    //   }
+    // })
+    // .catch(function (err){
+    //   if(err.status == 500){
+    //     $scope.serverError = true;        
+    //   }
+    // })
+
+    // }
+
     $scope.deletePromotion = function(promotionId){
         console.log(promotionId);
         var id = {'id' : promotionId}
         promotionService.deletePromotion(id)
         .then(function (promotionResult){
-            console.log(promotionResult.data);
             if(promotionResult.data.length == 0){
                 $scope.promotionResult = true;
             }else{

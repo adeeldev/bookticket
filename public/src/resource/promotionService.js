@@ -22,6 +22,19 @@ angular.module('TurkishApp')
 			}
 			return $http(req);
 		}	
+
+		this.getPromotion = function(promotionId){
+			var id = {'promotionId' : promotionId};
+			req = {
+				method : "POST",
+				url : URL + '/getPromotionById',
+				header : {
+					"Content-Type" : "application/json"
+				},
+				data : id
+			}
+			return $http(req);
+		}
 		
 		this.deletePromotion = function(data){
 			req = {

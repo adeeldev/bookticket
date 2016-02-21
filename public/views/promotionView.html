@@ -7,6 +7,7 @@
 			<th>Date</th>
 			<th>Expiry Date</th>
 			<th>Image</th>
+            <!-- <th>Edit</th> -->
 			<th>Delete</th>
 		</tr>
 	</thead>
@@ -21,14 +22,15 @@
 			<td>{{promotion.event_start_time | date:'MM-dd-yyyy hh:mm a'}}</td>
 			<td>{{promotion.event_end_time}}</td>
 			<td>{{promotion.banner_Image_url}}</td>
-			<td><button class='btn btn-sm btn-danger' ng-click="deletePromotion(promotion._id)">Delete</button></td>
+            <!-- <td><button class='btn btn-sm btn-danger' ng-click="updatePromotion(promotion._id)" data-toggle="modal" data-target="#addPromotion">Edit</button></td> -->
+			<td ng-hide="type == 'sAdmin'"><button class='btn btn-sm btn-danger' ng-click="deletePromotion(promotion._id)">Delete</button></td>
 		</tr>
 	</tbody>
 </table>
 
 
   <!-- Modal -->
-<div class="modal fade" id="addPromotion" role="dialog" >
+<div class="modal fade" id="addPromotion" role="dialog"  ng-repeat="promotion in promotions">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
@@ -37,15 +39,15 @@
 </div>
 <div class="modal-body">
     <label class="control-label">Event Name</label>
-    <input placeholder='Name' type="text" class="form-control" name='name' ng-model='promotion.name' required>
+    <input placeholder='Name' type="text" class="form-control" name='name' ng-model='promotion.event_name' required>
 </div>  
 <div class="modal-body">
     <label class="control-label">Event Description</label>
-    <input placeholder='Description' type="text" class="form-control" name='description' ng-model='promotion.description' required>
+    <input placeholder='Description' type="text" class="form-control" name='description' ng-model='promotion.event_description' required>
 </div>
 <div class="modal-body">
     <label class="control-label">Category Type</label>
-    <select class="form-control" ng-model="promotion.category">
+    <select class="form-control" ng-model="promotion.event_category">
       <option value="">Select Category</option>
       <option value="theater">Theater</option>
       <option value="live">Live Show</option>
@@ -115,19 +117,19 @@
 </div>
 <div class="modal-body">
     <label class="control-label">Event Address</label>
-    <input placeholder='Address' type="text" class="form-control" name='address' ng-model='promotion.address' required>
+    <input placeholder='Address' type="text" class="form-control" name='address' ng-model='promotion.event_address' required>
 </div> 
 <div class="modal-body">
     <label class="control-label">Location Latitude</label>
-    <input placeholder='Latitude' type="text" class="form-control" name='latitude' ng-model='promotion.latitude' required>
+    <input placeholder='Latitude' type="text" class="form-control" name='latitude' ng-model='promotion.location_latituude' required>
 </div>
 <div class="modal-body">
     <label class="control-label">Location Longitude</label>
-    <input placeholder='Longitude' type="text" class="form-control" name='longitude' ng-model='promotion.longitude' required>
+    <input placeholder='Longitude' type="text" class="form-control" name='longitude' ng-model='promotion.location_longitude' required>
 </div>
 <div class="modal-body">
     <label class="control-label">Total Tickets</label>
-    <input placeholder='Totall Tickets' type="text" class="form-control" name='tickets' ng-model='promotion.tickets' required>
+    <input placeholder='Totall Tickets' type="text" class="form-control" name='tickets' ng-model='promotion.total_tickets' required>
 </div>
 <div class="modal-body">
     <label class="control-label">Ticket Price</label>
