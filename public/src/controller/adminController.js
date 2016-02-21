@@ -11,6 +11,8 @@ angular.module('TurkishApp')
 					$rootScope.Admin = result.data;
 					$rootScope.loggedIn = true;
 					$scope.uid = $cookies.get('user');
+					console.log($scope.type);
+					console.log($scope.uid); 
 					$location.path('/home');
 				})
 				.catch(function (response){
@@ -22,6 +24,7 @@ angular.module('TurkishApp')
 		$scope.uid = $cookies.get('user');
 		$scope.type = $cookies.get('type');
 		console.log($scope.type);
+		console.log($scope.uid); 
 		$scope.prompt = function(size){
 			var data = {
 				'admin' : $rootScope.Admin,
