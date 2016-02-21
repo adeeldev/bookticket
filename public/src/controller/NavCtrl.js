@@ -6,6 +6,7 @@ angular.module('TurkishApp')
 
 		$scope.logOut = function(){
 			$cookies.remove("user");
+			$cookies.remove("type");
 			$location.path('/');
 			window.location.reload();
 		} 
