@@ -1,10 +1,10 @@
 <div class="alert alert-success" ng-show="deleted == '1'">
   <strong>Success!</strong> User has been deleted successfully!
 </div>
-<p class="form-label">
+<p class="form-label" >
   <a href="/#!/home" class="btn btn-md btn-primary"><span class='glyphicon glyphicon-arrow-left'></span> Back To Home</a>
 </p>
-<p class="form-label">
+<p class="form-label" ng-show="type == 'admin'">
   <button class="btn btn-primary btn-md pull-right" ng-click="openNew('lg');"><span class='glyphicon glyphicon-plus'></span>Add Sub Admin</button>
 </p>
 <input type='search' class="form-control" placeholder='Search' ng-model='query' autofocus='autofocus'/>
@@ -24,7 +24,7 @@
       <td>{{user.owner_email}}</td>
       <td>{{user.type}}</td>
       <td>{{user.created | date:'MM-dd-yyyy hh:mm a'}}</td>
-      <td><input type="button" value="Delete" ng-click="deleteUser(user._id)"></td>
+      <td ng-show="type == 'admin'"><input type="button" value="Delete" ng-click="deleteUser(user._id)"></td>
     </tr>
   </tbody>
 </table>

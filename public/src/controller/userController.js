@@ -2,7 +2,12 @@ angular.module('TurkishApp')
 	.controller('UserController',['$scope','$rootScope','$location','userService','$uibModal','$cookies', function ($scope,$rootScope,$location,userService,$uibModal,$cookies){
 		$scope.users = [];
 		$scope.message = 'Hello world';
+		$scope.type = $cookies.get('type');
+		if($scope.type == 'admin'){
 		$scope.fields = ["Username","Eamil","Type","joinOn","Delete"];
+		}else{
+		$scope.fields = ["Username","Eamil","Type","joinOn"];
+		}
 		userService.allUser()
 		.then(function (success){
 			$scope.users = success.data;

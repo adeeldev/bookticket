@@ -5,12 +5,11 @@ angular.module('TurkishApp')
 		$scope.login = function login(){
 			adminService.login($scope.Admin)
 				.then(function (result){
-					$cookies.put('user',result.data._id );
-					$cookies.put('type',result.data.type );
+					$cookies.put('user',result.data._id);
+					$cookies.put('type',result.data.type);
 					$rootScope.loggedIn = true;
 					$rootScope.Admin = result.data;
 					$rootScope.loggedIn = true;
-					$scope.uid = $cookies.get('user');
 					$scope.uid = $cookies.get('user');
 					$scope.type = $cookies.get('type');
 					console.log($scope.type);
