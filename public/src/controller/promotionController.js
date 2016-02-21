@@ -9,7 +9,11 @@ angular.module('TurkishApp')
     $scope.uid = $cookies.get('user');
     $scope.type = $cookies.get('type');
 	$scope.getPromotions = function(){
-		promotionService.getAllPromotions()
+    var data = {
+            'uid' : $scope.uid,
+            'type' : $scope.type
+    }
+		promotionService.getUserPromotions(data)
 		.then(function (result){
 			if(result.data.message == "No data found."){
 				$scope.promotions = [];

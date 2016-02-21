@@ -10,6 +10,17 @@ angular.module('TurkishApp')
 			}
 			return $http(req);
 		}
+		this.getUserPromotions = function(data){
+			req = {
+				method : "POST",
+				url : URL + '/getPromotionByIdAdmin',
+				header : {
+					"Content-Type" : "application/json"
+				},
+				data : data
+			}
+			return $http(req);
+		}			
 
 		this.addPromotion = function(data){
 			req = {

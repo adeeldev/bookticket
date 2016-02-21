@@ -21,6 +21,7 @@ angular.module('TurkishApp')
 
 		$scope.uid = $cookies.get('user');
 		$scope.type = $cookies.get('type');
+		console.log($scope.type);
 		$scope.prompt = function(size){
 			var data = {
 				'admin' : $rootScope.Admin,
