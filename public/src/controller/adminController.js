@@ -11,8 +11,10 @@ angular.module('TurkishApp')
 					$rootScope.Admin = result.data;
 					$rootScope.loggedIn = true;
 					$scope.uid = $cookies.get('user');
+					$scope.uid = $cookies.get('user');
+					$scope.type = $cookies.get('type');
 					console.log($scope.type);
-					console.log($scope.uid); 
+					console.log($scope.uid);  
 					$location.path('/home');
 				})
 				.catch(function (response){
