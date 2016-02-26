@@ -1,6 +1,6 @@
 angular.module('TurkishApp')
 	.controller('orderController',['$scope','$uibModal', 'orderService' , 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, orderService,  FileUploader, $location,$cookies){
-		$scope.message = "Events";
+		$scope.message = "Orders";
 		$scope.animationsEnabled = true;
 		$scope.promotion_image = '';	
     $scope.url = $location.host();
@@ -49,9 +49,8 @@ angular.module('TurkishApp')
 
     // }
 
-    $scope.verifyOrder = function(orderId){
-        console.log(orderId);
-        var id = {'id' : orderId}
+    $scope.verifyOrder = function(orderId, status){
+        var id = {'id' : orderId, 'status' : status}
         orderService.verifyOrder(id)
         .then(function (orderResult){
             if(orderResult.data.length == 0){

@@ -80,6 +80,13 @@ router
 	})
 	.post('/verifyOrder', function (request, response){
 		var orderId  = request.body.id;
+		var status = request.body.status;
+		console.log(status);
+		if(status == 'verified'){
+			var newStatus = 'pending';
+		}else{
+			var newStatus = 'verified';
+		}
 		if((orderId == null || "") ){
 			response.status(400).send({"message" : "Parameters are missing."}).end();
 		}else{
@@ -90,7 +97,7 @@ router
 			if(order == null){
 				return response.status(400).send({"message" : "Invalid Email OR Code"}).end();
 			}
-			order.status = 'verified';
+			order.status = newStatus;
 			order.save(function (error,result){
 				if(error){
 					return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
