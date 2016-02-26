@@ -78,5 +78,37 @@ router
 			response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
 		})
 	})
+	.post('/verifyOrder', function (request, response){
+		var orderId  = request.body.id;
+		if((orderId == null || "") ){
+			response.status(400).send({"message" : "Parameters are missing."}).end();
+		}else{
+		ticketModel.findOne({"_id" : orderId},function (err, order){
+			if(err){
+				return response.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
+			}
+			if(order == null){
+				return response.status(400).send({"message" : "Invalid Email OR Code"}).end();
+			}
+			order.status = 'verified';
+			order.save(function (error,result){
+				if(error){
+					return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
+				}
+				var message = "Your User name is updated.Your new Username is ";
+				var subject = "Order Updated";
+				// helperFun.emailSender(result.email, message, subject)
+				// 	.then(function (result){
+				// 		console.log("Email is sent.");
+				// 	})
+				// 	.catch(function (error){
+				// 		console.log(error);
+				// 	})
+				delete result.__v;
+				response.status(200).send(result).end();	
+			})
+		})
+		}
+	})
 
 module.exports = router;

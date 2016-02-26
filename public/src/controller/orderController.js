@@ -57,7 +57,7 @@ angular.module('TurkishApp')
             if(orderResult.data.length == 0){
                 $scope.orderResult = true;
             }else{
-              $scope.getPromotions();
+              $scope.getOrders();
                 $scope.orderResult = orderResult.data;
             }
         })
