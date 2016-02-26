@@ -10,13 +10,16 @@ angular.module('TurkishApp')
 		$scope.ok = function (form){
 			if(form.owner_name.$error.required && form.owner_name.$error.required){
 				$scope.errCheck = true;
-				$scope.Errors.push({text : "Username are required."});
+				$scope.Errors.push({text : "Username is required."});
 			}else if(form.owner_email.$error.required){
 				$scope.errCheck = true;
 				$scope.Errors.push({text : "Email is required."});
 			}else if(form.owner_password.$error.required){
 				$scope.errCheck = true;
 				$scope.Errors.push({text : "Password is required."});
+			}else if(form.organization_name.$error.required){
+				$scope.errCheck = true;
+				$scope.Errors.push({text : "Orginaztion Name is required."});
 			}else{
 				if($scope.Event.eventDate == null) {
 					var date = Date.now();

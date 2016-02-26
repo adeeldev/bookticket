@@ -22,6 +22,7 @@
     <tr ng-repeat='user in users |filter:query | orderBy : sort.field : sort.order'>
       <td>{{user.owner_name}}</td>
       <td>{{user.owner_email}}</td>
+      <td>{{user.organization_name}}</td>
       <td>{{user.type}}</td>
       <td>{{user.created | date:'MM-dd-yyyy hh:mm a'}}</td>
       <td ng-show="type == 'admin'"><input type="button" value="Delete" ng-click="deleteUser(user._id)"></td>

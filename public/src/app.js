@@ -62,6 +62,9 @@ angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFile
 		}).when('/sliderView',{
 			controller: 'sliderController',
 			templateUrl: '../views/sliderView.html'
+		}).when('/orders',{
+			controller: 'orderController',
+			templateUrl: '../views/orderView.html'
 		});  
 		$locationProvider 
 			// .html5Mode(true)

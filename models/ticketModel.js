@@ -10,7 +10,11 @@ var ticketSchema = new Schema({
 	user_id : String,
 	user_address : String,
 	user_phone_no : String,
-	user_name : String
+	user_name : String,
+	status: {
+		type: String,
+		default: 'pending'
+	}
 });
 
 ticketSchema.statics.addOrder = function addOrder(data){
@@ -41,5 +45,29 @@ ticketSchema.statics.getUserOrder = function getUserOrder (userid){
 	})
 	return defered.promise;
 }
+ticketSchema.statics.getAdminUserOrder = function getAdminUserOrder (userid){
+	var defered = Q.defer();
+	this.find({'owner_id' : userid },{"__v":0}).sort().exec(function (err,result){
+		if(err){
+			defered.reject(err);
+		}else{
+			defered.resolve(result);
+		}
+	})
+	return defered.promise;
+}
+
+ticketSchema.statics.getOrders = function getOrders (){
+	var defered = Q.defer();
+	this.find({},{"__v":0}).sort().exec(function (err,result){
+		if(err){
+			defered.reject(err);
+		}else{
+			defered.resolve(result);
+		}
+	})
+	return defered.promise;
+}
+
 var ticketModel = mongoose.model('TicketModel', ticketSchema);
 module.exports = ticketModel;

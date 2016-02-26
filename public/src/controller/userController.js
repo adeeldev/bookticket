@@ -4,9 +4,9 @@ angular.module('TurkishApp')
 		$scope.message = 'Hello world';
 		$scope.type = $cookies.get('type');
 		if($scope.type == 'admin'){
-		$scope.fields = ["Username","Eamil","Type","joinOn","Delete"];
+		$scope.fields = ["Username","Eamil","Oranization Name", "Type","joinOn","Delete"];
 		}else{
-		$scope.fields = ["Username","Eamil","Type","joinOn"];
+		$scope.fields = ["Username","Eamil","Oranization Name","Type","joinOn"];
 		}
 		userService.allUser()
 		.then(function (success){

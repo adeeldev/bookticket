@@ -18,6 +18,36 @@ router
 			response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
 		})
 	})
+	.post('/getUserOrders', function (request, response){
+		var userid = request.body.uid;
+		var type = request.body.type;
+		if(type == 'admin'){
+
+			ticketModel.getOrders()
+			.then(function (result){
+				if(result == ""){
+				response.status(404).send({'msg':'no order found'});
+				}
+				response.status(200).send(result);
+			}).catch(function (err){
+				console.log("Error : " + err);
+				response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+			})			
+		}
+		if(type == 'sAdmin'){
+			console.log(type);
+			ticketModel.getAdminUserOrder(userid)
+			.then(function (result){
+				if(result == ""){
+				response.status(404).send({'msg':'no order found'});
+				}
+				response.status(200).send(result);
+			}).catch(function (err){
+				console.log("Error : " + err);
+				response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+			})			
+		}		
+	})
 	.post('/addOrder', function (request, response){
 
 		var newOrder = {
@@ -29,6 +59,7 @@ router
 			"user_address" : request.body.user_address,
 			"user_phone_no" : request.body.user_phone_no,
 			"user_name" : request.body.user_name,
+			"status" : 'pending'
 		};
 
 		if((newOrder.category_name == null || "") || (newOrder.qty == null || "") || (newOrder.owner_id == null || "") || (newOrder.user_id == null || "") || (newOrder.user_name == null || "")){
