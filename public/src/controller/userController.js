@@ -1,5 +1,5 @@
 angular.module('TurkishApp')
-	.controller('UserController',['$scope','$rootScope','$location','userService','$uibModal','$cookies', function ($scope,$rootScope,$location,userService,$uibModal,$cookies){
+	.controller('UserController',['$scope','$rootScope','$location','userService','$uibModal','$cookies', 'Flash', '$timeout', function ($scope,$rootScope,$location,userService,$uibModal,$cookies, Flash, $timeout){
 		$scope.users = [];
 		$scope.message = 'Hello world';
 		$scope.type = $cookies.get('type');
@@ -8,6 +8,12 @@ angular.module('TurkishApp')
 		}else{
 		$scope.fields = ["Username","Eamil","Oranization Name","Type","joinOn"];
 		}
+
+	    $scope.success = function () {
+	        var message = '<strong>Well done!</strong> You successfully read this important alert message.';
+	        Flash.create('success', message);
+	    };
+
 		userService.allUser()
 		.then(function (success){
 			$scope.users = success.data;
@@ -27,12 +33,13 @@ angular.module('TurkishApp')
 		$scope.sort.order = false;
 
 		$scope.deleteUser = function(userId){
-			console.log(userId);
 
-			userService.removeUser(userId)
+		userService.removeUser(userId)
 			.then(function (success){
 				if(success){
 					$scope.deleted = 1;
+		        var message = '<strong>User Deleted Successfully!';
+		        Flash.create('success', message);
 				userService.allUser()
 		.then(function (success){
 			$scope.users = success.data;
@@ -59,16 +66,16 @@ angular.module('TurkishApp')
 			})
 			modalInstance.result
 			.then(function (admin) {
-				console.log(admin);
 				return userService.addAdmin(admin);
 		    })
 			.then(function (result){
-				return userService.allUser();
+				return userService.allUser()
 			})
 			.then(function (allEvent){
-				console.log(allEvent);
 				$scope.noEvent = false;
-				$scope.Events = allEvent.data;
+				var message = '<strong>User Added Successfully!';
+		        Flash.create('success', message);
+				$scope.users = allEvent.data;
 			})
 		}
 

@@ -35,7 +35,6 @@ router
 			})			
 		}
 		if(type == 'sAdmin'){
-			console.log(type);
 			ticketModel.getAdminUserOrder(userid)
 			.then(function (result){
 				if(result == ""){
@@ -81,7 +80,6 @@ router
 	.post('/verifyOrder', function (request, response){
 		var orderId  = request.body.id;
 		var status = request.body.status;
-		console.log(status);
 		if(status == 'verified'){
 			var newStatus = 'pending';
 		}else{

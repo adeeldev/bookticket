@@ -12,7 +12,6 @@ router
 			if(result == ""){
 			response.status(404).send({'msg':'no owner found'});
 			}
-			console.log(result);
 			response.status(200).send(result);
 		}).catch(function (err){
 			console.log("Error : " + err);
@@ -60,7 +59,8 @@ router
 			"owner_name" : request.body.owner_name,
 			"owner_email" : request.body.owner_email,
 			"owner_password" : request.body.owner_password,
-			"type"           : 'sAdmin'
+			"organization_name" : request.body.organization_name,
+			"type"           : request.body.type
 		};
 
 		ownerModel.addOwner(newOwner)

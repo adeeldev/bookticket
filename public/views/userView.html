@@ -1,6 +1,4 @@
-<div class="alert alert-success" ng-show="deleted == '1'">
-  <strong>Success!</strong> User has been deleted successfully!
-</div>
+<flash-message duration="3000" show-close="true" on-dismiss="myCallback(flash)"  ng-show="deleted == '1'"></flash-message>
 <p class="form-label" >
   <a href="/#!/home" class="btn btn-md btn-primary"><span class='glyphicon glyphicon-arrow-left'></span> Back To Home</a>
 </p>
@@ -25,7 +23,7 @@
       <td>{{user.organization_name}}</td>
       <td>{{user.type}}</td>
       <td>{{user.created | date:'MM-dd-yyyy hh:mm a'}}</td>
-      <td ng-show="type == 'admin'"><input type="button" value="Delete" ng-click="deleteUser(user._id)"></td>
+      <td ng-show="type == 'admin'"><input class='btn btn-sm btn-danger' type="button" value="Delete" ng-click="deleteUser(user._id)"></td>
     </tr>
   </tbody>
 </table>

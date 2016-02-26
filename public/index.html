@@ -3,9 +3,12 @@
 <head>
 	<title>Book Ticket</title>
 	<!-- <base href="/"> -->
+
 	<link rel="stylesheet" type="text/css" href="lib/css/bs-dp.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
+		<link type="text/css" rel="stylesheet" href="lib/css/angular-flash.min.css" />
 	<script src="lib/js/moment.min.js"></script>
+
 	<!-- <link rel="stylesheet" type="text/css" href="lib/css/theme.css"> 
 	-->
 	<script src="lib/js/moment-timezone-with-data.js"></script>
@@ -26,7 +29,7 @@
 		</ul>
 	</div> -->
 
-	<nav class="navbar navbar-inverse" ng-show="uid || loggedIn">
+	<nav class="navbar navbar-inverse" ng-show="uid || loggedIn" ng-cloak > 
 		<div class="container-fluid" >
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
@@ -70,14 +73,8 @@
 							<li><a href="/#!/orders">Orders</a></li>
 						</ul>
 					</li>
-<!-- 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Questions <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/#!/Question">View Question</a></li>
-						</ul>
-					</li> -->
-					
-					<li class="dropdown">
+
+					<li class="dropdown" ng-show="typei == 'admin' || type == 'admin'" >
 						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/#!/users">View Users</a></li>
@@ -88,7 +85,6 @@
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello{{username}} <span class="glyphicon-user"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<!-- <li><a href="/#!/admin/update">Edit Profile</a></li> -->
 							<li><a href="" ng-click='logOut()'>Logout</a></li>
 						</ul>
 					</li>
@@ -106,6 +102,7 @@
 	<script type="text/javascript" src='lib/js/angular.min.js'></script>
 	<script type="text/javascript" src='lib/js/ngRoutes.js'></script>
 	<script type="text/javascript" src='lib/js/jstz.js'></script>
+	<script type="text/javascript" src="lib/js/angular-flash.js"></script>
 	<!-- // <script type="text/javascript" src='lib/js/bs-dp.min.js'></script> -->
 	<script type="text/javascript" src='lib/js/ui-bootstrap.min.js'></script>
 	<script type="text/javascript" src='lib/js/angular-resource.min.js'></script>

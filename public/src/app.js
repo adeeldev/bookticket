@@ -1,4 +1,4 @@
-angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFileUpload', 'datePicker','ngCookies'])
+angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFileUpload', 'datePicker','ngCookies', 'ngFlash'])
 .config(function ($routeProvider,$locationProvider){
 	$routeProvider
 		.when('/gallery', {

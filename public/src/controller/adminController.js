@@ -2,6 +2,9 @@ angular.module('TurkishApp')
 	.controller('adminController',['$scope','$location','$uibModal','$rootScope','adminService','$cookies',function ($scope,$location,$uibModal,$rootScope,adminService,$cookies){
 		$scope.animationsEnabled = true;
 		$scope.error = false;
+		$scope.uid = $cookies.get('user');
+		$scope.type = $cookies.get('type');
+
 		$scope.login = function login(){
 			adminService.login($scope.Admin)
 				.then(function (result){
@@ -12,8 +15,7 @@ angular.module('TurkishApp')
 					$rootScope.loggedIn = true;
 					$scope.uid = $cookies.get('user');
 					$scope.type = $cookies.get('type');
-					console.log($scope.type);
-					console.log($scope.uid);  
+					$rootScope.typei = $scope.type;
 					$location.path('/home');
 				})
 				.catch(function (response){
@@ -22,10 +24,6 @@ angular.module('TurkishApp')
 				})
 		}
 
-		$scope.uid = $cookies.get('user');
-		$scope.type = $cookies.get('type');
-		console.log($scope.type);
-		console.log($scope.uid); 
 		$scope.prompt = function(size){
 			var data = {
 				'admin' : $rootScope.Admin,
@@ -49,7 +47,6 @@ angular.module('TurkishApp')
 		}
 
 		$scope.logout = function(){
-			console.log("here");
 			$cookies.remove("user");
 			$scope.uid = undefined;
 			$location.path('/');

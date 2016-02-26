@@ -12,7 +12,6 @@ var promotionModel = require('../models/promotionModel');
 router
 	.get('/allPromotions',function (request,response){
 		var date = Date.now();
-		console.log(request.body);
 		promotionModel.find({},{'__v' : 0}).sort({date : '-1'}).exec(function	(err,result){
 			if(err){
 				console.log(err);
@@ -67,7 +66,6 @@ router
 	})
 	.post('/getPromotionById', function(request,response){
 		var id = request.body.promotionId;
-		console.log(id);
 		if(id == '' || null){
 			return response.status(400).send({"message" : "Parameter missing"}).end();
 		}
@@ -146,8 +144,7 @@ router
             'seating_plan_doc_url' : seating_plan_doc_url,
 			'event_date' : event_date,
 			'price'      : price
-					});
-			console.log(newProm);
+			});
 					newProm.save(function (error,result){
 						if (error) {
 							return response.status(500).send({"message" : "Internal Server error. Please try again later.", "err" : error}).end();
@@ -170,7 +167,6 @@ router
 			expireDate = helperFunc.getDateFunction(request.body.expireDate),
 			date = helperFunc.getDateFunction(request.body.date),
 			file = request.files.file_0;
-			console.log(request.files);
 		if((title == "" || null) ||(expireDate == "Invalid Date") || (date == "Invalid Date") || (file == null) || (description == "" || null)){
 			return response.status(400).send({"message" : "Parameter Missing"});
 		}else{
