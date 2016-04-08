@@ -70,12 +70,12 @@ router.post('/register', function (request,response){
 		response.status(400).send({"message" : "Parameters are missing."}).end();
 	}else{
 		//SARUH23500001
-		userModel.findOne({ $or:[ {'email':data.email}, {'telephone': data.telephone} ]},function (err, user){	
+		userModel.findOne({ $and:[ {'email':data.email}, {'telephone': data.telephone} ]},function (err, user){	
 			if(err){
 					response.status(400).send({"message" : err}).end();
 			}
 			if(user){
-					return response.status(400).send({"message" : 'email or telephone already exists'}).end();
+					return response.status(400).send({"message" : 'email already exists'}).end();
 			}	
 			verifyModel.register(data)
 			.then(function (result){
