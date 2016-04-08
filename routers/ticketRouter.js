@@ -58,6 +58,8 @@ router
 			"user_address" : request.body.user_address,
 			"user_phone_no" : request.body.user_phone_no,
 			"user_name" : request.body.user_name,
+			"payment_type" : request.body.payment_type,
+			"order_id" : request.body.order_id,
 			"status" : 'pending'
 		};
 
