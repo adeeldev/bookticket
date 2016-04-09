@@ -8,16 +8,10 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	userRouter = require('./routers/userRouter'),
 	eventRouter = require('./routers/eventRouter'),
-	albumRouter = require('./routers/albumRouter'),
-	// session = require('express-sessions'),
-	homeRouter = require('./routers/homeRouter'),
 	promotionRouter = require('./routers/promotionRouter'),
-	videoRouter = require('./routers/videoRouter'),
 	presentationRouter = require('./routers/presentationRouter'),
-	questionRouter = require('./routers/questionRouter'),
 	adminRouter = require('./routers/adminRouter'),
 	uploadRouter = require('./routers/uploadRouter'),
-	feedbackRouter = require('./routers/feedbackRouter'),
 	ticketRouter = require('./routers/ticketRouter'),
 	exchangeRouter = require('./routers/ticketExhangeRouter'),
 	ownerRouter = require('./routers/ownerRouter');
@@ -79,15 +73,10 @@ if (config.environment === 'development') {
 }
 //app.use('/event',eventRouter);
 app.use('/user', userRouter);
-app.use('/gallery',albumRouter);
-app.use('/home',homeRouter);
 app.use('/event',promotionRouter);
-app.use('/video',videoRouter);
 app.use('/presentation',presentationRouter);
-app.use('/question',questionRouter);
 app.use('/admin',adminRouter);
 app.use('/upload',uploadRouter);
-app.use('/feedback',feedbackRouter);
 app.use('/ticket', ticketRouter);
 app.use('/exchange', exchangeRouter);
 app.use('/owner', ownerRouter);

@@ -11,6 +11,8 @@ var ticketSchema = new Schema({
 	user_address : String,
 	user_phone_no : String,
 	user_name : String,
+	payment_type : String,
+	event_id : String,
 	status: {
 		type: String,
 		default: 'pending'

@@ -4,7 +4,6 @@ var express = require('express'),
 	verifyModel = require('../models/verifyModel'),
 	moment = require('moment'),
 	helperFun = require('../lib/helperFunc'),
-	questionModel = require('../models/questionModel'),
 	md5 = require('md5');
 router.get('',function (request,response){
 	userModel.find({},{"__v" : 0, "password" : 0, "emailCode" : 0},function (err,result){
@@ -112,27 +111,6 @@ router.post('/register', function (request,response){
 	
 });
 
-// router.post('/verify',function (request,response){
-// 	var user_id = request.body.id,
-// 		code = request.body.code;
-// 	if((user_id == null || "") || (code == null || "")){
-// 		response.status(400).send({"message" : "Parameters are missing."}).end();
-// 	}else{
-// 		userModel.verifyCode(user_id,code)
-// 		.then(function (result){
-// 			console.log("Result : " + result);
-// 			response.status(200).send(result).end();
-// 		}).catch(function (err){
-// 			console.log("Error : " + err);
-// 			if (err.code === 1) {
-// 				response.status(500).send({"message" : "Database Err. Please try again later", "err" : err}).end();
-// 			} else{
-// 				response.status(400).send({"message" : err.text}).end();
-// 			}
-// 		})
-// 	}
-// });
-
 router.post('/verify',function (request,response){
 	var code = request.body.code;
 	if((code == null || "")){
@@ -156,9 +134,6 @@ router.post('/verify',function (request,response){
 			isVerified : true,
 			emailCode : result.emailCode,
 			notify : true
-
-
-
 		}
 		var newUser = new userModel(data);
 		// userModel.emailCode = helperFun.randomCode(6);

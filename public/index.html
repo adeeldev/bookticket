@@ -6,29 +6,13 @@
 
 	<link rel="stylesheet" type="text/css" href="lib/css/bs-dp.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
-		<link type="text/css" rel="stylesheet" href="lib/css/angular-flash.min.css" />
+	<link type="text/css" rel="stylesheet" href="lib/css/angular-flash.min.css" />
 	<script src="lib/js/moment.min.js"></script>
-
-	<!-- <link rel="stylesheet" type="text/css" href="lib/css/theme.css"> 
-	-->
 	<script src="lib/js/moment-timezone-with-data.js"></script>
  	<link rel="stylesheet" href="lib/angular-datepicker/dist/angular-datepicker.css" />
- 	
-
-	
- 	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular-cookies.min.js"></script> -->
+ 
 </head>
 <body ng-app='TurkishApp' ng-controller="adminController">
-	<!-- <div class="container">
-		<a href="/" class="btn"><h1 class="">Turkish Airlines</h1></a>
-		<ul class="nav nav-pills" ng-controller='NavCtrl'>
-			<li ng-class="{active : isActive('/album')}"><a href="album">Upload Album</a></li>
-			<li ng-class="{active : isActive('/event')}"><a href="event">New Event</a></li>
-			<li ng-class="{active : isActive('/addData')}"><a href="addData">Add Data</a></li>
-			<li class="pull-right" ><a href="logout">Logout</a></li>
-		</ul>
-	</div> -->
-
 	<nav class="navbar navbar-inverse" ng-show="uid || loggedIn" ng-cloak > 
 		<div class="container-fluid" >
 			<div class="navbar-header">
@@ -42,25 +26,6 @@
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 				<ul class="nav navbar-nav">
-<!-- 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gallery <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/#!/gallery">Gallery View</a></li>
-						</ul>
-					</li> -->
-<!-- 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Slider <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/#!/slider">Slider</a></li>
-							<li><a href="/#!/sliderView">Slider View</a></li>
-						</ul>
-					</li> -->					
-<!-- 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Events <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/#!/event">View Events</a></li>
-						</ul>
-					</li> -->
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Events <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
@@ -103,7 +68,6 @@
 	<script type="text/javascript" src='lib/js/ngRoutes.js'></script>
 	<script type="text/javascript" src='lib/js/jstz.js'></script>
 	<script type="text/javascript" src="lib/js/angular-flash.js"></script>
-	<!-- // <script type="text/javascript" src='lib/js/bs-dp.min.js'></script> -->
 	<script type="text/javascript" src='lib/js/ui-bootstrap.min.js'></script>
 	<script type="text/javascript" src='lib/js/angular-resource.min.js'></script>
 	<script type="text/javascript" src='lib/js/ui-bootstrap-tpls.min.js'></script>
@@ -113,27 +77,15 @@
 	<script type="text/javascript" src='src/directive/fileModel.js'></script>
 	<script type="text/javascript" src='src/resource/multiPart.js'></script>
 	<script type="text/javascript" src='src/resource/postData.js'></script>
-	<script type="text/javascript" src='src/resource/questionService.js'></script>
-	<script type="text/javascript" src='src/resource/galleryService.js'></script>
-	<script type="text/javascript" src='src/resource/albumService.js'></script>
 	<script type="text/javascript" src='src/resource/adminService.js'></script>
 	<script type="text/javascript" src='src/resource/userService.js'></script>
-	<script type="text/javascript" src='src/resource/userParticipationService.js'></script>
 	<script type="text/javascript" src='src/resource/eventService.js'></script>
 	<script type="text/javascript" src='src/filters/labelCaseFilter.js'></script>
 	<script type="text/javascript" src='src/controller/HomeController.js'></script>
 	<script type="text/javascript" src='src/controller/adminController.js'></script>
 	<script type="text/javascript" src='src/controller/DataCtrl.js'></script>
 	<script type="text/javascript" src='src/controller/EventController.js'></script>
-	<script type="text/javascript" src='src/controller/addQueModalController.js'></script>
-	<script type="text/javascript" src='src/controller/galleryController.js'></script>
-	<script type="text/javascript" src='src/controller/albumController.js'></script>
-	<script type="text/javascript" src='src/controller/userParticipationController.js'></script>
 	<script type="text/javascript" src='src/controller/promptModalController.js'></script>
-	<script type="text/javascript" src='src/controller/liveQueModalController.js'></script>
-	<script type="text/javascript" src='src/controller/addWinnerModalController.js'></script>
-	<script type="text/javascript" src='src/controller/oneQuestionViewController.js'></script>
-	<script type="text/javascript" src='src/controller/questionController.js'></script>
 	<script type="text/javascript" src='src/controller/editModalController.js'></script>
 	<script type="text/javascript" src='src/controller/addModalController.js'></script>
 	<script type="text/javascript" src='src/controller/userController.js'></script>
@@ -143,8 +95,6 @@
 	<script type="text/javascript" src='src/resource/orderService.js'></script>
 	<script type="text/javascript" src='src/controller/presentationController.js'></script>
 	<script type="text/javascript" src='src/resource/presentationService.js'></script>
-	<script type="text/javascript" src='src/controller/sliderController.js'></script>
-	<script type="text/javascript" src='src/resource/sliderService.js'></script>
 	<script type="text/javascript" src='lib/angular-file-upload/dist/angular-file-upload.js'></script>
 	<script src="lib/angular-datepicker/app/scripts/datePicker.js"></script>
   <script src="lib/angular-datepicker/app/scripts/datePickerUtils.js"></script>
