@@ -21,17 +21,18 @@ router
 	.post('/getUserOrders', function (request, response){
 		var userid = request.body.uid;
 		var type = request.body.type;
+		console.log(type);
 		if(type == 'admin'){
-
 			ticketModel.getOrders()
 			.then(function (result){
+				console.log(result);
 				if(result == ""){
-				response.status(404).send({'msg':'no order found'});
+				return response.status(404).send(result);
 				}
 				response.status(200).send(result);
 			}).catch(function (err){
 				console.log("Error : " + err);
-				response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+				return response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
 			})			
 		}
 		if(type == 'sAdmin'){
@@ -60,6 +61,8 @@ router
 			"user_name" : request.body.user_name,
 			"payment_type" : request.body.payment_type,
 			"order_id" : request.body.order_id,
+			"event_id" : request.body.event_id,
+			"event_name" : request.body.event_name,
 			"status" : 'pending'
 		};
 

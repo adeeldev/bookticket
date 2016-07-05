@@ -95,7 +95,8 @@ router
 				if(result.length==0){
 					return response.status(200).send({"message" : "No data found."}).end();	
 				}
-				response.status(200).send(result).end();
+				console.log(result);
+				return response.status(200).send(result).end();
 			})
 		}
 		if(type == 'sAdmin'){
@@ -117,7 +118,8 @@ router
             banner_Image_url 		=  request.body.banner_Image_url, 
             event_start_time 		=  request.body.event_start_time,
             event_end_time 			=  request.body.event_end_time,
-            total_tickets 			=  request.body.total_tickets, 
+            total_tickets 			=  request.body.total_tickets,
+            remaining_tickets 		=  request.body.total_tickets, 
             owner_Id 				=  request.body.owner_Id,
             event_address 			=  request.body.event_address,
             event_category 			=  request.body.event_category,
@@ -130,20 +132,21 @@ router
 			return response.status(400).send({"message" : "Parameter Missing"});
 		}else{
 			var newProm = new promotionModel({
-			'event_name': event_name,
-            'event_description': event_description,
-            'banner_Image_url': banner_Image_url, 
-            'event_start_time': event_start_time,
-            'event_end_time': event_end_time,
-            'total_tickets': total_tickets, 
-            'owner_Id': owner_Id,
-            'event_address': event_address,
-            'event_category':event_category,
+			'event_name'		: event_name,
+            'event_description'	: event_description,
+            'banner_Image_url'	: banner_Image_url, 
+            'event_start_time'	: event_start_time,
+            'event_end_time'	: event_end_time,
+            'total_tickets'		: total_tickets, 
+            'remaining_tickets' : remaining_tickets,
+            'owner_Id'			: owner_Id,
+            'event_address'		: event_address,
+            'event_category'	:event_category,
             'location_latituude': location_latituude,
             'location_longitude': location_longitude,
             'seating_plan_doc_url' : seating_plan_doc_url,
-			'event_date' : event_date,
-			'price'      : price
+			'event_date' 		: event_date,
+			'price'      		: price
 			});
 					newProm.save(function (error,result){
 						if (error) {
@@ -216,20 +219,28 @@ router
 		})
 	})
 	.post('/updatePromotion',function (request,response){
-		var id = request.body.id,
-			description = request.body.description,
-			expireDate = request.body.expireDate,
-			title = request.body.title,
-			date = request.body.date;
+		var id = request.body._id,
+			event_name = request.body.event_name,
+			event_description = request.body.event_description,
+			total_tickets = request.body.total_tickets,
+			event_address = request.body.event_address,
+			event_category = request.body.event_category,
+			location_latituude = request.body.location_latituude,
+			location_longitude = request.body.location_longitude,
+			remaining_tickets = request.body.remaining_tickets;
 
 		if(id == null || ""){
 			return response.status(400).send({"message" : "Id is Missing"});
 		}
 		var updateDate = {
-			'title' : title,
-			'description' : description,
-			'expireDate' : expireDate,
-			'date' : date
+			'event_name' : event_name,
+			'event_description' : event_description,
+			'total_tickets' : total_tickets,
+			'event_address' : event_address,
+			'event_category' : event_category,
+			'location_latituude' : location_latituude,
+			'location_longitude' : location_longitude,
+			'remaining_tickets' : remaining_tickets
 		}
 
 		promotionModel.findOneAndUpdate({'_id' : id},updateDate,function (err,promotion){

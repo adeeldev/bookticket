@@ -31,6 +31,27 @@ router
 			response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
 		})
 	})
+	.post('/login',function (request,response){
+		
+		var username = request.body.username;
+		// var password = md5(request.body.password);
+		var password = request.body.password;
+		
+		if((username == null || '') || (password == '' || null)){
+			return response.status(400).send({'message' : 'Parameters are missing'}).end();
+		}
+		ownerModel.findOne({$and :[{"owner_name":username},{"owner_password":password}]},{'__v' : 0}, function (err,admin){
+			console.log(admin);
+			if(err){
+				return response.status(500).send({'message' : 'Internal Server error. Please try again later','err' :err}).end();
+			}
+			console.log('admin data ' , admin);
+			if(admin == null){
+				return response.status(400).send({'message' : 'Invalid Username OR Password'}).end();
+			}
+			response.status(200).send(admin).end();
+		})
+	})	
 	.post('/addOwner', function (request, response){
 
 		var newOwner = {

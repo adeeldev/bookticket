@@ -14,20 +14,18 @@ angular.module('TurkishApp')
             'uid' : $scope.uid,
             'type' : $scope.type
     }
-		orderService.getUserOrders(data)
-		.then(function (result){
-			if(result.data.message == "No data found."){
-				$scope.orders = [];
-			}else{
-				$scope.orders = result.data;
-        console.log($scope.orders);
-			}
-		})
-		.catch(function (err){
-			if(err.status == 500){
-				$scope.serverError = true;				
-			}
-		}) 
+  	orderService.getUserOrders(data)
+  		.then(function (result){
+          console.log('In Second condition');
+  				$scope.orders = result.data;
+          console.log($scope.orders);
+  			
+  		})
+  		.catch(function (err){
+  			if(err.status == 500){
+  				$scope.serverError = true;				
+  			}
+  	}) 
 	}
 
 

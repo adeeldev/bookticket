@@ -58,5 +58,16 @@ angular.module('TurkishApp')
 			}
 			return $http(req);
 		}			
-
+		this.updatePromotion = function(data){
+			
+			req = {
+				method : "POST",
+				url : URL + '/updatePromotion',
+				header : {
+					"Content-Type" : "application/json"
+				},
+				data : data
+			}
+			return $http(req);
+		}
 	}])

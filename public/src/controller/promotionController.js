@@ -1,5 +1,5 @@
 angular.module('TurkishApp')
-	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, promotionService,  FileUploader, $location,$cookies){
+	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'eventService', 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, promotionService, eventService,  FileUploader, $location,$cookies){
 		$scope.message = "Events";
 		$scope.animationsEnabled = true;
 		$scope.promotion_image = '';	
@@ -33,6 +33,7 @@ angular.module('TurkishApp')
       $scope.image1 = {};
       $scope.image2 = {};
       $scope.image2 = '';
+      $scope.promotions = '';
       angular.forEach($scope.uploader.queue, function(value, key) {
           $scope.image = value.file.name;
           $scope.res = $scope.image.split('.');
@@ -77,23 +78,23 @@ angular.module('TurkishApp')
 
     }
 
-    // $scope.updatePromotion = function(promotionId){
+    $scope.updatePromotion = function(promotionId){
      
-    // promotionService.getPromotion(promotionId)
-    // .then(function (result){
-    //   if(result.data.message == "No data found."){
-    //   }else{
-    //     console.log(result.data);
-    //     $scope.promotions = result.data;
-    //   }
-    // })
-    // .catch(function (err){
-    //   if(err.status == 500){
-    //     $scope.serverError = true;        
-    //   }
-    // })
+      promotionService.getPromotion(promotionId)
+      .then(function (result){
+        if(result.data.message == "No data found."){
+        }else{
+          $scope.promotions = result.data;
+          console.log($scope.promotions);
+        }
+      })
+      .catch(function (err){
+        if(err.status == 500){
+          $scope.serverError = true;        
+        }
+      })
 
-    // }
+    }
 
     $scope.deletePromotion = function(promotionId){
         console.log(promotionId);
@@ -112,6 +113,37 @@ angular.module('TurkishApp')
                 $scope.serverError = true;              
             }
         })
+    }
+
+
+    $scope.openEdit = function(size,Promotion){
+        console.log(Promotion);
+        $scope.Event = Promotion;
+
+        var modalInstance = $uibModal.open({
+          animation : $scope.animationsEnabled,
+          templateUrl : '/views/editEventModal.html',
+          controller : 'editModalController',
+          size : size,
+          resolve : {
+            events : function (){
+              return Promotion;
+            }
+          }
+        })
+        // modalInstance.result
+        // .then(function (editEvent) {
+        //     return promotionService.updatePromotion(editEvent);
+        //   })
+        //   .then(function (result){
+        //     return promotionService.getPromotions();
+        //   })
+        //   .then(function (final){
+        //     $scope.Events = final.data;
+        //   })
+        //   .catch(function (Err){
+        //     console.log('close');
+        // })
     }
 
 

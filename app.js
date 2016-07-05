@@ -14,7 +14,8 @@ var express = require('express'),
 	uploadRouter = require('./routers/uploadRouter'),
 	ticketRouter = require('./routers/ticketRouter'),
 	exchangeRouter = require('./routers/ticketExhangeRouter'),
-	ownerRouter = require('./routers/ownerRouter');
+	ownerRouter = require('./routers/ownerRouter'),
+	paymentRouter = require('./routers/paymentRouter');
 
 var config = require('./config');
 
@@ -80,6 +81,7 @@ app.use('/upload',uploadRouter);
 app.use('/ticket', ticketRouter);
 app.use('/exchange', exchangeRouter);
 app.use('/owner', ownerRouter);
+app.use('/payment', paymentRouter);
 
 //====================================================================================
 //							Server Starting - Section

@@ -1,6 +1,6 @@
 angular.module('TurkishApp')
 	.service('adminService',['$http','$location',function ($http,$location){
-		var URL = 'http://' + $location.host() + ":" + $location.port() + '/admin';
+		var URL = 'http://' + $location.host() + ":" + $location.port() + '/owner';
 		var req = {};
 		this.login = function (data){
 			req = {

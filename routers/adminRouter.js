@@ -10,8 +10,8 @@ router
 	.post('/login',function (request,response){
 		
 		var username = request.body.username;
-		// var password = md5(request.body.password);
-		var password = request.body.password;
+		var password = md5(request.body.password);
+		// var password = request.body.password;
 		
 		if((username == null || '') || (password == '' || null)){
 			return response.status(400).send({'message' : 'Parameters are missing'}).end();
@@ -55,12 +55,12 @@ router
 		})
 	})
 	.post('/addAdmin', function (request,response){
-		var admin = request.body;
-		// if(admin == null || ''){
-		// 	return response.status(400).send({'message' : 'Parameters are missing'}).end();
-		// }
+		var admin = request.body.admin;
+		if(admin == null || ''){
+			return response.status(400).send({'message' : 'Parameters are missing'}).end();
+		}
 		admin.password = md5(admin.password);
-		admin.createdOn = moment().format('MM-DD-YYYY hh:mm a');
+		// admin.createdOn = moment().format('MM-DD-YYYY hh:mm a');
 		var newAdmin = new adminModel(admin);
 		newAdmin.save(function (err,result){
 			if(err){
