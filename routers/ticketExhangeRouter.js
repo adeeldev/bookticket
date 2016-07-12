@@ -40,6 +40,7 @@ router
 			"event_end_time" : request.body.event_end_time,
 			"price" : request.body.price,
 			"event_address" : request.body.event_address,
+			"phone": request.body.phone,
 			"qty" : request.body.qty
 
 		};

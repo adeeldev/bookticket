@@ -5,15 +5,16 @@ var moment = require('moment');
 
 
 var ticketExchangeSchema = new Schema({
-	event_name :  String,
-	user_id : String,
-	event_description : String,
-	event_date : Date,
-	event_start_time : Date, 
-	event_end_time : Date,
-	price : String,
-	event_address : String,
-	qty : String
+	event_name:  String,
+	user_id: String,
+	event_description: String,
+	event_date: Date,
+	event_start_time: Date,
+	event_end_time: Date,
+	price: String,
+	event_address: String,
+	phone: String,
+	qty: String
 });
 
 ticketExchangeSchema.statics.addOrder = function addOrder(data){
@@ -43,7 +44,7 @@ ticketExchangeSchema.statics.getExchangeEvent = function getExchangeEvent (useri
 		}
 	})
 	return defered.promise;
-}   
+}
 
 ticketExchangeSchema.statics.getAllExchangeEvent = function getAllExchangeEvent (){
 	var defered = Q.defer();
@@ -55,7 +56,7 @@ ticketExchangeSchema.statics.getAllExchangeEvent = function getAllExchangeEvent 
 		}
 	})
 	return defered.promise;
-} 
+}
 
 var ticketExchageModel = mongoose.model('TicketExchageModel', ticketExchangeSchema);
 module.exports = ticketExchageModel;
