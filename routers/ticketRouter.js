@@ -33,7 +33,7 @@ router
 			}).catch(function (err){
 				console.log("Error : " + err);
 				return response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
-			})			
+			})
 		}
 		if(type == 'sAdmin'){
 			ticketModel.getAdminUserOrder(userid)
@@ -45,8 +45,8 @@ router
 			}).catch(function (err){
 				console.log("Error : " + err);
 				response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
-			})			
-		}		
+			})
+		}
 	})
 	.post('/addOrder', function (request, response){
 
@@ -115,10 +115,23 @@ router
 				// 		console.log(error);
 				// 	})
 				delete result.__v;
-				response.status(200).send(result).end();	
+				response.status(200).send(result).end();
 			})
 		})
 		}
+	})
+	.get('/user/orders/:uid', function (request, response){
+		var userId = request.params.uid;
+			ticketModel.getAdminUserOrder(userId)
+			.then(function (result){
+				if(result == ""){
+				response.status(404).send({'msg':'no order found'});
+				}
+				response.status(200).send(result);
+			}).catch(function (err){
+				console.log("Error : " + err);
+				response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+			})
 	})
 
 module.exports = router;

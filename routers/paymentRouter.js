@@ -22,32 +22,28 @@ router.get('/client_token', function (request, response){
 
 
 router.post("/checkout", function (req, res) {
-  var nonce = 'fake-valid-nonce';//''eq.body.payment_method_nonce;
+  var nonce = req.body.nonce; //'fake-valid-nonce';//''
       // Use payment method nonce here
       	gateway.transaction.sale({
-    	  amount: '10.00',
+    	  amount: req.body.price,
     	  paymentMethodNonce: nonce,
     	  options: {
     	    submitForSettlement: true
     	  }
     	}, function (err, result) {
         if(err){
-          console.log(err);  
+          res.json(err);
         }
-        console.log(result.transaction.success);
-        eventModel.findOne({"_id" : '573ac70a266ab0251af8d585'},function (err, ticket){
+        eventModel.findOne({ _id : req.body.event_id},function (err, ticket){
           if(err){
             return res.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
           }
-          console.log(ticket);
           if(ticket == null){
-            return res.status(400).send({"message" : "Invalid Email OR Code"}).end();
+            return res.status(400).send({"message" : "Invalid Event"}).end();
           }
-          console.log(ticket);
-          var total_tickets = ticket.total_tickets;
+          var total_tickets = ticket.remaining_tickets;
           var order = 1;
           var remaining_ticket = total_tickets - order;
-          console.log(remaining_ticket);
           ticket.remaining_tickets = remaining_ticket;
           ticket.save(function (error,result){
             if(error){
@@ -55,7 +51,7 @@ router.post("/checkout", function (req, res) {
             }
             var subject = "Order Updated";
             delete result.__v;
-            res.status(200).send(result).end();  
+            res.status(200).send(result).end();
           })
       })
     	});
