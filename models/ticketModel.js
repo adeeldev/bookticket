@@ -14,6 +14,14 @@ var ticketSchema = new Schema({
 	payment_type : String,
 	event_id : String,
 	event_name : String,
+	trans_id: String,
+	trans_type: String,
+	trans_curr: String,
+	amount: String,
+	trans_acc_id: String,
+	trans_cretatedat: Date,
+	trans_updatedat: Date,
+	trans_card_type: String,
 	status: {
 		type: String,
 		default: 'pending'
