@@ -10,10 +10,10 @@
 	<script src="lib/js/moment.min.js"></script>
 	<script src="lib/js/moment-timezone-with-data.js"></script>
  	<link rel="stylesheet" href="lib/angular-datepicker/dist/angular-datepicker.css" />
- 
+	<link rel="stylesheet" href="lib/angular-google-places-autocomplete/src/autocomplete.css">
 </head>
 <body ng-app='TurkishApp' ng-controller="adminController">
-	<nav class="navbar navbar-inverse" ng-show="uid || loggedIn" ng-cloak > 
+	<nav class="navbar navbar-inverse" ng-show="uid || loggedIn" ng-cloak >
 		<div class="container-fluid" >
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
@@ -44,7 +44,7 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/#!/users">View Users</a></li>
 						</ul>
-					</li>				
+					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" ng-controller="NavCtrl">
 					<li class="dropdown">
@@ -100,5 +100,7 @@
   <script src="lib/angular-datepicker/app/scripts/datePickerUtils.js"></script>
   <script src="lib/angular-datepicker/app/scripts/dateRange.js"></script>
   <script src="lib/angular-datepicker/app/scripts/input.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+	<script src="lib/angular-google-places-autocomplete/src/autocomplete.js"></script>
 </body>
 </html>

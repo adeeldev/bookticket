@@ -2,10 +2,10 @@ angular.module('TurkishApp')
 	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'eventService', 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, promotionService, eventService,  FileUploader, $location,$cookies){
 		$scope.message = "Events";
 		$scope.animationsEnabled = true;
-		$scope.promotion_image = '';	
+		$scope.promotion_image = '';
     $scope.url = $location.host();
     $scope.port = $location.port();
-    $scope.base_url = 'http://'+$scope.url+':'+$scope.port+'/images/';		
+    $scope.base_url = 'http://'+$scope.url+':'+$scope.port+'/images/';
     $scope.uid = $cookies.get('user');
     $scope.type = $cookies.get('type');
 	$scope.getPromotions = function(){
@@ -23,7 +23,7 @@ angular.module('TurkishApp')
 		})
 		.catch(function (err){
 			if(err.status == 500){
-				$scope.serverError = true;				
+				$scope.serverError = true;
 			}
 		})
 	}
@@ -42,22 +42,26 @@ angular.module('TurkishApp')
           }
           if($scope.res[1] == 'pdf'){
               $scope.image2 =  $scope.base_url+$scope.image;
-          }          
-      });      
+          }
+      });
+			console.log(data);
         var promotionData = {
             event_name            : data.event_name,
             event_description     : data.event_description,
-            banner_Image_url      : $scope.image1, 
+            banner_Image_url      : $scope.image1,
             event_start_time      : date._d,
             event_end_time        : endDate._d,
-            total_tickets         : data.total_tickets, 
+            total_tickets         : data.total_tickets,
             owner_Id              : $scope.uid,
-            event_address         : data.event_address,
+            event_address         : data.event_address.formatted_address,
             event_category        : data.event_category,
             location_latituude    : data.location_latituude,
             location_longitude    : data.location_longitude,
             seating_plan_doc_url  : $scope.image2,
             price                 : data.price
+						// original_price				: data.original_price,
+						// share									: data.share
+
 
         }
         promotionService.addPromotion(promotionData)
@@ -67,19 +71,19 @@ angular.module('TurkishApp')
             }else{
                 $scope.getPromotions();
                 $scope.promotionResult = promotionResult.data;
-                window.location.reload(); 
+              	$location.path("/promotion");
             }
         })
         .catch(function (err){
             if(err.status == 500){
-                $scope.serverError = true;              
+                $scope.serverError = true;
             }
         })
 
     }
 
     $scope.updatePromotion = function(promotionId){
-     
+
       promotionService.getPromotion(promotionId)
       .then(function (result){
         if(result.data.message == "No data found."){
@@ -90,7 +94,7 @@ angular.module('TurkishApp')
       })
       .catch(function (err){
         if(err.status == 500){
-          $scope.serverError = true;        
+          $scope.serverError = true;
         }
       })
 
@@ -110,7 +114,7 @@ angular.module('TurkishApp')
         })
         .catch(function (err){
             if(err.status == 500){
-                $scope.serverError = true;              
+                $scope.serverError = true;
             }
         })
     }
@@ -167,7 +171,7 @@ angular.module('TurkishApp')
             $scope.uploader.clearQueue();
             $scope.image_url = '/images/upload.png';
             jQuery('#file').val('');    //empty the input file value so next time if same file selects then it works
-        }; 
+        };
 
         $scope.uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
 		//console.info('onWhenAddingFileFailed', item, filter, options);
@@ -208,11 +212,11 @@ angular.module('TurkishApp')
 		//console.info('onCompleteItem', fileItem, response, status, headers);
             $scope.image_url = '../uploads/images/'+fileItem.file.name;
             $scope.promotion_image = fileItem.file.name;
-            
+
         };
         $scope.uploader.onCompleteAll = function() {
             console.info('uploader', $scope.uploader.queue);
-        };	
+        };
 
 
     $scope.dates = {
@@ -286,5 +290,5 @@ angular.module('TurkishApp')
         if (values) {
           $scope.$broadcast('pickerUpdate', pickersToUpdate, values);
         }
-      }	
+      }
 	}])

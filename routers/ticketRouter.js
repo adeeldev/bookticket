@@ -105,6 +105,8 @@ router
 				if(error){
 					return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
 				}
+
+				
 				var message = "Your User name is updated.Your new Username is ";
 				var subject = "Order Updated";
 				// helperFun.emailSender(result.email, message, subject)

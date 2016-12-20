@@ -4,15 +4,15 @@ angular.module('TurkishApp')
 		$scope.message = 'Hello world';
 		$scope.type = $cookies.get('type');
 		if($scope.type == 'admin'){
-		$scope.fields = ["Username","Eamil","Oranization Name", "Type","joinOn","Delete"];
+		$scope.fields = ["Username","Eamil","Oranization Name", "Type","joinOn", "Update", "Delete"];
 		}else{
 		$scope.fields = ["Username","Eamil","Oranization Name","Type","joinOn"];
 		}
 
-	    $scope.success = function () {
-	        var message = '<strong>Well done!</strong> You successfully read this important alert message.';
-	        Flash.create('success', message);
-	    };
+    $scope.success = function () {
+        var message = '<strong>Well done!</strong> You successfully read this important alert message.';
+        Flash.create('success', message);
+    };
 
 		userService.allUser()
 		.then(function (success){
@@ -78,5 +78,33 @@ angular.module('TurkishApp')
 				$scope.users = allEvent.data;
 			})
 		}
+
+
+		$scope.getUser = function(userId) {
+			var id = {'userId': userId}
+			userService.userById(id)
+			.then(function (success){
+				$scope.userData = success.data;
+			}).catch(function (err){
+				console.log(err);
+			})
+		}
+
+		$scope.updateUser = function(user) {
+			userService.findAndUpdateById(user)
+			.then(function (success){
+				$scope.userData = success.data;
+				window.location.reload();
+			}).catch(function (err){
+				console.log(err);
+			})
+		}
+
+
+
+
+
+
+
 
 	}])

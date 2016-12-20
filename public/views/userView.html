@@ -23,7 +23,80 @@
       <td>{{user.organization_name}}</td>
       <td>{{user.type}}</td>
       <td>{{user.created | date:'MM-dd-yyyy hh:mm a'}}</td>
+      <td ng-show="type == 'admin'"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update" ng-click="getUser(user._id)">Update</button></td>
+      <!-- <td ng-show="type == 'admin'"><input class='btn btn-sm btn-success' type="button" value="Update" ng-click="updateUser(user._id, 'lg')"></td> -->
       <td ng-show="type == 'admin'"><input class='btn btn-sm btn-danger' type="button" value="Delete" ng-click="deleteUser(user._id)"></td>
     </tr>
   </tbody>
 </table>
+
+
+
+
+
+<div class="modal fade" id="update" role="dialog" ng-controller="UserController">
+<div class="modal-dialog modal-lg">
+<div class="modal-content" ng-repeat="Event in userData">
+  <div class="modal-header">
+  	<h4 class="modal-title">Update Sub Admin</h4>
+  </div>
+  <div class="modal-body">
+  	<!--   ng-repeat="Event in userData"    <h5 class="pull-right"><strong> Timezone : {{timezone}}</strong></h5> -->
+  <!-- 	<div class="form-group" ng-if="errCheck" ng-repeat='err in Errors'>
+  		<p class='bg-danger'>{{err.text}}</p>
+  	</div> -->
+  	<flash-message duration="3000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
+  	<div class="form-group">
+  		<label class="col-sm-4" for="email">Username</label>
+  		<input type="text" name='owner_name' class="form-control" ng-model='Event.owner_name' placeholder='Username' required>
+  	</div>
+  	<div class="form-group">
+  		<label class="control-label">Email</label>
+  		<input type="text" name='owner_email' class="form-control" ng-model='Event.owner_email' placeholder='Email' required>
+  	</div>
+  	<div class="form-group">
+  		<label class="control-label">Password</label>
+  		<input placeholder='Password' type="password" class="form-control" name='owner_password' ng-model='Event.owner_password' required>
+  	</div>
+  	<div class="form-group">
+  		<label class="control-label">Organization Name</label>
+  		<input placeholder='Organization Name' type="text" class="form-control" name='organization_name' ng-model='Event.organization_name' required>
+  	</div>
+  	<div class="form-group">
+  	    <label class="control-label">Category Type</label>
+  	    <select class="form-control" ng-model="Event.type">
+  	      <option value="">Select Category</option>
+  	      <option value="admin">Admin</option>
+  	      <option value="sAdmin">Sub Admin</option>
+  	    </select>
+  	</div>
+  	<div class="form-group">
+  		<label class="control-label">Share %</label>
+  		<input placeholder='Share %' type="text" class="form-control" name='share' ng-model='Event.share' required>
+  	</div>
+  	<div class="form-group">
+  		<label class="control-label">Courir Charges</label>
+  		<input placeholder='Courir Charges' type="text" class="form-control" name='courier_charges' ng-model='Event.courier_charges' required>
+  	</div>
+  	<div class="form-group">
+  		<label class="control-label">Location</label>
+  		<input placeholder='Location' class="form-control" g-places-autocomplete ng-model="Event.location" required>
+  	</div>
+  	<!-- <div class="form-group">
+      <label class="control-label" for="location">Location</label>
+      <div class="col-sm-10">
+  			<input placeholder='Location' class="form-control" g-places-autocomplete ng-model="Event.location" required>
+      </div>
+    </div> -->
+    <input type="hidden" class="form-control" name='id' ng-model='Event.id' required>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateUser(Event)">Save</button>
+
+  	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  	<!-- <button type="button" class="btn btn-primary" ng-click="updateUser(Event)">Save changes</button> -->
+  </div>
+</div>
+</div>
+</div>

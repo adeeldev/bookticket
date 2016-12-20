@@ -26,6 +26,7 @@
     "moment": "^2.10.6",
     "mongoose": "^4.2.7",
     "node-gcm": "^0.13.0",
+    "node-geocoder": "^3.15.1",
     "nodemailer": "^1.10.0",
     "nodemailer-mailgun-transport": "git+https://github.com/orliesaurus/nodemailer-mailgun-transport.git",
     "nodemailer-smtp-transport": "^1.1.0",

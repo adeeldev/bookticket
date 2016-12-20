@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<h4 class="modal-title">Add Sub Admin</h4>
 </div>
-<div class="modal-body" ng-form name='myForm'>
+<div class="modal-body" ng-form name='myForm' >
 	<h5 class="pull-right"><strong> Timezone : {{timezone}}</strong></h5>
 <!-- 	<div class="form-group" ng-if="errCheck" ng-repeat='err in Errors'>
 		<p class='bg-danger'>{{err.text}}</p>
@@ -9,7 +9,7 @@
 	<flash-message duration="3000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
 	<div class="form-group">
 		<label class="col-sm-4" for="email">Username</label>
-		<input type="text" name='owner_name' class="form-control" ng-model='owner_name' placeholder='Username' required>
+		<input type="text" name='owner_name' class="form-control" ng-model='Event.owner_name'  placeholder='{{owner_email}}' required>
 	</div>
 	<div class="form-group">
 		<label class="control-label">Email</label>

@@ -3,7 +3,7 @@ angular.module('TurkishApp')
 		 this.getAllUser = function(){
 
 			var url = "http://" + $location.host() + ":" + $location.port() + '/user';
-			
+
 			var req = {
 				method : "get",
 				url :  url,
@@ -13,10 +13,37 @@ angular.module('TurkishApp')
 			}
 			return $http(req);
 		}
+
+		this.userById = function (data){
+			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
+			req = {
+				'method' : 'POST',
+				'url' : url + '/userById',
+				'header' : {
+					"Content-Type" : "application/json"
+				},
+				'data' : data
+			}
+			return $http(req);
+		}
+
+		this.findAndUpdateById = function (data){
+			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
+			req = {
+				'method' : 'POST',
+				'url' : url + '/findAndUpdateById',
+				'header' : {
+					"Content-Type" : "application/json"
+				},
+				'data' : data
+			}
+			return $http(req);
+		}
+
 		this.allUser = function(){
 
 			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
-			
+
 			var req = {
 				method : "get",
 				url :  url,
@@ -37,7 +64,7 @@ angular.module('TurkishApp')
 				'data' : data
 			}
 			return $http(req);
-		}	
+		}
 
 		this.removeUser = function(data){
 			var data = {'userid':data};
@@ -50,6 +77,6 @@ angular.module('TurkishApp')
 				},
 				'data' : data
 			}
-			return $http(req);			
-		}	
+			return $http(req);
+		}
 	}]);

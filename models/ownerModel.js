@@ -5,12 +5,17 @@ var moment = require('moment');
 
 
 var ownersSchema = new Schema({
-	owner_name : String,
-	owner_email : String,
-	owner_password : String,
-	organization_name : String,
-	type 			  : String,
-	created : {
+	owner_name: String,
+	owner_email: String,
+	owner_password: String,
+	organization_name: String,
+	type: String,
+	share: String,
+	courier_charges: String,
+	location: String,
+	latitude: Number,
+	longitude: Number,
+	created: {
 		type: Date,
 		default: Date.now
 	}
@@ -43,7 +48,7 @@ ownersSchema.statics.getOwner = function getOwner (userid){
 		}
 	})
 	return defered.promise;
-}   
+}
 
 ownersSchema.statics.getAllOwner = function getAllOwner (){
 	var defered = Q.defer();
@@ -55,7 +60,7 @@ ownersSchema.statics.getAllOwner = function getAllOwner (){
 		}
 	})
 	return defered.promise;
-} 
+}
 
 ownersSchema.statics.getAllOwner = function getAllOwner (){
 	var defered = Q.defer();
@@ -67,7 +72,7 @@ ownersSchema.statics.getAllOwner = function getAllOwner (){
 		}
 	})
 	return defered.promise;
-} 
+}
 
 var ownersSchema = mongoose.model('OwnersSchema', ownersSchema);
 module.exports = ownersSchema;

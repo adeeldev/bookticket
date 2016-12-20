@@ -1,5 +1,7 @@
 <h1>{{message}}</h1>
-<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#addPromotion"><span class='glyphicon glyphicon-plus'></span> New Event</button>
+<!-- <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#addPromotion"><span class='glyphicon glyphicon-plus'></span> New Event</button> -->
+<a class="btn btn-primary btn-lg pull-right" href="/#!/add/promotion"><span class='glyphicon glyphicon-plus'></span> New Event</a>
+
 <table class="table table-striped table-hover" data-ng-init="getPromotions()">
 	<thead>
 		<tr>
@@ -48,7 +50,7 @@
 <div class="modal-body">
     <label class="control-label">Event Name</label>
     <input placeholder='Name' type="text" class="form-control" name='name' ng-model='promotion.event_name' required>
-</div>  
+</div>
 <div class="modal-body">
     <label class="control-label">Event Description</label>
     <input placeholder='Description' type="text" class="form-control" name='description' ng-model='promotion.event_description' required>
@@ -66,7 +68,7 @@
       <option value="offers">Offers</option>
       <option value="others">Others</option>
     </select>
-</div>    
+</div>
 <div class="row">
     <div class="col-md-9" style="margin-bottom: 40px">
         <h3>Upload Banner Image and Seating file (pdf)</h3>
@@ -74,7 +76,7 @@
         <span class="btn btn-default btn-file">
             Upload<input  type="file" nv-file-select="" uploader="uploader" multiple /><br/>
         </span>
-        </div>  
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -125,8 +127,9 @@
 </div>
 <div class="modal-body">
     <label class="control-label">Event Address</label>
+		<input type="text" g-places-autocomplete ng-model="myScopeVar" />
     <input placeholder='Address' type="text" class="form-control" name='address' ng-model='promotion.event_address' required>
-</div> 
+</div>
 <div class="modal-body">
     <label class="control-label">Location Latitude</label>
     <input placeholder='Latitude' type="text" class="form-control" name='latitude' ng-model='promotion.location_latituude' required>

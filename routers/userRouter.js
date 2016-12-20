@@ -21,7 +21,7 @@ router.get('/eventNotification',function (request,response){
 		response.status(200).send(result).end();
 	})
 });
-router.post('/login', function (request, response){ 
+router.post('/login', function (request, response){
 		var data = {
 			"email" : request.body.email,
 			"password" : request.body.password,
@@ -69,13 +69,13 @@ router.post('/register', function (request,response){
 		response.status(400).send({"message" : "Parameters are missing."}).end();
 	}else{
 		//SARUH23500001
-		userModel.findOne({ $and:[ {'email':data.email}, {'telephone': data.telephone} ]},function (err, user){	
+		userModel.findOne({ $and:[ {'email':data.email}, {'telephone': data.telephone} ]},function (err, user){
 			if(err){
 					response.status(400).send({"message" : err}).end();
 			}
 			if(user){
 					return response.status(400).send({"message" : 'email already exists'}).end();
-			}	
+			}
 			verifyModel.register(data)
 			.then(function (result){
 				var message = "Please Use this Authentication code : " + data.emailCode,
@@ -108,7 +108,7 @@ router.post('/register', function (request,response){
 			})
 		})
 	}
-	
+
 });
 
 router.post('/verify',function (request,response){
@@ -141,9 +141,9 @@ router.post('/verify',function (request,response){
 			if(err){
 				return response.status(500).send({"message": "Internal Server Error","err" : err}).end();
 			}
-				return response.status(200).send(newUser).end();			
+				return response.status(200).send(newUser).end();
 		})
-	});	
+	});
 });
 router.post('/removeUser', function (request,response){
 	var _id = request.body.user_id;
@@ -213,7 +213,7 @@ router.post('/changePassword',function (request,response){
 				return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
 			}
 			delete result.__v;
-			response.status(200).send(result).end();	
+			response.status(200).send(result).end();
 		})
 	})
 });
@@ -252,7 +252,7 @@ router.post('/updateUser', function (request,response){
 			// 		console.log(error);
 			// 	})
 			delete result.__v;
-			response.status(200).send(result).end();	
+			response.status(200).send(result).end();
 		})
 	})
 	}
@@ -268,7 +268,7 @@ router.post('/switchNotify', function (request,response){
 			return response.status(500).send({'message' : "Internal Server error. Please try again later.",'err' : error}).end();
 		}
 		if(user == null){
-			return response.status(400).send({'message' : "Invalid User ID"}).end();	
+			return response.status(400).send({'message' : "Invalid User ID"}).end();
 		}
 		user.notify = action;
 		user.save(function (err, updatedUser){

@@ -4,19 +4,19 @@ var Q = require('q');
 var md5 = require('md5');
 
 var userSchema = new Schema({
-	username : {type : String, unique : true, sparse: true, required : true, dropDups : true},
-	password : {type : String},
-	email 	: {type : String, unique : true, sparse: true, required : true, dropDups : true},
-	city : {type : String},
-	phone_no : String,
-	address : String,
-	dateCreated : Date,
-	payment_method : String,
-	isVerified : Boolean,
-	emailCode : String,
-	deviceId : String,
-	deviceName : String,
-	notify : Boolean
+	username: {type : String, unique : true, sparse: true, required : true, dropDups : true},
+	password: {type : String},
+	email: {type : String, unique : true, sparse: true, required : true, dropDups : true},
+	city: {type : String},
+	phone_no: String,
+	address: String,
+	dateCreated: Date,
+	payment_method: String,
+	isVerified: Boolean,
+	emailCode: String,
+	deviceId: String,
+	deviceName: String,
+	notify: Boolean
 });
 
 
@@ -66,7 +66,7 @@ userSchema.statics.register = function register(data){
 	return defered.promise;
 };
 userSchema.statics.verifyCode = function verifyCode(uid,code){
-	var defered = Q.defer(),	
+	var defered = Q.defer(),
 		query = {"_id" : uid,"emailCode" : code};
 
 	this.findOne(query, function (err,result){
@@ -80,7 +80,7 @@ userSchema.statics.verifyCode = function verifyCode(uid,code){
 				result.notify = true;
 				result.save(function (error , newUser){
 					if(error){
-						defered.reject({code:1 , error: error});		
+						defered.reject({code:1 , error: error});
 					}
 					else{
 						defered.resolve(newUser);

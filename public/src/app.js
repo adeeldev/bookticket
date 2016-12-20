@@ -1,4 +1,4 @@
-angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFileUpload', 'datePicker','ngCookies', 'ngFlash'])
+angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFileUpload', 'datePicker','ngCookies', 'ngFlash', 'google.places'])
 .config(function ($routeProvider,$locationProvider){
 	$routeProvider
 		.when('/gallery', {
@@ -15,14 +15,14 @@ angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFile
 		})
 		.when('/event', {
 			controller : 'EventController',
-			templateUrl : '../views/event.html'	
+			templateUrl : '../views/event.html'
 		})
 		.when('/event/newEvent', {
 
 		})
 		.when('/question/:id',{
 			controller : 'oneQuestionViewController',
-			templateUrl : '../views/oneQuestionView.html'	
+			templateUrl : '../views/oneQuestionView.html'
 		})
 		.when('/admin/update',{
 			controller : 'adminController',
@@ -44,6 +44,9 @@ angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFile
 		}).when('/promotion',{
 			controller: 'promotionController',
 			templateUrl: '../views/promotionView.html'
+		}).when('/add/promotion',{
+			controller: 'promotionController',
+			templateUrl: '../views/addPromotionView.html'
 		}).when('/viewPresentation',{
 			controller: 'presentationController',
 			templateUrl: '../views/presentationView.html'
@@ -65,8 +68,8 @@ angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFile
 		}).when('/orders',{
 			controller: 'orderController',
 			templateUrl: '../views/orderView.html'
-		});  
-		$locationProvider 
+		});
+		$locationProvider
 			// .html5Mode(true)
 			.hashPrefix('!');
 })

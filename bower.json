@@ -1,0 +1,21 @@
+{
+  "name": "turkeyapp",
+  "description": "Back-end for Turkey Application.",
+  "main": "app.js",
+  "authors": [
+    "Taimoor Ali"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/adeeldev/bookticket",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.4.8",
+    "angular-google-places-autocomplete": "^0.2.7"
+  }
+}
