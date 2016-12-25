@@ -1,3 +1,4 @@
+<div ng-include src="'views/partial/nav.html'"></div>
 <div class="modal-header">
 	<h4 class="modal-title">Add Sub Admin</h4>
 </div>
@@ -9,7 +10,7 @@
 	<flash-message duration="3000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
 	<div class="form-group">
 		<label class="col-sm-4" for="email">Username</label>
-		<input type="text" name='owner_name' class="form-control" ng-model='owner_name' placeholder='Username' required>
+		<input type="text" name='owner_name' class="form-control" ng-model='Event.owner_name' placeholder='Username' required>
 	</div>
 	<div class="form-group">
 		<label class="control-label">Email</label>
@@ -36,7 +37,11 @@
 		<input placeholder='Share %' type="text" class="form-control" name='share' ng-model='Event.share' required>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Courir Charges</label>
+		<label class="control-label">Amount</label>
+		<input placeholder='Amount' type="text" class="form-control" name='amount' ng-model='Event.amount' required>
+	</div>
+	<div class="form-group">
+		<label class="control-label">Distance Charges</label>
 		<input placeholder='Courir Charges' type="text" class="form-control" name='courier_charges' ng-model='Event.courier_charges' required>
 	</div>
 	<div class="form-group">

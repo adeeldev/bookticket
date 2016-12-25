@@ -2,9 +2,22 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 var ticketModel = require('../models/ticketModel');
+var ownerModel = require('../models/ownerModel');
 var helperFunc = require('../lib/helperFunc');
 var gcm = require('node-gcm');
 router
+	.get('/', function (request, response){
+		ownerModel.getSubAdmins()
+		.then(function (result){
+			if(result == ""){
+			response.status(404).send({'msg':'no owner found'});
+			}
+			response.status(200).send(result);
+		}).catch(function (err){
+			console.log("Error : " + err);
+			response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+		})
+	})
 	.get('/:userid', function (request, response){
 		var userid = request.params.userid;
 		ticketModel.getUserOrder(userid)
@@ -38,13 +51,14 @@ router
 		if(type == 'sAdmin'){
 			ticketModel.getAdminUserOrder(userid)
 			.then(function (result){
+				console.log(result);
 				if(result == ""){
-				response.status(404).send({'msg':'no order found'});
+				return response.status(200).send({'msg':'no order found'});
 				}
-				response.status(200).send(result);
+				return response.status(200).send(result);
 			}).catch(function (err){
 				console.log("Error : " + err);
-				response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+				return response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
 			})
 		}
 	})
@@ -106,7 +120,7 @@ router
 					return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
 				}
 
-				
+
 				var message = "Your User name is updated.Your new Username is ";
 				var subject = "Order Updated";
 				// helperFun.emailSender(result.email, message, subject)

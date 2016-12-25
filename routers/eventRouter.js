@@ -59,9 +59,9 @@ router
 				})
 			}
 		}
-		
+
 	})
-	
+
 
 	.post('/addEvent', function (request, response){
 		var toLocalTime = function(time) {
@@ -74,7 +74,7 @@ router
 		// var offset = date.getTimezoneOffset() / 60;
 		var eventDate = toLocalTime(request.body.eventDate);
 		// eventDate = eventDate + eventDate.getTimezoneOffset() / 60;
-		// console.log(eventDate); 
+		// console.log(eventDate);
 		var newEvent = {
 			"eventTitle" : request.body.eventTitle,
 			"eventDate" : eventDate,
@@ -132,7 +132,7 @@ router
 	.post('/deleteEvent', function (request, response){
 		var id = request.body._id;
 		if(id == null || ""){
-			return response.status(400).send("Parameters Are missing").end();	
+			return response.status(400).send("Parameters Are missing").end();
 		}
 		eventModel.findOneAndRemove({"_id" : id},function (err , result){
 			if(err){
@@ -140,6 +140,23 @@ router
 			}
 			response.status(200).send({"message" : "Ok", "result" : result}).end();
 		})
-	});	
+	});
+
+	// .post('/week', function (request, response){
+	//
+	// 	var todayDate = moment.format();
+	// 	var id = request.body._id;
+	// 	if(id == null || ""){
+	// 		return response.status(400).send("Parameters Are missing").end();
+	// 	}
+	// 	eventModel.findOneAndRemove({"_id" : id},function (err , result){
+	// 		if(err){
+	// 			return response.status(500).send({"message" : "Internal Server Error.","err" : err}).end();
+	// 		}
+	// 		response.status(200).send({"message" : "Ok", "result" : result}).end();
+	// 	})
+	// });
+
+
 
 module.exports = router;

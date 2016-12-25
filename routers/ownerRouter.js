@@ -95,6 +95,7 @@ var geocoder = NodeGeocoder(options);
 				"organization_name" : request.body.organization_name,
 				"type"           		: request.body.type,
 				"share" 						: request.body.share,
+				"amount"						: request.body.amount,
 				"courier_charges"		: request.body.courier_charges,
 				"location"					: request.body.location.formatted_address,
 				"latitude"					: res[0].latitude,
@@ -161,11 +162,12 @@ var geocoder = NodeGeocoder(options);
 		var lat = res[0].latitude;
 		var lon = res[0].longitude;
 		var data = request.body;
-		var organization_name 	=  data.organization_name,
+		var organization_name 	= data.organization_name,
 				owner_name 					= data.owner_name,
-				owner_password 			=  data.owner_password,
-				share 							=  data.share,
+				owner_password 			= data.owner_password,
+				share 							= data.share,
 				courier_charges 		= data.courier_charges,
+				amount 							= data.amount,
 				location 						= data.location,
 				latitude 						= lat,
 				longitude 					= lon,
@@ -181,15 +183,16 @@ var geocoder = NodeGeocoder(options);
 			if(User == null){
 				return response.status(400).send({"message" : "Invalid Email OR Code"}).end();
 			}
-			User.organization_name =  organization_name,
-			User.owner_name = owner_name,
-			User.owner_password =  owner_password,
-			User.share =  share,
-			User.courier_charges = courier_charges,
-			User.location = location,
-			User.latitude = latitude,
-			User.longitude = longitude,
-			User.courier_charges = courier_charges;
+			User.organization_name 		=  organization_name,
+			User.owner_name 					= owner_name,
+			User.owner_password 			=  owner_password,
+			User.share 								=  share,
+			User.courier_charges 			= courier_charges,
+			User.amount								= amount;
+			User.location 						= location,
+			User.latitude 						= latitude,
+			User.longitude 						= longitude,
+			User.courier_charges 			= courier_charges;
 			User.save(function (error,result){
 				if(error){
 					return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();

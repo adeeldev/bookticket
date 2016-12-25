@@ -10,21 +10,41 @@ angular.module('TurkishApp')
     $scope.type = $cookies.get('type');
 
 
-	$scope.getOrders = function(){
-    var data = {
-            'uid' : $scope.uid,
-            'type' : $scope.type
-    }
-  	orderService.getUserOrders(data)
-  		.then(function (result){
+  	orderService.getAllUser()
+  		.then(function (admins){
           console.log('In Second condition');
-  				$scope.orders = result.data;
-          console.log($scope.orders);
-
+  				$scope.admins = admins.data;
+          console.log($scope.admins);
   		})
   		.catch(function (err){
   			if(err.status == 500){
   				$scope.serverError = true;
+  			}
+  	})
+
+
+
+	$scope.getOrders = function(){
+		var url = $location.path().split("/");
+		var eventId = url[2];
+    var data = {
+            'uid' : eventId,
+            'type' : 'sAdmin'
+    }
+  	orderService.getUserOrders(data)
+  		.then(function (result){
+				if(result.data.msg == "no order found"){
+					console.log('in log condition');
+					$scope.orders = [];
+				}else{
+  			$scope.orders = result.data;
+				}
+  		})
+  		.catch(function (err){
+				console.log(err.data);
+				$scope.err = err.data.msg;
+  			if(err.status == 500){
+  				// $scope.serverError = true;
   			}
   	})
 	}

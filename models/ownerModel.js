@@ -5,20 +5,18 @@ var moment = require('moment');
 
 
 var ownersSchema = new Schema({
-	owner_name: String,
-	owner_email: String,
-	owner_password: String,
-	organization_name: String,
-	type: String,
-	share: String,
-	courier_charges: String,
-	location: String,
-	latitude: Number,
-	longitude: Number,
-	created: {
-		type: Date,
-		default: Date.now
-	}
+	owner_name				: String,
+	owner_email				: String,
+	owner_password		: String,
+	organization_name	: String,
+	type							: String,
+	share							: String,
+	courier_charges		: String,
+	amount    				: Number,
+	location					: String,
+	latitude					: Number,
+	longitude					: Number,
+	created						: { type: Date,default: Date.now}
 });
 
 ownersSchema.statics.addOwner = function addOwner(data){
@@ -62,9 +60,9 @@ ownersSchema.statics.getAllOwner = function getAllOwner (){
 	return defered.promise;
 }
 
-ownersSchema.statics.getAllOwner = function getAllOwner (){
+ownersSchema.statics.getSubAdmins = function getSubAdmins (){
 	var defered = Q.defer();
-	this.find({},{"__v":0}).sort().exec(function (err,result){
+	this.find({'type' : 'sAdmin'},{"__v":0}).sort().exec(function (err,result){
 		if(err){
 			defered.reject(err);
 		}else{

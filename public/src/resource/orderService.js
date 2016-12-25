@@ -10,6 +10,15 @@ angular.module('TurkishApp')
 			}
 			return $http(req);
 		}
+
+		this.getAllUser = function(){
+			req = {
+				'method' : 'GET',
+				'url' : URL+"/",
+			}
+			return $http(req);
+		}
+
 		this.getUserOrders = function(data){
 			req = {
 				method : "POST",
@@ -20,8 +29,8 @@ angular.module('TurkishApp')
 				data : data
 			}
 			return $http(req);
-		}			
-		
+		}
+
 		this.verifyOrder = function(data){
 			req = {
 				method : "POST",
@@ -32,6 +41,6 @@ angular.module('TurkishApp')
 				data : data
 			}
 			return $http(req);
-		}			
+		}
 
 	}])

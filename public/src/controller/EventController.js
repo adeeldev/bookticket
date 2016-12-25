@@ -62,7 +62,7 @@ angular.module('TurkishApp')
 		})
 		.catch(function (err){
 			if(err.status == 500){
-				$scope.serverError = true;				
+				$scope.serverError = true;
 			}
 		})
 		$scope.animationsEnabled = true;
@@ -192,5 +192,5 @@ angular.module('TurkishApp')
   //       if (values) {
   //         $scope.$broadcast('pickerUpdate', pickersToUpdate, values);
   //       }
-  //     }			
+  //     }
 	}])

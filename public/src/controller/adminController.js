@@ -8,6 +8,8 @@ angular.module('TurkishApp')
 		$scope.login = function login(){
 			adminService.login($scope.Admin)
 				.then(function (result){
+					console.log(result);
+					$cookies.put('data' , JSON.stringify(result.data));
 					$cookies.put('user',result.data._id);
 					$cookies.put('type',result.data.type);
 					$rootScope.loggedIn = true;
@@ -17,6 +19,9 @@ angular.module('TurkishApp')
 					$scope.type = $cookies.get('type');
 					$rootScope.typei = $scope.type;
 					$location.path('/home');
+					$scope.user = JSON.parse($cookies.get('data'));
+					$scope.username = $scope.user.owner_name;
+					$scope.owner_organization = $scope.user.organization_name;
 				})
 				.catch(function (response){
 					$scope.error = true;
@@ -48,8 +53,10 @@ angular.module('TurkishApp')
 
 		$scope.logout = function(){
 			$cookies.remove("user");
+			$cookies.remove("data");
 			$scope.uid = undefined;
 			$location.path('/');
+			window.location.reload();
 
-		}		
+		}
 	}])

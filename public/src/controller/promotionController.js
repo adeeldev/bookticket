@@ -1,5 +1,10 @@
 angular.module('TurkishApp')
 	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'eventService', 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, promotionService, eventService,  FileUploader, $location,$cookies){
+		$scope.user = JSON.parse($cookies.get('data'));
+		console.log($scope.user._id);
+		if(!$scope.user._id){
+			$location.path('/');
+		}
 		$scope.message = "Events";
 		$scope.animationsEnabled = true;
 		$scope.promotion_image = '';
@@ -19,6 +24,7 @@ angular.module('TurkishApp')
 				$scope.promotions = [];
 			}else{
 				$scope.promotions = result.data;
+				console.log($scope.promotions);
 			}
 		})
 		.catch(function (err){
@@ -44,7 +50,6 @@ angular.module('TurkishApp')
               $scope.image2 =  $scope.base_url+$scope.image;
           }
       });
-			console.log(data);
         var promotionData = {
             event_name            : data.event_name,
             event_description     : data.event_description,
@@ -58,11 +63,7 @@ angular.module('TurkishApp')
             location_latituude    : data.location_latituude,
             location_longitude    : data.location_longitude,
             seating_plan_doc_url  : $scope.image2,
-            price                 : data.price
-						// original_price				: data.original_price,
-						// share									: data.share
-
-
+            price                 : data.price,
         }
         promotionService.addPromotion(promotionData)
         .then(function (promotionResult){
@@ -71,7 +72,7 @@ angular.module('TurkishApp')
             }else{
                 $scope.getPromotions();
                 $scope.promotionResult = promotionResult.data;
-              	$location.path("/promotion");
+              	$location.path("/event");
             }
         })
         .catch(function (err){
@@ -83,13 +84,81 @@ angular.module('TurkishApp')
     }
 
     $scope.updatePromotion = function(promotionId){
-
+			console.log(promotionId);
       promotionService.getPromotion(promotionId)
       .then(function (result){
         if(result.data.message == "No data found."){
         }else{
-          $scope.promotions = result.data;
+          $scope.events = result.data;
           console.log($scope.promotions);
+        }
+      })
+      .catch(function (err){
+        if(err.status == 500){
+          $scope.serverError = true;
+        }
+      })
+
+    }
+
+		$scope.updateEvent = function(){
+			var url = $location.path().split("/");
+			var eventId = url[2];
+      promotionService.getPromotion(eventId)
+      .then(function (result){
+        if(result.data.message == "No data found."){
+        }else{
+          $scope.events = result.data;
+          console.log($scope.promotions);
+        }
+      })
+      .catch(function (err){
+        if(err.status == 500){
+          $scope.serverError = true;
+        }
+      })
+
+    }
+
+		$scope.update = function(data, date, endDate){
+
+			$scope.image1 = {};
+      $scope.image2 = {};
+			$scope.image1 = '';
+      $scope.image2 = '';
+      $scope.promotions = '';
+      angular.forEach($scope.uploader.queue, function(value, key) {
+          $scope.image = value.file.name;
+          $scope.res = $scope.image.split('.');
+          if($scope.res[1] == 'png' || $scope.res[1] == 'jpg' || $scope.res[1] == 'jpeg' || $scope.res[1] == 'JPEG' || $scope.res[1] == 'gif' ){
+             $scope.image1 =  $scope.base_url+$scope.image;
+          }
+          if($scope.res[1] == 'pdf'){
+              $scope.image2 =  $scope.base_url+$scope.image;
+          }
+      });
+      var updateData = {
+					id 										: data._id,
+          event_name            : data.event_name,
+          event_description     : data.event_description,
+          banner_Image_url      : $scope.image1,
+          event_start_time      : date._d,
+          event_end_time        : endDate._d,
+          total_tickets         : data.total_tickets,
+          owner_Id              : $scope.uid,
+          event_address         : data.event_address.formatted_address,
+          event_category        : data.event_category,
+          seating_plan_doc_url  : $scope.image2,
+          price                 : data.price,
+					type									: data.is_electronic
+      }
+
+      promotionService.updatePromotion(updateData)
+      .then(function (result){
+        if(result.data.message == "No data found."){
+        }else{
+          $scope.promotions = result.data;
+          $location.path("/event");
         }
       })
       .catch(function (err){

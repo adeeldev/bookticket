@@ -1,7 +1,7 @@
 <div ng-include src="'views/partial/nav.html'"></div>
-<div class="controller">
+<div class="controller" ng-init="updateEvent()">
 	<div class="col-sm-8 col-xs-offset-2" id="myTabContent">
-<form class="form-horizontal">
+<form class="form-horizontal" ng-repeat="promotion in events ">
 	<div class="form-group">
 		<h1>Add Event</h1>
 	</div>
@@ -21,7 +21,7 @@
 	<div class="form-group">
     <label class="control-label col-sm-2" for="name">Electric Ticket:</label>
     <div class="col-sm-10">
-	    <select class="form-control" ng-model="promotion.type">
+	    <select class="form-control" ng-model="promotion.is_electronic">
 	      <option value="">Select </option>
 	      <option value="yes">Yes</option>
 	      <option value="no">No</option>
@@ -138,7 +138,7 @@
 	</div> -->
   <div class="form-group">
     <div class="col-sm-offset-9 col-sm-10">
-			<button type="button" class="btn btn-primary"  ng-click="addPromotion(promotion,dates.today,dates.end)">Save</button>
+			<button type="button" class="btn btn-primary"  ng-click="update(promotion,dates.today,dates.end)">Update</button>
 				<a href="/#!/promotion" class="btn btn-md btn-primary"><span class='glyphicon glyphicon-arrow-left'></span> Back To Events</a>
     </div>
   </div>

@@ -41,12 +41,15 @@ angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFile
 		}).when('/',{
 			controller : 'adminController',
 			templateUrl : '../views/login.html'
-		}).when('/promotion',{
+		}).when('/event',{
 			controller: 'promotionController',
 			templateUrl: '../views/promotionView.html'
-		}).when('/add/promotion',{
+		}).when('/add/event',{
 			controller: 'promotionController',
 			templateUrl: '../views/addPromotionView.html'
+		}).when('/event/:id',{
+			controller: 'promotionController',
+			templateUrl: '../views/editEventView.html'
 		}).when('/viewPresentation',{
 			controller: 'presentationController',
 			templateUrl: '../views/presentationView.html'
@@ -68,6 +71,9 @@ angular.module('TurkishApp',['ngRoute','ngResource','ui.bootstrap', 'angularFile
 		}).when('/orders',{
 			controller: 'orderController',
 			templateUrl: '../views/orderView.html'
+		}).when('/admin/:id',{
+			controller: 'orderController',
+			templateUrl: '../views/adminOrderView.html'
 		});
 		$locationProvider
 			// .html5Mode(true)

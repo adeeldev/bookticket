@@ -22,6 +22,7 @@ var ticketSchema = new Schema({
 	trans_cretatedat: Date,
 	trans_updatedat: Date,
 	trans_card_type: String,
+	sharedamount: String,
 	status: {
 		type: String,
 		default: 'pending'
