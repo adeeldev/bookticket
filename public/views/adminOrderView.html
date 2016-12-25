@@ -24,7 +24,7 @@
             <td colspan='12'>No Data found</td>
         </tr>
     </tbody>
-	<tbody ng-if='orders.length != 0'>
+	<tbody ng-if='orders.length != 0' ng-init="total = 0">
 		<tr ng-repeat='order in orders'>
       <td>{{order.trans_id}}</td>
       <td>{{order.trans_type}}</td>
@@ -35,11 +35,15 @@
       <td>{{order.delivery_method}}</td>
       <td>{{order.category_name}}</td>
       <td>{{order.qty}}</td>
-      <td>{{order.amount}}</td>
+      <td ng-init="$parent.total = $parent.total + (order.amount)">{{order.amount}}</td>
 			<td>{{order.sharedamount}}</td>
             <!-- <td><button class='btn btn-sm btn-danger' ng-click="updatePromotion(promotion._id)" data-toggle="modal" data-target="#addPromotion">Edit</button></td> -->
 			<td ng-if="order.status == 'verified'"><button class='btn btn-sm btn-success' ng-click="verifyOrder(order._id, order.status)">Pending</button></td>
 			<td ng-if="order.status == 'pending'"><button class='btn btn-sm btn-success' ng-click="verifyOrder(order._id, order.status)">Verified</button></td>
+		</tr>
+		<tr>
+			<td>Total</td>
+			<td>${{total}}</td>
 		</tr>
 	</tbody>
 </table>

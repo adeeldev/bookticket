@@ -17,12 +17,12 @@ var ticketSchema = new Schema({
 	trans_id: String,
 	trans_type: String,
 	trans_curr: String,
-	amount: String,
+	amount: Number,
 	trans_acc_id: String,
 	trans_cretatedat: Date,
 	trans_updatedat: Date,
 	trans_card_type: String,
-	sharedamount: String,
+	sharedamount: Number,
 	status: {
 		type: String,
 		default: 'pending'

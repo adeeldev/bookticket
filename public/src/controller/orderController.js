@@ -22,8 +22,6 @@ angular.module('TurkishApp')
   			}
   	})
 
-
-
 	$scope.getOrders = function(){
 		var url = $location.path().split("/");
 		var eventId = url[2];
@@ -77,6 +75,7 @@ angular.module('TurkishApp')
             }else{
               $scope.getOrders();
                 $scope.orderResult = orderResult.data;
+								window.location.reload();
             }
         })
         .catch(function (err){
