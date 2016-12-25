@@ -58,7 +58,7 @@ angular.module('TurkishApp')
             event_end_time        : endDate._d,
             total_tickets         : data.total_tickets,
             owner_Id              : $scope.uid,
-            event_address         : data.event_address,
+            event_address         : data.event_address.formatted_address,
 						share_percentage			: $scope.user.share,
 						is_electronic					: data.is_electronic,
             event_category        : data.event_category,
