@@ -24,8 +24,8 @@ router.get('/client_token', function (request, response){
 
 router.post("/checkout", function (req, res) {
   var nonce = req.body.nonce; //'fake-valid-nonce';//''
-  var amount = req.body.price ;
-  var sharing_price = req.body.sharing_price;
+  var amount = parseFloat(req.body.price);
+  var sharing_price = parseFloat(req.body.sharing_price);
   var totalAmount = amount + sharing_price;
 
   gateway.transaction.sale({
