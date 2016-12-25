@@ -1,4 +1,4 @@
-var promotionModel = require('../models/promotionModel');
+var promotionModel = require('../models/promotionModel'),
 		express = require('express'),
 		router = express.Router(),
 		fs = require('fs'),
@@ -34,7 +34,16 @@ router.get('/allEvents',function (request,response){
 		if(result.length==0){
 			return response.status(200).send({"message" : "No data found."}).end();
 		}
-		response.status(200).send(result).end();
+		promotionModel.find({},{'__v' : 0}).sort({date : '-1'}).exec(function	(err,result){
+			if(err){
+				console.log(err);
+				return response.status(500).send({"message" : "Internal server error.","code": "PE-ALL","err" : err}).end();
+			}
+			if(result.length==0){
+				return response.status(200).send({"message" : "No data found."}).end();
+			}
+			response.status(200).send(result).end();
+		})
 	})
 })
 
@@ -130,7 +139,8 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
       location_longitude 		=  request.body.location_longitude,
       seating_plan_doc_url 	=  request.body.seating_plan_doc_url,
       price									=  request.body.price,
-			is_electronic					=  request.body.type,
+			share_percentage			=  request.body.share_percentage,
+			is_electronic					=  request.body.is_electronic,
 			event_date 				=  Date.now();
 	if((event_name == "" || null)  || (owner_Id == "" || null)){
 		return response.status(400).send({"message" : "Parameter Missing"});
@@ -151,6 +161,7 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
     'seating_plan_doc_url' : seating_plan_doc_url,
 		'event_date' 		: event_date,
 		'price'      		: price,
+		'share_percentage' : share_percentage,
 		'is_electronic' : is_electronic
 	});
 	console.log();
@@ -228,6 +239,10 @@ router.post('/removePromotion',function (request,response){
 })
 
 router.post('/updatePromotion',function (request,response){
+
+
+	// console.log(request.body.event_address);
+
 	var id 										=  request.body.id,
 			event_name 						=  request.body.event_name,
       event_description 		=  request.body.event_description,
@@ -235,7 +250,6 @@ router.post('/updatePromotion',function (request,response){
       event_start_time 			=  request.body.event_start_time,
       event_end_time 				=  request.body.event_end_time,
       total_tickets 				=  request.body.total_tickets,
-      event_address 				=  request.body.event_address,
       event_category 				=  request.body.event_category,
       seating_plan_doc_url 	=  request.body.seating_plan_doc_url,
       price									=  request.body.price,
@@ -244,24 +258,39 @@ router.post('/updatePromotion',function (request,response){
 	if(id == null || ""){
 		return response.status(400).send({"message" : "Id is Missing"});
 	}
-	var updateDate = {
+	var updateData = {
 		'event_name' 				: event_name,
 		'event_description' : event_description,
 		'event_start_time'	: event_start_time,
 		'event_end_time'		: event_end_time,
 		'total_tickets' 		: total_tickets,
-		'event_address' 		: event_address,
 		'event_category' 		: event_category,
 		'price'							: price,
 		'is_electronic'			: is_electronic
 	}
+
+
+	console.log(updateData);
 	if(banner_Image_url){
-		updateDate.banner_Image_url = banner_Image_url;
+		updateData.banner_Image_url = banner_Image_url;
 	}
 	if(seating_plan_doc_url){
-		updateDate.seating_plan_doc_url = seating_plan_doc_url;
+		updateData.seating_plan_doc_url = seating_plan_doc_url;
 	}
-	promotionModel.findOneAndUpdate({'_id' : id},updateDate,function (err,promotion){
+
+	if(request.body.event_address){
+		if(request.body.event_address.formatted_address){
+			var address = request.body.event_address.formatted_address;
+			updateData.event_address = address;
+		}else{
+			var address = request.body.event_address;
+			updateData.event_address = address;
+		}
+
+	}
+
+
+	promotionModel.findOneAndUpdate({'_id' : id},updateData,function (err,promotion){
 		console.log(promotion);
 		if(err){
 			return response.status(500).send({"message" : "Internal server error.","code": "PE-PS-UP","err" : err}).end();

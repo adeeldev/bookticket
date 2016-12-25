@@ -2,11 +2,12 @@ var express = require('express');
 var router = express.Router();
 var eventModel = require('../models/eventModel');
 var Busboy = require('busboy');
+var fs = require('fs');
 router
 	.post('/uploads', function (req, res){
 		var busboy = new Busboy({headers: req.headers});
 		busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-			
+
 			var fleName = filename.replace(/\s+/g, '_');
 			console.log(fleName);
 			if (mimetype.indexOf('image/') != -1 || mimetype.indexOf('audio') != -1 || mimetype.indexOf('pdf') != -1 || mimetype.indexOf('mp4') != -1) {
@@ -20,9 +21,9 @@ router
 				}else if(res[0] == 'application'){
 					var newPath = __dirname	+ '/../public/presentation/'+fleName;
 				}else{
-					console.log('File Type is not found!!');	
+					console.log('File Type is not found!!');
 				}
-				
+
 				file.pipe(fs.createWriteStream(newPath));
 			} else {
 				res.end('Invalid file type');

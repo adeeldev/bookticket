@@ -1,7 +1,7 @@
 angular.module('TurkishApp')
 	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'eventService', 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, promotionService, eventService,  FileUploader, $location,$cookies){
 		$scope.user = JSON.parse($cookies.get('data'));
-		console.log($scope.user._id);
+		console.log($scope.user);
 		if(!$scope.user._id){
 			$location.path('/');
 		}
@@ -58,7 +58,9 @@ angular.module('TurkishApp')
             event_end_time        : endDate._d,
             total_tickets         : data.total_tickets,
             owner_Id              : $scope.uid,
-            event_address         : data.event_address.formatted_address,
+            event_address         : data.event_address,
+						share_percentage			: $scope.user.share,
+						is_electronic					: data.is_electronic,
             event_category        : data.event_category,
             location_latituude    : data.location_latituude,
             location_longitude    : data.location_longitude,
@@ -152,7 +154,7 @@ angular.module('TurkishApp')
           price                 : data.price,
 					type									: data.is_electronic
       }
-
+			console.log(updateData);
       promotionService.updatePromotion(updateData)
       .then(function (result){
         if(result.data.message == "No data found."){

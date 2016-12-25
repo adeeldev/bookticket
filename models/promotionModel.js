@@ -19,6 +19,7 @@ var promotionSchema = new Schema({
 	banner_Image_url : String,
 	seating_plan_doc_url : String,
 	price : String,
+	share_percentage : Number,
 	created : {
 		type: Date,
 		default: Date.now

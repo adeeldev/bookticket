@@ -1,7 +1,7 @@
 //====================================================================================
 //							NameSpace - Section
 //====================================================================================
-	
+
 var express = require('express'),
 	app = express(),
 	bodyParser = require('body-parser'),
@@ -15,7 +15,8 @@ var express = require('express'),
 	ticketRouter = require('./routers/ticketRouter'),
 	exchangeRouter = require('./routers/ticketExhangeRouter'),
 	ownerRouter = require('./routers/ownerRouter'),
-	paymentRouter = require('./routers/paymentRouter');
+	paymentRouter = require('./routers/paymentRouter')
+	path 					= require('path');
 
 var config = require('./config');
 
@@ -37,7 +38,7 @@ function bodyLoggerMiddleWare(req, res, next) {
 //====================================================================================
 //							App Environment Setup - Section
 //====================================================================================
-	
+
 app.use(express.static(path.join(__dirname + '/public')));
 
 // app.use(session({secret: "Al-Tair", resave:true, saveUninitialized: true}));
@@ -63,7 +64,7 @@ db.on('open', function(){
 //====================================================================================
 //							Routes - Section
 //====================================================================================
-	
+
 app.use(bodyParser.json());
 app.use(bodyParser.json({limit: '200mb'}));
 app.use(urlencodedParser);
@@ -86,7 +87,7 @@ app.use('/payment', paymentRouter);
 //====================================================================================
 //							Server Starting - Section
 //====================================================================================
-	
+
 var port = config.server.port || 3131;
 app.listen(port, function (err,result){
 	if(!err){
