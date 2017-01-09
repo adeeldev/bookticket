@@ -62,6 +62,40 @@ router
 			})
 		}
 	})
+	.post('/searchOrders', function (request, response){
+		var userid = request.body.uid;
+		var type = request.body.type;
+		var startDate = request.body.start_date;
+		var endDate = request.body.end_date;
+		if(type == 'admin'){
+			ticketModel.searchOrder(userid, startDate , endDate)
+			.then(function (result){
+				console.log(result);
+				if(result == ""){
+				return response.status(404).send(result);
+				}
+				response.status(200).send(result);
+			}).catch(function (err){
+				console.log("Error : " + err);
+				return response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+			})
+		}
+		if(type == 'sAdmin'){
+			ticketModel.searchOrderAdmin(startDate , endDate)
+			.then(function (result){
+				console.log(result);
+				if(result == ""){
+				return response.status(200).send({'msg':'no order found'});
+				}
+				return response.status(200).send(result);
+			}).catch(function (err){
+				console.log("Error : " + err);
+				return response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+			})
+		}
+	})
+
+
 	.post('/addOrder', function (request, response){
 
 		var newOrder = {

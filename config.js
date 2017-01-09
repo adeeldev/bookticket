@@ -6,7 +6,7 @@ var conf = {
         "db": {
                 "dbName": "court",
                 "port": 27017,
-                "host": "localhost"
+                "host": "127.0.0.1"
         },
         "mail": {
                 "name" : "gmail"

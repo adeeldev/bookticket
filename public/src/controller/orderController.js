@@ -22,6 +22,38 @@ angular.module('TurkishApp')
   			}
   	})
 
+	$scope.searchData = function(start, end) {
+		var url = $location.path().split("/");
+		var eventId = url[2];
+		var startDate = start._d;
+		var endDate = end._d;
+
+    var data = {
+            'uid' : eventId,
+            'type' : 'sAdmin',
+						'start_date' : startDate,
+						'end_date'	: endDate
+    }
+		orderService.searchOrders(data)
+  		.then(function (result){
+				if(result.data.msg == "no order found"){
+					console.log('in log condition');
+					$scope.orders = [];
+				}else{
+  			$scope.orders = result.data;
+				console.log($scope.orders);
+				}
+  		})
+  		.catch(function (err){
+				console.log(err.data);
+				$scope.err = err.data.msg;
+  			if(err.status == 500){
+  				// $scope.serverError = true;
+  			}
+  	})
+	}
+
+
 	$scope.getOrders = function(){
 		var url = $location.path().split("/");
 		var eventId = url[2];

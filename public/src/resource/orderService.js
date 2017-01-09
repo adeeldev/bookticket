@@ -31,6 +31,19 @@ angular.module('TurkishApp')
 			return $http(req);
 		}
 
+		this.searchOrders = function(data){
+			req = {
+				method : "POST",
+				url : URL + '/searchOrders',
+				header : {
+					"Content-Type" : "application/json"
+				},
+				data : data
+			}
+			return $http(req);
+		}
+
+
 		this.verifyOrder = function(data){
 			req = {
 				method : "POST",

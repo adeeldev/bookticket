@@ -164,19 +164,10 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
 		'share_percentage' : share_percentage,
 		'is_electronic' : is_electronic
 	});
-	console.log();
 	newProm.save(function (error,result){
 		if (error) {
 			return response.status(500).send({"message" : "Internal Server error. Please try again later.", "err" : error}).end();
 		}
-		// var message = 'Test message';
-		// helperFunc.emailSender('promotion',message,function (err,solution){
-		// 	if(err){
-		// 		console.log(err);
-		// 	}else{
-		// 		console.log("Message Sent!!.");
-		// 	}
-		// })
 		response.status(200).send(result).end();
 		})
 	}
@@ -240,9 +231,6 @@ router.post('/removePromotion',function (request,response){
 
 router.post('/updatePromotion',function (request,response){
 
-
-	// console.log(request.body.event_address);
-
 	var id 										=  request.body.id,
 			event_name 						=  request.body.event_name,
       event_description 		=  request.body.event_description,
@@ -269,8 +257,6 @@ router.post('/updatePromotion',function (request,response){
 		'is_electronic'			: is_electronic
 	}
 
-
-	console.log(updateData);
 	if(banner_Image_url){
 		updateData.banner_Image_url = banner_Image_url;
 	}
@@ -289,13 +275,17 @@ router.post('/updatePromotion',function (request,response){
 
 	}
 
-
-	promotionModel.findOneAndUpdate({'_id' : id},updateData,function (err,promotion){
-		console.log(promotion);
-		if(err){
-			return response.status(500).send({"message" : "Internal server error.","code": "PE-PS-UP","err" : err}).end();
-		}
-		response.status(200).send(promotion).end();
+	promotionModel.findOne({'_id' : id},{'__v': 0},function (err,Promotion){
+		var total = Promotion.total_tickets;
+		var ticDiff = total_tickets - total;
+		var remaining = Promotion.remaining_tickets + ticDiff;
+		updateData.remaining_tickets = remaining;
+		promotionModel.findOneAndUpdate({'_id' : id},updateData,function (err,promotion){
+			if(err){
+				return response.status(500).send({"message" : "Internal server error.","code": "PE-PS-UP","err" : err}).end();
+			}
+			response.status(200).send(promotion).end();
+		})
 	})
 })
 

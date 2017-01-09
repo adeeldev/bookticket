@@ -21,7 +21,7 @@ var express = require('express'),
 var config = require('./config');
 
 function getDbURL(dbConf) {
-	dbConf.host = dbConf.name || 'localhost';
+	dbConf.host = dbConf.name || '127.0.0.1';
 	dbConf.port = dbConf.port || 27017;
 	dbConf.dbName = dbConf.dbName || 'turkishApp';
 	var dbUrl = 'mongodb://' + dbConf.host + ':' + dbConf.port + '/' + dbConf.dbName;

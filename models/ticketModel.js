@@ -69,6 +69,31 @@ ticketSchema.statics.getAdminUserOrder = function getAdminUserOrder (userid){
 	return defered.promise;
 }
 
+ticketSchema.statics.searchOrderAdmin = function searchOrderAdmin (startDate, endDate){
+	var defered = Q.defer();
+	this.find({trans_cretatedat: { $lt: endDate, $gt: startDate }},{"__v":0}).sort().exec(function (err,result){
+		if(err){
+			defered.reject(err);
+		}else{
+			defered.resolve(result);
+		}
+	})
+	return defered.promise;
+}
+
+ticketSchema.statics.searchOrder = function searchOrder (userid, startDate, endDate){
+	var defered = Q.defer();
+	this.find({ $and: [{'owner_id' : userid }, {trans_cretatedat: { $lt: endDate, $gt: startDate }}]},{"__v":0}).sort().exec(function (err,result){
+		if(err){
+			defered.reject(err);
+		}else{
+			defered.resolve(result);
+		}
+	})
+	return defered.promise;
+}
+
+
 ticketSchema.statics.getOrders = function getOrders (){
 	var defered = Q.defer();
 	this.find({},{"__v":0}).sort().exec(function (err,result){

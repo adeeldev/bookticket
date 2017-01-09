@@ -24,7 +24,7 @@ angular.module('TurkishApp')
 				$scope.promotions = [];
 			}else{
 				$scope.promotions = result.data;
-				console.log($scope.promotions);
+				// console.log($scope.promotions);
 			}
 		})
 		.catch(function (err){
@@ -41,7 +41,8 @@ angular.module('TurkishApp')
       $scope.image2 = '';
       $scope.promotions = '';
       angular.forEach($scope.uploader.queue, function(value, key) {
-          $scope.image = value.file.name;
+					var file = value.file.name;
+					$scope.image = file.replace(/\s+/g, '_');
           $scope.res = $scope.image.split('.');
           if($scope.res[1] == 'png' || $scope.res[1] == 'jpg' || $scope.res[1] == 'jpeg' || $scope.res[1] == 'JPEG' || $scope.res[1] == 'gif' ){
              $scope.image1 =  $scope.base_url+$scope.image;
@@ -92,7 +93,7 @@ angular.module('TurkishApp')
         if(result.data.message == "No data found."){
         }else{
           $scope.events = result.data;
-          console.log($scope.promotions);
+          // console.log($scope.promotions);
         }
       })
       .catch(function (err){
@@ -111,7 +112,7 @@ angular.module('TurkishApp')
         if(result.data.message == "No data found."){
         }else{
           $scope.events = result.data;
-          console.log($scope.promotions);
+          // console.log($scope.promotions);
         }
       })
       .catch(function (err){
@@ -130,7 +131,8 @@ angular.module('TurkishApp')
       $scope.image2 = '';
       $scope.promotions = '';
       angular.forEach($scope.uploader.queue, function(value, key) {
-          $scope.image = value.file.name;
+					var file = value.file.name;
+					$scope.image = file.replace(/\s+/g, '_');
           $scope.res = $scope.image.split('.');
           if($scope.res[1] == 'png' || $scope.res[1] == 'jpg' || $scope.res[1] == 'jpeg' || $scope.res[1] == 'JPEG' || $scope.res[1] == 'gif' ){
              $scope.image1 =  $scope.base_url+$scope.image;
@@ -154,7 +156,7 @@ angular.module('TurkishApp')
           price                 : data.price,
 					type									: data.is_electronic
       }
-			console.log(updateData);
+			// console.log(updateData);
       promotionService.updatePromotion(updateData)
       .then(function (result){
         if(result.data.message == "No data found."){
