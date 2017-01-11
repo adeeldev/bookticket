@@ -57,7 +57,7 @@ router.post('/register', function (request,response){
 		username : request.body.username,
 		password : request.body.password,
 		email : request.body.email,
-		phone_no : request.body.telephone,
+		phone_no : request.body.phone_no,
 		address : request.body.address,
 		payment_method : request.body.payment_method,
 		dateCreated : moment().format('MM-DD-YYYY h:mm a'),
@@ -65,11 +65,11 @@ router.post('/register', function (request,response){
 		emailCode : helperFun.randomCode(6),
 		notify : false
 	}
-	if((data.username == null || "") && (data.password == null || "") && (data.email == null || "") && (data.city == null || "") && (data.telphone == null || "")){
-		response.status(400).send({"message" : "Parameters are missing."}).end();
+	if((data.username == null || "") || (data.password == null || "") || (data.email == null || "") || (data.address == null || "") || (data.phone_no == null || "")){
+		 response.status(400).send({"message" : "Parameters are missing."}).end();
 	}else{
 		//SARUH23500001
-		userModel.findOne({ $and:[ {'email':data.email}, {'telephone': data.telephone} ]},function (err, user){
+		userModel.findOne({ $and:[ {'email':data.email}, {'telephone': data.phone_no} ]},function (err, user){
 			if(err){
 					response.status(400).send({"message" : err}).end();
 			}
