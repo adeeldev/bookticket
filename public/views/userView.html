@@ -24,6 +24,7 @@
       <td>{{user.owner_email}}</td>
       <td>{{user.organization_name}}</td>
       <td>{{user.type}}</td>
+      <td>{{user.isActive}}</td>
       <td>{{user.created | date:'MM-dd-yyyy hh:mm a'}}</td>
       <td ng-show="type == 'admin'"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update" ng-click="getUser(user._id)">Update</button></td>
       <!-- <td ng-show="type == 'admin'"><input class='btn btn-sm btn-success' type="button" value="Update" ng-click="updateUser(user._id, 'lg')"></td> -->
@@ -78,7 +79,7 @@
   	</div>
     <div class="form-group">
   		<label class="control-label">Amount for Distance Range</label>
-  		<input placeholder='Amount' type="text" class="form-control" name='amount' ng-model='Event.amount' required>
+  		<input placeholder='Amount' type="text" class="form-control" name='distance_ranges' ng-model='Event.distance_ranges' required>
   	</div>
   	<div class="form-group">
   		<label class="control-label">Distance Range</label>

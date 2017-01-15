@@ -11,10 +11,10 @@ angular.module('TurkishApp')
 			return $http(req);
 		}
 
-		this.getAllUser = function(){
+		this.getAllUser = function(type, uid){
 			req = {
 				'method' : 'GET',
-				'url' : URL+"/",
+				'url' : URL+"?type="+type+'&uid='+uid,
 			}
 			return $http(req);
 		}

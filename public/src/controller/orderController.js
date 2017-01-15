@@ -10,17 +10,17 @@ angular.module('TurkishApp')
     $scope.type = $cookies.get('type');
 
 
-  	orderService.getAllUser()
-  		.then(function (admins){
-          console.log('In Second condition');
-  				$scope.admins = admins.data;
-          console.log($scope.admins);
-  		})
-  		.catch(function (err){
-  			if(err.status == 500){
-  				$scope.serverError = true;
-  			}
-  	})
+		$scope.getOwnerDetail = function (){
+			orderService.getAllUser($scope.type, $scope.uid)
+	  		.then(function (admins){
+	  				$scope.admins = admins.data;
+	  		})
+	  		.catch(function (err){
+	  			if(err.status == 500){
+	  				$scope.serverError = true;
+	  			}
+	  	})
+		}
 
 	$scope.searchData = function(start, end) {
 		var url = $location.path().split("/");
@@ -37,15 +37,12 @@ angular.module('TurkishApp')
 		orderService.searchOrders(data)
   		.then(function (result){
 				if(result.data.msg == "no order found"){
-					console.log('in log condition');
 					$scope.orders = [];
 				}else{
   			$scope.orders = result.data;
-				console.log($scope.orders);
 				}
   		})
   		.catch(function (err){
-				console.log(err.data);
 				$scope.err = err.data.msg;
   			if(err.status == 500){
   				// $scope.serverError = true;
@@ -64,14 +61,12 @@ angular.module('TurkishApp')
   	orderService.getUserOrders(data)
   		.then(function (result){
 				if(result.data.msg == "no order found"){
-					console.log('in log condition');
 					$scope.orders = [];
 				}else{
   			$scope.orders = result.data;
 				}
   		})
   		.catch(function (err){
-				console.log(err.data);
 				$scope.err = err.data.msg;
   			if(err.status == 500){
   				// $scope.serverError = true;

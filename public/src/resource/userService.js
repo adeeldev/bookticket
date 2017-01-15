@@ -1,9 +1,8 @@
 angular.module('TurkishApp')
 	.service('userService', ['$http','$location',function($http,$location){
+
 		 this.getAllUser = function(){
-
 			var url = "http://" + $location.host() + ":" + $location.port() + '/user';
-
 			var req = {
 				method : "get",
 				url :  url,
@@ -41,9 +40,7 @@ angular.module('TurkishApp')
 		}
 
 		this.allUser = function(){
-
 			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
-
 			var req = {
 				method : "get",
 				url :  url,
@@ -53,6 +50,7 @@ angular.module('TurkishApp')
 			}
 			return $http(req);
 		}
+		
 		this.addAdmin = function (data){
 			var url = "http://" + $location.host() + ":" + $location.port() + '/owner';
 			req = {

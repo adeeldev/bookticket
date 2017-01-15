@@ -13,9 +13,11 @@ var ownersSchema = new Schema({
 	share							: String,
 	courier_charges		: String,
 	amount    				: Number,
+	distance_ranges		: Number,
 	location					: String,
 	latitude					: Number,
 	longitude					: Number,
+	isActive					: Boolean,
 	created						: { type: Date,default: Date.now}
 });
 

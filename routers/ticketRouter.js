@@ -7,16 +7,33 @@ var helperFunc = require('../lib/helperFunc');
 var gcm = require('node-gcm');
 router
 	.get('/', function (request, response){
-		ownerModel.getSubAdmins()
-		.then(function (result){
-			if(result == ""){
-			response.status(404).send({'msg':'no owner found'});
-			}
-			response.status(200).send(result);
-		}).catch(function (err){
-			console.log("Error : " + err);
-			response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
-		})
+		var type = request.query.type;
+		var uid = request.query.uid;
+		if(type == 'sAdmin'){
+			ownerModel.find({$and:[{'_id': uid},{'type':type }]},function (err, result){
+				if(err){
+					response.status(500).send({"message": "Internal Server Error","err" : err}).end();
+				}
+				if(result == null){
+					response.status(400).send({"message": "Invalid Verification Code"}).end();
+				}
+				console.log(result);
+				 response.status(200).send(result).end();
+			});
+		}
+		if(type == 'admin'){
+			ownerModel.getSubAdmins()
+			.then(function (result){
+				if(result == ""){
+				response.status(404).send({'msg':'no owner found'});
+				}
+				response.status(200).send(result);
+			}).catch(function (err){
+				console.log("Error : " + err);
+				response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
+			})
+		}
+
 	})
 	.get('/:userid', function (request, response){
 		var userid = request.params.userid;

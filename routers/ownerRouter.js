@@ -26,7 +26,7 @@ var geocoder = NodeGeocoder(options);
 			response.status(500).send({"code":"ET:Ye","message" : "An error has Occured while retrieving event data.", "err" : err}).end();
 		})
 	})
-	
+
 	router.get('/:userid', function (request, response){
 		var userid = request.params.userid;
 		ownerModel.getOwner(userid)
@@ -97,7 +97,7 @@ var geocoder = NodeGeocoder(options);
 				"organization_name" : request.body.organization_name,
 				"type"           		: request.body.type,
 				"share" 						: request.body.share,
-				"amount"						: request.body.amount,
+				"distance_ranges"		: request.body.distance_ranges,
 				"courier_charges"		: request.body.courier_charges,
 				"location"					: request.body.location.formatted_address,
 				"latitude"					: res[0].latitude,
@@ -124,13 +124,32 @@ var geocoder = NodeGeocoder(options);
 		if(_id == null || ""){
 			response.status(400).send({"message": "Parameter Missing"}).end();
 		}else{
-			ownerModel.findOneAndRemove({"_id" : _id},function (err,result){
+			// ownerModel.findOneAndRemove({"_id" : _id},function (err,result){
+			// 	if(err){
+			// 		console.log("An Error has occured." + err);
+			// 		return response.status(500).send({"message" : "Server Error . Please try Agin Later." , "err" : err}).end();
+			// 	}
+			// 	response.status(200).send({"message" : "Deleted Successfully."}).end();
+			// });
+			ownerModel.findOne({"_id" : _id},function (err,User){
 				if(err){
-					console.log("An Error has occured." + err);
-					return response.status(500).send({"message" : "Server Error . Please try Agin Later." , "err" : err}).end();
+					return response.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
 				}
-				response.status(200).send({"message" : "Deleted Successfully."}).end();
-			});
+				if(User == null){
+					return response.status(400).send({"message" : "Invalid Email OR Code"}).end();
+				}
+
+
+				User.isActive 			= true;
+				User.save(function (error,result){
+					if(error){
+						return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
+					}
+					response.status(200).send(result).end();
+				})
+			})
+
+
 		}
 	})
 
@@ -160,7 +179,7 @@ var geocoder = NodeGeocoder(options);
 					owner_password 			= data.owner_password,
 					share 							= data.share,
 					courier_charges 		= data.courier_charges,
-					amount 							= data.amount,
+					distance_ranges 		= data.distance_ranges,
 					type								= data.type,
 					courier_charges 		= data.courier_charges;
 					// console.log(data);
@@ -174,27 +193,17 @@ var geocoder = NodeGeocoder(options);
 				if(User == null){
 					return response.status(400).send({"message" : "Invalid Email OR Code"}).end();
 				}
-				User.organization_name 		=  organization_name,
+				User.organization_name 		= organization_name,
 				User.owner_name 					= owner_name,
-				User.owner_password 			=  owner_password,
-				User.share 								=  share,
+				User.owner_password 			= owner_password,
+				User.share 								= share,
 				User.courier_charges 			= courier_charges,
-				User.amount								= amount;
+				User.distance_ranges			= distance_ranges,
 				User.type 								= type;
-				User.courier_charges 			= courier_charges;
 				User.save(function (error,result){
 					if(error){
 						return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
 					}
-					var message = "Your User name is updated.Your new Username is : " + result.username;
-					var subject = "Profile Update";
-					// helperFun.emailSender(result.email, message, subject)
-					// 	.then(function (result){
-					// 		console.log("Email is sent.");
-					// 	})
-					// 	.catch(function (error){
-					// 		console.log(error);
-					// 	})
 					delete result.__v;
 					response.status(200).send(result).end();
 				})
@@ -213,12 +222,11 @@ var geocoder = NodeGeocoder(options);
 					owner_password 			= data.owner_password,
 					share 							= data.share,
 					courier_charges 		= data.courier_charges,
-					amount 							= data.amount,
+					distance_ranges 		= data.distance_ranges,
 					type								= data.type,
 					location 						= address,
 					latitude 						= lat,
-					longitude 					= lon,
-					courier_charges 		= data.courier_charges;
+					longitude 					= lon;
 					// console.log(data);
 			if((data._id == null || "") && (data.email == null || "")){
 				response.status(400).send({"message" : "Parameters are missing."}).end();
@@ -235,7 +243,7 @@ var geocoder = NodeGeocoder(options);
 				User.owner_password 			=  owner_password,
 				User.share 								=  share,
 				User.courier_charges 			= courier_charges,
-				User.amount								= amount;
+				User.distance_ranges			= amount;
 				User.type 								= type;
 				User.location 						= location,
 				User.latitude 						= latitude,
@@ -247,13 +255,6 @@ var geocoder = NodeGeocoder(options);
 					}
 					var message = "Your User name is updated.Your new Username is : " + result.username;
 					var subject = "Profile Update";
-					// helperFun.emailSender(result.email, message, subject)
-					// 	.then(function (result){
-					// 		console.log("Email is sent.");
-					// 	})
-					// 	.catch(function (error){
-					// 		console.log(error);
-					// 	})
 					delete result.__v;
 					response.status(200).send(result).end();
 				})

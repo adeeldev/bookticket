@@ -69,9 +69,10 @@ router.post('/register', function (request,response){
 		 response.status(400).send({"message" : "Parameters are missing."}).end();
 	}else{
 		//SARUH23500001
-		userModel.findOne({ $and:[ {'email':data.email}, {'telephone': data.phone_no} ]},function (err, user){
+		console.log(data.email);
+		userModel.findOne({ $and:[ {'email':data.email}]},function (err, user){
 			if(err){
-					response.status(400).send({"message" : err}).end();
+					return response.status(400).send({"message" : err}).end();
 			}
 			if(user){
 					return response.status(400).send({"message" : 'email already exists'}).end();
@@ -125,15 +126,16 @@ router.post('/verify',function (request,response){
 		}
 
 		var data = {
-			username : result.username,
-			password : result.password,
-			email : result.email,
-			address : request.body.address,
-			payment_method : request.body.payment_method,
-			dateCreated : result.dateCreated,
-			isVerified : true,
-			emailCode : result.emailCode,
-			notify : true
+			username 				: result.username,
+			password 				: result.password,
+			email 					: result.email,
+			address 				: result.address,
+			phone_no 				: result.phone_no,
+			payment_method 	: request.body.payment_method,
+			dateCreated 		: result.dateCreated,
+			isVerified 			: true,
+			emailCode 			: result.emailCode,
+			notify 					: true
 		}
 		var newUser = new userModel(data);
 		// userModel.emailCode = helperFun.randomCode(6);
@@ -218,13 +220,14 @@ router.post('/changePassword',function (request,response){
 	})
 });
 router.post('/updateUser', function (request,response){
+
 	var data = request.body;
 	var user_id = data.user_id,
 		username = data.username,
 		email = data.email,
-		city = data.city,
-		telephone = data.telephone;
-	if((data.username == null || "") && (data.email == null || "") && (data.telphone == null || "")){
+		address = data.address,
+		phone_no = data.phone_no;
+	if((data.username == null || "") && (data.email == null || "") && (data.phone_no == null || "")){
 		response.status(400).send({"message" : "Parameters are missing."}).end();
 	}else{
 	userModel.findOne({"_id" : user_id},function (err,User){
@@ -236,8 +239,8 @@ router.post('/updateUser', function (request,response){
 		}
 		User.username = username;
 		User.email = email;
-		User.city = city;
-		User.telephone = telephone;
+		User.address = address;
+		User.phone_no = phone_no;
 		User.save(function (error,result){
 			if(error){
 				return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
