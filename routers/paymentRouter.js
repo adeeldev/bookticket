@@ -3,6 +3,7 @@ var router = express.Router();
 var moment = require('moment');
 var eventModel = require('../models/promotionModel');
 var ticketModel = require('../models/ticketModel');
+var userModel = require('../models/userModel');
 var helperFunc = require('../lib/helperFunc');
 var gcm = require('node-gcm'),
 nodemailer = require('nodemailer'),
@@ -73,7 +74,8 @@ console.log(req.body.payment_type);
     })
     .catch(function (err){
       console.log("Server error : " + err);
-    response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
+
+    res.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
     })
   }
   if(req.body.payment_type == 'self'){
@@ -204,7 +206,7 @@ console.log(req.body.payment_type);
               '            <table border="0" cellpadding="0" cellspacing="0" style="width:600px;padding:0px 30px 0px 30px;background-color:#ffffff">'+
               '                <tbody><tr>'+
               '                    <td>'+
-              '                        <p style="font-weight:bold">Hi <span style="color:#f04d1c"></span>,</p>'+
+              '                        <p style="font-weight:bold">Hi <span style="color:#f04d1c"></span>,</p>    '+req.body.user_name+
               '                        <p style="font-weight:bold">Thanks for using our service.</p>'+
               '                        <p style="font-weight:bold">Please reference the following details for booking # <span style="color:#f04d1c">'+result._id+'</span> with <span style="color:#f04d1c">Book Ticket</span>:</p>'+
               '                        <table style="width:100%">'+
@@ -325,7 +327,11 @@ console.log(req.body.payment_type);
               '                            </font></span></td></tr></tbody></table><span class="HOEnZb"><font color="#888888">'+
               '                </font></span></td></tr></tbody></table><span class="HOEnZb"><font color="#888888">'+
               '        </font></span></td></tr></tbody></table>';
-
+            userModel.findOne({ _id : req.body.user_id},function (err, user){
+              if(err){
+                res.send(err).end();
+              }
+              console.log(user);
               var transporter = nodemailer.createTransport({
                   service: 'gmail',
                   auth: {
@@ -340,13 +346,13 @@ console.log(req.body.payment_type);
                   }
               });
               transporter.sendMail({
-                  to: 'adeelbashir5@gmail.com',
+                  to:     user.email,
                   subject: 'subject',
                   // text: message,
                   html: msg
               });
-
-                  res.status(200).send(result).end();
+              res.send({'msg': 'success'}).end();
+            })
                 })
               })
             }
