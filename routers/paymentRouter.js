@@ -329,8 +329,8 @@ console.log(req.body.payment_type);
               var transporter = nodemailer.createTransport({
                   service: 'gmail',
                   auth: {
-                      user: 'testonebyte@gmail.com',
-                      pass: '1byte@biz'
+                      user: 'ticketplus.greece@gmail.com',
+                      pass: 'TicketplusiOS'
                   }
               }, {
                   // default values for sendMail method
