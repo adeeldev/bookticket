@@ -239,7 +239,7 @@ router.post('/removePromotion',function (request,response){
 })
 
 router.post('/updatePromotion',function (request,response){
-
+	geocoder.geocode(request.body.event_address, function(err, res) {
 	var id 										=  request.body.id,
 			event_name 						=  request.body.event_name,
       event_description 		=  request.body.event_description,
@@ -263,6 +263,8 @@ router.post('/updatePromotion',function (request,response){
 		'total_tickets' 		: total_tickets,
 		'event_category' 		: event_category,
 		'price'							: price,
+		"location_latituude"	: res[0].latitude,
+		"location_longitude"	: res[0].longitude,
 		'is_electronic'			: is_electronic
 	}
 
@@ -296,6 +298,7 @@ router.post('/updatePromotion',function (request,response){
 			response.status(200).send(promotion).end();
 		})
 	})
+});
 })
 
 module.exports = router;
