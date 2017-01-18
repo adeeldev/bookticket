@@ -1,7 +1,7 @@
 angular.module('TurkishApp')
 	.controller('promotionController',['$scope','$uibModal', 'promotionService' , 'eventService', 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, promotionService, eventService,  FileUploader, $location,$cookies){
 		$scope.user = JSON.parse($cookies.get('data'));
-		console.log($scope.user);
+		// console.log($scope.user);
 		if(!$scope.user._id){
 			$location.path('/');
 		}
@@ -87,7 +87,7 @@ angular.module('TurkishApp')
     }
 
     $scope.updatePromotion = function(promotionId){
-			console.log(promotionId);
+			// console.log(promotionId);
       promotionService.getPromotion(promotionId)
       .then(function (result){
         if(result.data.message == "No data found."){
@@ -174,7 +174,7 @@ angular.module('TurkishApp')
     }
 
     $scope.deletePromotion = function(promotionId){
-        console.log(promotionId);
+        // console.log(promotionId);
         var id = {'id' : promotionId}
         promotionService.deletePromotion(id)
         .then(function (promotionResult){
@@ -194,7 +194,7 @@ angular.module('TurkishApp')
 
 
     $scope.openEdit = function(size,Promotion){
-        console.log(Promotion);
+        // console.log(Promotion);
         $scope.Event = Promotion;
 
         var modalInstance = $uibModal.open({

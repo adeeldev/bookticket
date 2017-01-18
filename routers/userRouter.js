@@ -5,6 +5,9 @@ var express = require('express'),
 	moment = require('moment'),
 	helperFun = require('../lib/helperFunc'),
 	md5 = require('md5');
+
+
+	
 router.get('',function (request,response){
 	userModel.find({},{"__v" : 0, "password" : 0, "emailCode" : 0},function (err,result){
 		if(err){

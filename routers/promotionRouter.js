@@ -9,6 +9,14 @@ var promotionModel = require('../models/promotionModel'),
 		path = require('path'),
 		helperFunc = require('../lib/helperFunc'),
 		nodemailer = require('nodemailer');
+		var NodeGeocoder = require('node-geocoder');
+		var options = {
+			provider: 'google',
+			httpAdapter: 'https',
+			apiKey: 'AIzaSyCDKm-dvw_vxm3P00MCX0BH4VGWVxOCroM',
+			formatter: null
+		};
+		var geocoder = NodeGeocoder(options);
 
 router.get('/allPromotions',function (request,response){
 	var date = Date.now();
@@ -125,6 +133,8 @@ router.post('/getPromotionByIdAdmin', function(request,response){
 })
 
 router.post('/addPromotionAdmin',multipartMiddleware,function (request,response){
+
+	geocoder.geocode(request.body.event_address, function(err, res) {
 	var event_name 				=  request.body.event_name,
       event_description 		=  request.body.event_description,
       banner_Image_url 			=  request.body.banner_Image_url,
@@ -135,8 +145,6 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
       owner_Id 							=  request.body.owner_Id,
       event_address 				=  request.body.event_address,
       event_category 				=  request.body.event_category,
-      location_latituude 		=  request.body.location_latituude,
-      location_longitude 		=  request.body.location_longitude,
       seating_plan_doc_url 	=  request.body.seating_plan_doc_url,
       price									=  request.body.price,
 			share_percentage			=  request.body.share_percentage,
@@ -156,8 +164,8 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
     'owner_Id'			: owner_Id,
     'event_address'		: event_address,
     'event_category'	:event_category,
-    'location_latituude': location_latituude,
-    'location_longitude': location_longitude,
+		"location_latituude"	: res[0].latitude,
+		"location_longitude"	: res[0].longitude,
     'seating_plan_doc_url' : seating_plan_doc_url,
 		'event_date' 		: event_date,
 		'price'      		: price,
@@ -171,6 +179,7 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
 		response.status(200).send(result).end();
 		})
 	}
+	});
 })
 
 router.post('/addPromotion',multipartMiddleware,function (request,response){
