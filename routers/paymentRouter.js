@@ -331,12 +331,12 @@ console.log(req.body.payment_type);
               if(err){
                 res.send(err).end();
               }
-              console.log(user);
+              var user_email = user.email;
               var transporter = nodemailer.createTransport({
                   service: 'gmail',
                   auth: {
-                      user: 'ticketplus.greece@gmail.com',
-                      pass: 'TicketplusiOS'
+                      user: 'testonebyte@gmail.com',
+                      pass: '1byte@biz'
                   }
               }, {
                   // default values for sendMail method
@@ -345,8 +345,9 @@ console.log(req.body.payment_type);
                       'My-Awesome-Header': '123'
                   }
               });
+              console.log(user_email);
               transporter.sendMail({
-                  to:     user.email,
+                  to:     user_email,
                   subject: 'subject',
                   // text: message,
                   html: msg
@@ -359,7 +360,7 @@ console.log(req.body.payment_type);
           })
           .catch(function (err){
             console.log("Server error : " + err);
-        response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
+        res.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
         })
       }
     });

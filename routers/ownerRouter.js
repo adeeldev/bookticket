@@ -100,6 +100,7 @@ var geocoder = NodeGeocoder(options);
 				"distance_ranges"		: request.body.distance_ranges,
 				"courier_charges"		: request.body.courier_charges,
 				"location"					: request.body.location.formatted_address,
+				"fixed_price"				: request.body.fixed_price,
 				"latitude"					: res[0].latitude,
 				"longitude"					: res[0].longitude
 			};
@@ -154,7 +155,6 @@ var geocoder = NodeGeocoder(options);
 	})
 
 	router.post('/userById', function (request,response){
-		console.log(request.body.userId);
 		var id = request.body.userId;
 		if(id == null || ""){
 			response.status(400).send({"message": "Parameter Missing"}).end();
@@ -170,7 +170,6 @@ var geocoder = NodeGeocoder(options);
 	})
 
 	router.post('/findAndUpdateById', function (request,response){
-		// console.log(request.body.location);
 		if(request.body.location){
 			var data = request.body;
 			var address = request.body.location;

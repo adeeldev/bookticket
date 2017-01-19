@@ -15,6 +15,7 @@ var ownersSchema = new Schema({
 	amount    				: Number,
 	distance_ranges		: Number,
 	location					: String,
+	fixed_price				: String,
 	latitude					: Number,
 	longitude					: Number,
 	isActive					: Boolean,

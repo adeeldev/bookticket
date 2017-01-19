@@ -96,6 +96,20 @@ angular.module('TurkishApp')
 		}
 
 		$scope.updateUser = function(user) {
+			console.log(user);
+			var data = {
+				organization_name 	: user.organization_name,
+				owner_name 					:	user.owner_name,
+				owner_password 			:	user.owner_password,
+				share 							:	user.share,
+				courier_charges 		:	user.courier_charges,
+				distance_ranges			:	user.distance_ranges,
+				type 								:	user.type,
+				fixed_price					: user.fixed_price,
+				location						: user.location,
+				_id									: user._id,
+				type								: user.type
+			}
 			userService.findAndUpdateById(user)
 			.then(function (success){
 				$scope.userData = success.data;
