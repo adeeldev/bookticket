@@ -170,7 +170,7 @@ var geocoder = NodeGeocoder(options);
 	})
 
 	router.post('/findAndUpdateById', function (request,response){
-		if(request.body.location){
+		if(request.body.location == null || ""){
 			var data = request.body;
 			var address = request.body.location;
 			var organization_name 	= data.organization_name,
@@ -181,6 +181,7 @@ var geocoder = NodeGeocoder(options);
 					distance_ranges 		= data.distance_ranges,
 					type								= data.type,
 					courier_charges 		= data.courier_charges;
+					fixed_price					= data.fixed_price;
 					// console.log(data);
 			if((data._id == null || "") && (data.email == null || "")){
 				response.status(400).send({"message" : "Parameters are missing."}).end();
@@ -199,6 +200,7 @@ var geocoder = NodeGeocoder(options);
 				User.courier_charges 			= courier_charges,
 				User.distance_ranges			= distance_ranges,
 				User.type 								= type;
+				User.fixed_price					= fixed_price;
 				User.save(function (error,result){
 					if(error){
 						return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
@@ -208,13 +210,18 @@ var geocoder = NodeGeocoder(options);
 				})
 			})
 		}else{
-			var address = request.body.location.formatted_address;
+			console.log('in else condition');
+			var address = request.body.location;
 			geocoder.geocode(address, function(err, res) {
-			if(err){
-				response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
+			// if(err){
+			// 	response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
+			// }
+			console.log(err);
+			console.log(res);
+			if(res){
+				var lat = res[0].latitude;
+				var lon = res[0].longitude;
 			}
-			var lat = res[0].latitude;
-			var lon = res[0].longitude;
 			var data = request.body;
 			var organization_name 	= data.organization_name,
 					owner_name 					= data.owner_name,
@@ -222,6 +229,7 @@ var geocoder = NodeGeocoder(options);
 					share 							= data.share,
 					courier_charges 		= data.courier_charges,
 					distance_ranges 		= data.distance_ranges,
+					fixed_price					= data.fixed_price,
 					type								= data.type,
 					location 						= address,
 					latitude 						= lat,
@@ -242,12 +250,13 @@ var geocoder = NodeGeocoder(options);
 				User.owner_password 			=  owner_password,
 				User.share 								=  share,
 				User.courier_charges 			= courier_charges,
-				User.distance_ranges			= amount;
+				User.distance_ranges			= distance_ranges;
 				User.type 								= type;
 				User.location 						= location,
 				User.latitude 						= latitude,
 				User.longitude 						= longitude,
 				User.courier_charges 			= courier_charges;
+				User.fixed_price 					= fixed_price;
 				User.save(function (error,result){
 					if(error){
 						return response.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
