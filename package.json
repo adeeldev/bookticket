@@ -33,6 +33,7 @@
     "nodemailer-mailgun-transport": "git+https://github.com/orliesaurus/nodemailer-mailgun-transport.git",
     "nodemailer-smtp-transport": "^1.1.0",
     "q": "^1.4.1",
-    "restify": "^4.0.3"
+    "restify": "^4.0.3",
+    "sendgrid": "^4.7.1"
   }
 }

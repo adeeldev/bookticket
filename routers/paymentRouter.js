@@ -8,6 +8,8 @@ var helperFunc = require('../lib/helperFunc');
 var gcm = require('node-gcm'),
 nodemailer = require('nodemailer'),
 moment = require('moment');
+var helper = require('sendgrid').mail;
+
 
 var braintree = require("braintree");
 
@@ -27,106 +29,182 @@ router.get('/client_token', function (request, response){
 
 router.post("/checkout", function (req, res) {
 
-console.log(req.body.payment_type);
-  if(req.body.payment_type == "cash"){
-    var newOrder = {
-      "category_name" : req.body.category_name,
-      "qty": req.body.qty,
-      "delivery_method": req.body.delivery_method,
-      "owner_id": req.body.owner_id,
-      "user_id": req.body.user_id,
-      "user_address": req.body.user_address,
-      "user_phone_no": req.body.user_phone_no,
-      "user_name": req.body.user_name,
-      "payment_type": 'cash on delivery',
-      "trans_type": 'cash on delivery',
-      "order_id": req.body.order_id,
-      "event_id": req.body.event_id,
-      "event_name": req.body.event_name,
-      "status": 'pending'
-    };
-    ticketModel.addOrder(newOrder)
-    .then(function (event){
-      if(event == null){
-        response.status(400).send({"code":"NE-Dup","message" : "Duplicate Order"}).end();
-      }else{
-        eventModel.findOne({ _id : req.body.event_id},function (err, ticket){
-          if(err){
-            return res.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
-          }
-          if(ticket == null){
-            return res.status(400).send({"message" : "Invalid Event"}).end();
-          }
-          var total_tickets = ticket.remaining_tickets;
-          var order = 1;
-          var remaining_ticket = total_tickets - order;
-          ticket.remaining_tickets = remaining_ticket;
-          ticket.save(function (error,result){
-            if(error){
-              return res.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
-            }
-            var subject = "Order Updated";
-            delete result.__v;
-            res.status(200).send(result).end();
-          })
-        })
-      }
-    })
-    .catch(function (err){
-      console.log("Server error : " + err);
 
-    res.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
-    })
-  }
-  if(req.body.payment_type == 'self'){
-    var newOrder = {
-      "category_name" : req.body.category_name,
-      "qty": req.body.qty,
-      "delivery_method": req.body.delivery_method,
-      "owner_id": req.body.owner_id,
-      "user_id": req.body.user_id,
-      "user_address": req.body.user_address,
-      "user_phone_no": req.body.user_phone_no,
-      "user_name": req.body.user_name,
-      "payment_type": 'self and courier service',
-      "trans_type": 'self and courier service',
-      "order_id": req.body.order_id,
-      "event_id": req.body.event_id,
-      "event_name": req.body.event_name,
-      "status": 'pending'
-    };
-    ticketModel.addOrder(newOrder)
-    .then(function (event){
-      if(event == null){
-        response.status(400).send({"code":"NE-Dup","message" : "Duplicate Order"}).end();
-      }else{
-        eventModel.findOne({ _id : req.body.event_id},function (err, ticket){
-          if(err){
-            return res.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
-          }
-          if(ticket == null){
-            return res.status(400).send({"message" : "Invalid Event"}).end();
-          }
-          var total_tickets = ticket.remaining_tickets;
-          var order = 1;
-          var remaining_ticket = total_tickets - order;
-          ticket.remaining_tickets = remaining_ticket;
-          ticket.save(function (error,result){
-            if(error){
-              return res.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
-            }
-            var subject = "Order Updated";
-            delete result.__v;
-            res.status(200).send(result).end();
-          })
-        })
-      }
-    })
-    .catch(function (err){
-      console.log("Server error : " + err);
-      return response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
-    })
-  }else{
+
+  // from_email = new helper.Email("testonebyte2@gmail.com")
+  // to_email = new helper.Email("adeelbashir5@gmail.com")
+  // subject = "Sending with SendGrid is Fun"
+  // content = new helper.Content("text/plain", "and easy to do anywhere, even with Node.js")
+  // mail = new helper.Mail(from_email, subject, to_email, content)
+  //
+  // var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+  // var request = sg.emptyRequest({
+  //   method: 'POST',
+  //   path: '/v3/mail/send',
+  //   body: mail.toJSON()
+  // });
+  //
+  // sg.API(request, function(error, response) {
+  //   console.log(response.statusCode)
+  //   console.log(response.body)
+  //   console.log(response.headers)
+  // })
+
+
+
+// console.log(req.body.payment_type);
+//   if(req.body.payment_type == "cash"){
+//     var newOrder = {
+//       "category_name" : req.body.category_name,
+//       "qty": req.body.qty,
+//       "delivery_method": req.body.delivery_method,
+//       "owner_id": req.body.owner_id,
+//       "user_id": req.body.user_id,
+//       "user_address": req.body.user_address,
+//       "user_phone_no": req.body.user_phone_no,
+//       "user_name": req.body.user_name,
+//       "payment_type": 'cash on delivery',
+//       "trans_type": 'cash on delivery',
+//       "order_id": req.body.order_id,
+//       "event_id": req.body.event_id,
+//       "event_name": req.body.event_name,
+//       "status": 'pending'
+//     };
+//     ticketModel.addOrder(newOrder)
+//     .then(function (event){
+//       if(event == null){
+//         response.status(400).send({"code":"NE-Dup","message" : "Duplicate Order"}).end();
+//       }else{
+//         eventModel.findOne({ _id : req.body.event_id},function (err, ticket){
+//           if(err){
+//             return res.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
+//           }
+//           if(ticket == null){
+//             return res.status(400).send({"message" : "Invalid Event"}).end();
+//           }
+//           var total_tickets = ticket.remaining_tickets;
+//           var order = 1;
+//           var remaining_ticket = total_tickets - order;
+//           ticket.remaining_tickets = remaining_ticket;
+//           ticket.save(function (error,result){
+//             if(error){
+//               return res.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
+//             }
+//             var subject = "Order Updated";
+//             delete result.__v;
+//             res.status(200).send(result).end();
+//           })
+//         })
+//       }
+//     })
+//     .catch(function (err){
+//       console.log("Server error : " + err);
+//
+//     res.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
+//     })
+//   }
+//
+//   if(req.body.payment_type == "cash"){
+//     var newOrder = {
+//       "category_name" : req.body.category_name,
+//       "qty": req.body.qty,
+//       "delivery_method": req.body.delivery_method,
+//       "owner_id": req.body.owner_id,
+//       "user_id": req.body.user_id,
+//       "user_address": req.body.user_address,
+//       "user_phone_no": req.body.user_phone_no,
+//       "user_name": req.body.user_name,
+//       "payment_type": 'cash on delivery',
+//       "trans_type": 'cash on delivery',
+//       "order_id": req.body.order_id,
+//       "event_id": req.body.event_id,
+//       "event_name": req.body.event_name,
+//       "status": 'pending'
+//     };
+//     ticketModel.addOrder(newOrder)
+//     .then(function (event){
+//       if(event == null){
+//         response.status(400).send({"code":"NE-Dup","message" : "Duplicate Order"}).end();
+//       }else{
+//         eventModel.findOne({ _id : req.body.event_id},function (err, ticket){
+//           if(err){
+//             return res.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
+//           }
+//           if(ticket == null){
+//             return res.status(400).send({"message" : "Invalid Event"}).end();
+//           }
+//           var total_tickets = ticket.remaining_tickets;
+//           var order = 1;
+//           var remaining_ticket = total_tickets - order;
+//           ticket.remaining_tickets = remaining_ticket;
+//           ticket.save(function (error,result){
+//             if(error){
+//               return res.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
+//             }
+//             var subject = "Order Updated";
+//             delete result.__v;
+//             res.status(200).send(result).end();
+//           })
+//         })
+//       }
+//     })
+//     .catch(function (err){
+//       console.log("Server error : " + err);
+//
+//     res.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
+//     })
+//   }
+//
+//
+//   if(req.body.payment_type == 'self'){
+//     var newOrder = {
+//       "category_name" : req.body.category_name,
+//       "qty": req.body.qty,
+//       "delivery_method": req.body.delivery_method,
+//       "owner_id": req.body.owner_id,
+//       "user_id": req.body.user_id,
+//       "user_address": req.body.user_address,
+//       "user_phone_no": req.body.user_phone_no,
+//       "user_name": req.body.user_name,
+//       "payment_type": 'self and courier service',
+//       "trans_type": 'self and courier service',
+//       "order_id": req.body.order_id,
+//       "event_id": req.body.event_id,
+//       "event_name": req.body.event_name,
+//       "status": 'pending'
+//     };
+//     ticketModel.addOrder(newOrder)
+//     .then(function (event){
+//       if(event == null){
+//         response.status(400).send({"code":"NE-Dup","message" : "Duplicate Order"}).end();
+//       }else{
+//         eventModel.findOne({ _id : req.body.event_id},function (err, ticket){
+//           if(err){
+//             return res.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
+//           }
+//           if(ticket == null){
+//             return res.status(400).send({"message" : "Invalid Event"}).end();
+//           }
+//           var total_tickets = ticket.remaining_tickets;
+//           var order = 1;
+//           var remaining_ticket = total_tickets - order;
+//           ticket.remaining_tickets = remaining_ticket;
+//           ticket.save(function (error,result){
+//             if(error){
+//               return res.status(500).send({"message" : "Internal Server Error", "err" : error}).end();
+//             }
+//             var subject = "Order Updated";
+//             delete result.__v;
+//             res.status(200).send(result).end();
+//           })
+//         })
+//       }
+//     })
+//     .catch(function (err){
+//       console.log("Server error : " + err);
+//       return response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
+//     })
+//   }else{
 
     var nonce = req.body.nonce; //'fake-valid-nonce';//''
     var amount = parseFloat(req.body.price);
@@ -335,8 +413,8 @@ console.log(req.body.payment_type);
               var transporter = nodemailer.createTransport({
                   service: 'gmail',
                   auth: {
-                      user: 'testonebyte@gmail.com',
-                      pass: '1byte@biz'
+                      user: 'ticketplus.greece@gmail.com',
+                      pass: 'Ticket+GreeceiOS'
                   }
               }, {
                   // default values for sendMail method
@@ -364,7 +442,7 @@ console.log(req.body.payment_type);
         })
       }
     });
-  }
+  // }
 
 
 
