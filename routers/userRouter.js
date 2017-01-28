@@ -180,9 +180,8 @@ router.post('/removeUser', function (request,response){
 });
 
 router.post('/forgotPass',function (request,response){
-	var email = request.body.email,
-		deviceType = request.body.deviceType;
-	if((email == "" || null) || (deviceType != "Android" && deviceType != "Apple")){
+	var email = request.body.email;
+	if((email == "" || null)){
 		return response.status(400).send({"message": "Parameter Missing OR Invalid Parameter"}).end();
 	}
 	userModel.findOne({'email':email},function (err, result){
