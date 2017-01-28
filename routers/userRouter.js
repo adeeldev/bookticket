@@ -7,7 +7,7 @@ var express = require('express'),
 	md5 = require('md5');
 
 
-	
+
 router.get('',function (request,response){
 	userModel.find({},{"__v" : 0, "password" : 0, "emailCode" : 0},function (err,result){
 		if(err){
@@ -24,6 +24,20 @@ router.get('/eventNotification',function (request,response){
 		response.status(200).send(result).end();
 	})
 });
+
+router.get('/:userId', function (request, response){
+	var userId = request.params.userId;
+	userModel.findOne({"_id" : userId},function (err,User){
+		if(err){
+			return response.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
+		}
+		if(User == null){
+			return response.status(400).send({"message" : "Invalid Email OR Code"}).end();
+		}
+		return response.status(200).send(User).end();
+	})
+});
+
 router.post('/login', function (request, response){
 		var data = {
 			"email" : request.body.email,
@@ -72,7 +86,7 @@ router.post('/register', function (request,response){
 		 response.status(400).send({"message" : "Parameters are missing."}).end();
 	}else{
 		//SARUH23500001
-		console.log(data.email);
+		// console.log(data.email);
 		userModel.findOne({ $and:[ {'email':data.email}]},function (err, user){
 			if(err){
 					return response.status(400).send({"message" : err}).end();
@@ -164,6 +178,7 @@ router.post('/removeUser', function (request,response){
 		});
 	}
 });
+
 router.post('/forgotPass',function (request,response){
 	var email = request.body.email,
 		deviceType = request.body.deviceType;
@@ -182,13 +197,8 @@ router.post('/forgotPass',function (request,response){
 			if(err){
 				return response.status(500).send({"message": "Internal Server Error","err" : err}).end();
 			}
-			var message = "Please Click this link to change your password : ",
+			var message = "Please Click this code to change password: ",
 				subject = "Forget Password Request";
-			if(deviceType == "Android"){
-				message = message + "http://test.com/" + email + "/" + newUser.emailCode;
-			}else{
-				message = message + "http://test.com/" + email + "/" + newUser.emailCode;
-			}
 			helperFun.emailSender(email,message,subject)
 			.then(function(result){
 				response.status(200).send({"message":"emailsend"}).end();
@@ -198,6 +208,8 @@ router.post('/forgotPass',function (request,response){
 		})
 	});
 });
+
+
 router.post('/changePassword',function (request,response){
 	var password = request.body.password,
 		email = request.body.email,
