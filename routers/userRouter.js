@@ -196,13 +196,13 @@ router.post('/forgotPass',function (request,response){
 			if(err){
 				return response.status(500).send({"message": "Internal Server Error","err" : err}).end();
 			}
-			var message = "Please Click this code to change password: ",
+			var message = "Please Use this code to change password: ",
 				subject = "Forget Password Request";
 			helperFun.emailSender(email,message,subject)
 			.then(function(result){
-				response.status(200).send({"message":"emailsend"}).end();
+				return response.status(200).send({"message":"emailsend"}).end();
 			}).catch(function (err){
-				response.status(500).send({"message":"Internal Server Error.", "err" : err});
+				return response.status(500).send({"message":"Internal Server Error.", "err" : err});
 			})
 		})
 	});
