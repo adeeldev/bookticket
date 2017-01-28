@@ -11,6 +11,7 @@ angular.module('TurkishApp')
     $scope.url = $location.host();
     $scope.port = $location.port();
     $scope.base_url = 'http://'+$scope.url+':'+$scope.port+'/images/';
+		$scope.surl = 'http://'+$scope.url+':'+$scope.port;
     $scope.uid = $cookies.get('user');
     $scope.type = $cookies.get('type');
 	$scope.getPromotions = function(){
@@ -51,10 +52,13 @@ angular.module('TurkishApp')
               $scope.image2 =  $scope.base_url+$scope.image;
           }
       });
+			var video = $scope.video;
+			var video_url = video.replace(/\s+/g, '_');
         var promotionData = {
             event_name            : data.event_name,
             event_description     : data.event_description,
             banner_Image_url      : $scope.image1,
+						video_url							: $scope.surl+'/videos/'+video_url,
             event_start_time      : date._d,
             event_end_time        : endDate._d,
             total_tickets         : data.total_tickets,
@@ -63,8 +67,6 @@ angular.module('TurkishApp')
 						share_percentage			: $scope.user.share,
 						is_electronic					: data.is_electronic,
             event_category        : data.event_category,
-            location_latituude    : data.location_latituude,
-            location_longitude    : data.location_longitude,
             seating_plan_doc_url  : $scope.image2,
             price                 : data.price,
         }
@@ -141,6 +143,7 @@ angular.module('TurkishApp')
               $scope.image2 =  $scope.base_url+$scope.image;
           }
       });
+
       var updateData = {
 					id 										: data._id,
           event_name            : data.event_name,
@@ -156,6 +159,11 @@ angular.module('TurkishApp')
           price                 : data.price,
 					type									: data.is_electronic
       }
+			if($scope.video){
+				var video = $scope.video;
+				var video_url = video.replace(/\s+/g, '_');
+				updateData.video_url							= $scope.surl+'/videos/'+video_url
+			}
 			// console.log(updateData);
       promotionService.updatePromotion(updateData)
       .then(function (result){
@@ -290,6 +298,76 @@ angular.module('TurkishApp')
         $scope.uploader.onCompleteAll = function() {
             console.info('uploader', $scope.uploader.queue);
         };
+
+				/*********************************************************************/
+				/*               Angular file uploading code  video                        */
+				/*********************************************************************/
+			    $scope.uploader1 = new FileUploader({
+			        url: 'http://'+$scope.url+':'+$scope.port+'/upload/uploads'
+			    });
+			    // FILTERS
+			    $scope.uploader1.filters.push({
+			        name: 'customFilter',
+			        fn: function(item /*{File|FileLikeObject}*/, options) {
+			            return this.queue.length < 150;
+			        }
+			    });
+			        // CALLBACKS
+			        $scope.remove_image = function(){
+			            $scope.image_selected = false;
+			            $scope.show_choose = true;
+			            $scope.uploader.clearQueue();
+			            $scope.image_url = '/images/upload.png';
+			            jQuery('#file').val('');    //empty the input file value so next time if same file selects then it works
+			        };
+
+			        $scope.uploader1.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+					//console.info('onWhenAddingFileFailed', item, filter, options);
+			        };
+			        $scope.uploader1.onAfterAddingFile = function(fileItem) {
+					//console.info('onAfterAddingFile', fileItem);
+			            $scope.show_choose = false;
+			            if(!fileItem.file.name.match(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF|mp3|mp4|pdf)$/)){
+			                alert('Selected file is not a valid image');
+			                $scope.invalid_image = true;
+			            }else{
+			                $scope.invalid_image = false;
+			            }
+			        };
+			        $scope.uploader1.onAfterAddingAll = function(addedFileItems) {
+					//console.info('onAfterAddingAll', addedFileItems);
+			        };
+			        $scope.uploader1.onBeforeUploadItem = function(item) {
+					//console.info('onBeforeUploadItem', item);
+			        };
+			        $scope.uploader1.onProgressItem = function(fileItem, progress) {
+					//console.info('onProgressItem', fileItem, progress);
+			        };
+			        $scope.uploader1.onProgressAll = function(progress) {
+					//console.info('onProgressAll', progress);
+			        };
+			        $scope.uploader1.onSuccessItem = function(fileItem, response, status, headers) {
+					//console.info('onSuccessItem', fileItem, response, status, headers);
+			        };
+			        $scope.uploader1.onErrorItem = function(fileItem, response, status, headers) {
+					//console.info('onErrorItem', fileItem, response, status, headers);
+			        };
+			        $scope.uploader1.onCancelItem = function(fileItem, response, status, headers) {
+					//console.info('onCancelItem', fileItem, response, status, headers);
+			        };
+			        $scope.uploader1.onCompleteItem = function(fileItem, response, status, headers) {
+			            $scope.image_selected = true;
+					//console.info('onCompleteItem', fileItem, response, status, headers);
+			            $scope.image_url = '../uploads/images/'+fileItem.file.name;
+			            $scope.video = fileItem.file.name;
+									console.log($scope.video);
+			        };
+      $scope.uploader1.onCompleteAll = function() {
+          console.info('uploader1', $scope.uploader.queue);
+      };
+
+
+
 
 
     $scope.dates = {

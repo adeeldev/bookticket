@@ -146,6 +146,7 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
       event_address 				=  request.body.event_address,
       event_category 				=  request.body.event_category,
       seating_plan_doc_url 	=  request.body.seating_plan_doc_url,
+			video_url							=  request.body.video_url,
       price									=  request.body.price,
 			share_percentage			=  request.body.share_percentage,
 			is_electronic					=  request.body.is_electronic,
@@ -172,6 +173,9 @@ router.post('/addPromotionAdmin',multipartMiddleware,function (request,response)
 		'share_percentage' : share_percentage,
 		'is_electronic' : is_electronic
 	});
+	if(video_url){
+		newProm.video_url = video_url
+	}
 	newProm.save(function (error,result){
 		if (error) {
 			return response.status(500).send({"message" : "Internal Server error. Please try again later.", "err" : error}).end();
@@ -239,19 +243,19 @@ router.post('/removePromotion',function (request,response){
 })
 
 router.post('/updatePromotion',function (request,response){
-	geocoder.geocode(request.body.event_address, function(err, res) {
 	var id 										=  request.body.id,
 			event_name 						=  request.body.event_name,
-      event_description 		=  request.body.event_description,
-      banner_Image_url 			=  request.body.banner_Image_url,
-      event_start_time 			=  request.body.event_start_time,
-      event_end_time 				=  request.body.event_end_time,
-      total_tickets 				=  request.body.total_tickets,
-      event_category 				=  request.body.event_category,
-      seating_plan_doc_url 	=  request.body.seating_plan_doc_url,
-      price									=  request.body.price,
+			event_description 		=  request.body.event_description,
+			banner_Image_url 			=  request.body.banner_Image_url,
+			video_url							=  request.body.video_url,
+			event_start_time 			=  request.body.event_start_time,
+			event_end_time 				=  request.body.event_end_time,
+			total_tickets 				=  request.body.total_tickets,
+			event_category 				=  request.body.event_category,
+			seating_plan_doc_url 	=  request.body.seating_plan_doc_url,
+			price									=  request.body.price,
 			is_electronic					=  request.body.type;
-
+			console.log(video_url);
 	if(id == null || ""){
 		return response.status(400).send({"message" : "Id is Missing"});
 	}
@@ -263,42 +267,70 @@ router.post('/updatePromotion',function (request,response){
 		'total_tickets' 		: total_tickets,
 		'event_category' 		: event_category,
 		'price'							: price,
-		"location_latituude"	: res[0].latitude,
-		"location_longitude"	: res[0].longitude,
 		'is_electronic'			: is_electronic
 	}
+	if(request.body.event_address != null || ""){
+		geocoder.geocode(request.body.event_address, function(err, res) {
+			var latitude = res[0].latitude;
+			var longitude = res[0].longitude;
 
-	if(banner_Image_url){
-		updateData.banner_Image_url = banner_Image_url;
-	}
-	if(seating_plan_doc_url){
-		updateData.seating_plan_doc_url = seating_plan_doc_url;
-	}
-
-	if(request.body.event_address){
-		if(request.body.event_address.formatted_address){
-			var address = request.body.event_address.formatted_address;
-			updateData.event_address = address;
-		}else{
-			var address = request.body.event_address;
-			updateData.event_address = address;
-		}
-
-	}
-
-	promotionModel.findOne({'_id' : id},{'__v': 0},function (err,Promotion){
-		var total = Promotion.total_tickets;
-		var ticDiff = total_tickets - total;
-		var remaining = Promotion.remaining_tickets + ticDiff;
-		updateData.remaining_tickets = remaining;
-		promotionModel.findOneAndUpdate({'_id' : id},updateData,function (err,promotion){
-			if(err){
-				return response.status(500).send({"message" : "Internal server error.","code": "PE-PS-UP","err" : err}).end();
+			updateData.event_address = request.body.event_address;
+			if(latitude){
+				updateData.location_latituude	= latitude;
+				updateData.location_longitude	= longitude;
 			}
-			response.status(200).send(promotion).end();
+			if(video_url){
+				newProm.video_url = video_url
+			}
+			if(banner_Image_url){
+				updateData.banner_Image_url = banner_Image_url;
+			}
+			if(seating_plan_doc_url){
+				updateData.seating_plan_doc_url = seating_plan_doc_url;
+			}
+
+			promotionModel.findOne({'_id' : id},{'__v': 0},function (err,Promotion){
+				var total = Promotion.total_tickets;
+				var ticDiff = total_tickets - total;
+				var remaining = Promotion.remaining_tickets + ticDiff;
+				updateData.remaining_tickets = remaining;
+				promotionModel.findOneAndUpdate({'_id' : id},updateData,function (err,promotion){
+					if(err){
+						return response.status(500).send({"message" : "Internal server error.","code": "PE-PS-UP","err" : err}).end();
+					}
+					response.status(200).send(promotion).end();
+				})
+			})
+		});
+
+	}else{
+		if(video_url){
+			updateData.video_url = video_url
+		}
+		if(banner_Image_url){
+			updateData.banner_Image_url = banner_Image_url;
+		}
+		if(seating_plan_doc_url){
+			updateData.seating_plan_doc_url = seating_plan_doc_url;
+		}
+		promotionModel.findOne({'_id' : id},{'__v': 0},function (err,Promotion){
+			var total = Promotion.total_tickets;
+			var ticDiff = total_tickets - total;
+			var remaining = Promotion.remaining_tickets + ticDiff;
+			updateData.remaining_tickets = remaining;
+			promotionModel.findOneAndUpdate({'_id' : id},updateData,function (err,promotion){
+				if(err){
+					return response.status(500).send({"message" : "Internal server error.","code": "PE-PS-UP","err" : err}).end();
+				}
+				response.status(200).send(promotion).end();
+			})
 		})
-	})
-});
+	}
+	// if(request.body.event_address){
+	//
+	// }
+
+
 })
 
 module.exports = router;

@@ -17,6 +17,7 @@
 <!-- <th>Date</th> -->
 <!-- <th>Expiry Date</th> -->
 			<th>Image</th>
+			<th>Video</th>
       <th>Edit</th>
 			<th>Delete</th>
 		</tr>
@@ -37,7 +38,9 @@
 			<td>{{promotion.is_electronic}}</td>
 			<!-- <td>{{promotion.event_start_time | date:'MM-dd-yyyy hh:mm a'}}</td> -->
 			<!-- <td>{{promotion.event_end_time | date:'MM-dd-yyyy hh:mm a'}}</td> -->
-			<td>{{promotion.banner_Image_url}}</td>
+			<td><a href="{{promotion.banner_Image_url}}" target="_blank"><img src="{{promotion.banner_Image_url}}" width="50px" height="50px"></a></td>
+			<td ng-show="promotion.video_url"><a href="{{promotion.video_url}}" target="_blank">view video</a></td>
+			<td ng-hide="promotion.video_url"><a href="{{promotion.video_url}}"></a></td>
 			<td><a class="btn btn-sm btn-success" href="/#!/event/{{promotion._id}}">Edit Event</a></td>
             <!-- <td><button class='btn btn-sm btn-primary' ng-click="openEdit('lg',promotion)">Edit</button></td> -->
 			<td><button class='btn btn-sm btn-danger' ng-click="deletePromotion(promotion._id)">Delete</button></td>

@@ -11,6 +11,7 @@ var promotionSchema = new Schema({
 	remaining_tickets 	: Number,
 	is_electronic				: String,
 	price 							: String,
+	video_url						: String,
 	event_address 			: String,
 	event_category 			: String,
 	location_latituude 	: String,

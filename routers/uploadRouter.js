@@ -17,7 +17,7 @@ router
 				if(res[0] == 'image'){
 					var newPath = __dirname	+ '/../public/images/'+fleName;
 				}else if(res[0] == 'video'){
-					var newPath = __dirname	+ '/../public/presentation/'+fleName;
+					var newPath = __dirname	+ '/../public/videos/'+fleName;
 				}else if(res[0] == 'application'){
 					var newPath = __dirname	+ '/../public/presentation/'+fleName;
 				}else{
