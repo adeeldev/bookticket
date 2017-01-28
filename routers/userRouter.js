@@ -4,7 +4,9 @@ var express = require('express'),
 	verifyModel = require('../models/verifyModel'),
 	moment = require('moment'),
 	helperFun = require('../lib/helperFunc'),
-	md5 = require('md5');
+	md5 = require('md5'),
+	nodemailer = require('nodemailer');
+
 
 
 
@@ -191,19 +193,32 @@ router.post('/forgotPass',function (request,response){
 		if(result == null){
 			return response.status(400).send({"message": "Invalid Email"}).end();
 		}
-		result.emailCode = helperFun.randomCode(6);
+		var code = helperFun.randomCode(6);
+		result.emailCode = code;
 		result.save(function (err,newUser){
 			if(err){
 				return response.status(500).send({"message": "Internal Server Error","err" : err}).end();
 			}
-			var message = "Please Use this code to change password: ",
-				subject = "Forget Password Request";
-			helperFun.emailSender(email,message,subject)
-			.then(function(result){
-				return response.status(200).send({"message":"emailsend"}).end();
-			}).catch(function (err){
-				return response.status(500).send({"message":"Internal Server Error.", "err" : err});
-			})
+			var message = "Please Use this code to change password: " + code;
+			var subject = "Forget Password Request";
+			var transporter = nodemailer.createTransport({
+			    service: 'gmail',
+			    auth: {
+			        user: 'ticketplus.greece@gmail.com',
+			        pass: 'Ticket+GreeceiOS'
+			    }
+			}, {
+			    from: 'Ticket Plus Greece',
+			    headers: {
+			        'My-Awesome-Header': '123'
+			    }
+			});
+			transporter.sendMail({
+			    to: email,
+			    subject: subject,
+			    text: message
+			});
+			return response.status(200).send({'msg':'success'}).end();
 		})
 	});
 });
@@ -211,12 +226,11 @@ router.post('/forgotPass',function (request,response){
 
 router.post('/changePassword',function (request,response){
 	var password = request.body.password,
-		email = request.body.email,
 		code = request.body.code;
-	if((password == null || '') || (password == null || '') || (code == null || '')){
+	if((password == null || '') || (code == null || '')){
 		return response.status(400).send({"message" : "Parameter Missing"}).end();
 	}
-	userModel.findOne({"email" : email, "emailCode" : code},function (err,User){
+	userModel.findOne({"emailCode" : code},function (err,User){
 		if(err){
 			return response.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
 		}
@@ -233,6 +247,7 @@ router.post('/changePassword',function (request,response){
 		})
 	})
 });
+
 router.post('/updateUser', function (request,response){
 
 	var data = request.body;
