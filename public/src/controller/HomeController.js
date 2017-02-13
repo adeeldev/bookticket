@@ -1,6 +1,6 @@
 angular.module('TurkishApp')
 	.controller('HomeController',['$scope','$cookies','$location',function ($scope,$cookies,$location){
-		$scope.message = "Book Ticket";
+		$scope.message = "Κρατήσεις εισιτήριων";
 		$scope.uid = $cookies.get('user');
 		$scope.type = $cookies.get('type');
 		if($scope.uid){

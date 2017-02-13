@@ -1,56 +1,56 @@
 <div ng-include src="'views/partial/nav.html'"></div>
 <div class="modal-header">
-	<h4 class="modal-title">Add Sub Admin</h4>
+	<h4 class="modal-title">Προσθήκη Sub Admin</h4>
 </div>
 <div class="modal-body" ng-form name='myForm'>
-	<h5 class="pull-right"><strong> Timezone : {{timezone}}</strong></h5>
+	<!-- <h5 class="pull-right"><strong> Timezone : {{timezone}}</strong></h5> -->
 <!-- 	<div class="form-group" ng-if="errCheck" ng-repeat='err in Errors'>
 		<p class='bg-danger'>{{err.text}}</p>
 	</div> -->
 	<flash-message duration="3000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
 	<div class="form-group">
-		<label class="col-sm-4" for="email">Username</label>
-		<input type="text" name='owner_name' class="form-control" ng-model='Event.owner_name' placeholder='Username' required>
+		<label class="col-sm-4" for="email">Όνομα χρήστη</label>
+		<input type="text" name='owner_name' class="form-control" ng-model='Event.owner_name' placeholder='Όνομα χρήστη' required>
 	</div>
 	<div class="form-group">
 		<label class="control-label">Email</label>
 		<input type="text" name='owner_email' class="form-control" ng-model='Event.owner_email' placeholder='Email' required>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Password</label>
-		<input placeholder='Password' type="password" class="form-control" name='owner_password' ng-model='Event.owner_password' required>
+		<label class="control-label">Κωδικός</label>
+		<input placeholder='Κωδικός' type="password" class="form-control" name='owner_password' ng-model='Event.owner_password' required>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Organization Name</label>
-		<input placeholder='Organization Name' type="text" class="form-control" name='organization_name' ng-model='Event.organization_name' required>
+		<label class="control-label">Όνομα συνεργάτη</label>
+		<input placeholder='Όνομα συνεργάτη' type="text" class="form-control" name='organization_name' ng-model='Event.organization_name' required>
 	</div>
 	<div class="form-group">
-	    <label class="control-label">Category Type</label>
+	    <label class="control-label">Κατηγορία</label>
 	    <select class="form-control" ng-model="Event.type">
-	      <option value="">Select Category</option>
+	      <option value="">Επιλογή Κατηγορία</option>
 	      <option value="admin">Admin</option>
 	      <option value="sAdmin">Sub Admin</option>
 	    </select>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Share %</label>
-		<input placeholder='Share %' type="text" class="form-control" name='share' ng-model='Event.share' required>
+		<label class="control-label">Μερίδιο % %</label>
+		<input placeholder='Μερίδιο %' type="text" class="form-control" name='share' ng-model='Event.share' required>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Amount for Distance Range</label>
-		<input placeholder='Amount' type="text" class="form-control" name='amount' ng-model='Event.amount' required>
+		<label class="control-label">Ποσό για εύρος απόστασης</label>
+		<input placeholder='Ποσό για εύρος απόστασης' type="text" class="form-control" name='amount' ng-model='Event.amount' required>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Distance Range</label>
-		<input placeholder='Courir Charges' type="text" class="form-control" name='courier_charges' ng-model='Event.courier_charges' required>
+		<label class="control-label">Έυρος απόστασης</label>
+		<input placeholder='Έυρος απόστασης' type="text" class="form-control" name='courier_charges' ng-model='Event.courier_charges' required>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Fixed Price</label>
-		<input placeholder='Fixed Price' type="text" class="form-control" name='fixed_price' ng-model='Event.fixed_price' required>
+		<label class="control-label">Τιμή Fix</label>
+		<input placeholder='Τιμή Fix' type="text" class="form-control" name='fixed_price' ng-model='Event.fixed_price' required>
 	</div>
 	<div class="form-group">
-		<label class="control-label">Location</label>
-		<input placeholder='Location' class="form-control" g-places-autocomplete ng-model="Event.location" required>
+		<label class="control-label">Τοποθεσία</label>
+		<input placeholder='Τοποθεσία' class="form-control" g-places-autocomplete ng-model="Event.location" required>
 	</div>
 	<!-- <div class="form-group">
     <label class="control-label" for="location">Location</label>
@@ -60,6 +60,6 @@
   </div> -->
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-default" ng-click='cancel()'>Close</button>
-	<button type="submit" class="btn btn-primary" ng-click='ok(myForm)'>Save changes</button>
+	<button type="button" class="btn btn-default" ng-click='cancel()'>Κλείσιμο</button>
+	<button type="submit" class="btn btn-primary" ng-click='ok(myForm)'>Αποθήκευση αλλαγών</button>
 </div>

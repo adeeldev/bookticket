@@ -9,9 +9,9 @@ angular.module('TurkishApp')
 		$scope.uid = $cookies.get('user');
 		$scope.type = $cookies.get('type');
 		if($scope.type == 'admin'){
-		$scope.fields = ["Username","Eamil","Oranization Name", "Type", "Status", "joinOn", "Update", "Delete"];
+		$scope.fields = ["Ονομα χρήστη","Eamil","Oνομα συνεργάτη", "Τύπος", "Κατάσταση", "Μέλος από", "Ενημέρωση", "Διαγραφή"];
 		}else{
-		$scope.fields = ["Username","Eamil","Oranization Name","Type","joinOn"];
+		$scope.fields = ["Ονομα χρήστη","Eamil","Oνομα συνεργάτη","Τύπος","Μέλος από"];
 		}
 
     $scope.success = function () {

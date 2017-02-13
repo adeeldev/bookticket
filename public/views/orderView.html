@@ -1,16 +1,16 @@
 <div ng-include src="'views/partial/nav.html'"></div>
 <div class="container" ng-init="getOwnerDetail()">
-<h1>{{message}}</h1>
+<h1>Παραγγελίες</h1>
 	<div class="col-sm-4" ng-repeat="admin in admins">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{admin.owner_name}}</h3>
 			</div>
 			<div class="panel-body">
-				Organization: <h2>{{admin.organization_name}}</h2>
+				Συνεργάτης: <h2>{{admin.organization_name}}</h2>
 			</div>
 			<a href="/#!/admin/{{admin._id}}">
-			<div class="panel-body">View Ticket Orders</div>
+			<div class="panel-body">Προβολή παραγγελιών εισιτηρίων</div>
 			</a>
 		</div>
 	</div>

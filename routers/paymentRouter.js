@@ -286,7 +286,7 @@ router.post("/checkout", function (req, res) {
               '                    <td>'+
               '                        <p style="font-weight:bold">Hi <span style="color:#f04d1c"></span>,</p>    '+req.body.user_name+
               '                        <p style="font-weight:bold">Thanks for using our service.</p>'+
-              '                        <p style="font-weight:bold">Please reference the following details for booking # <span style="color:#f04d1c">'+result._id+'</span> with <span style="color:#f04d1c">Book Ticket</span>:</p>'+
+              '                        <p style="font-weight:bold">Please reference the following details for booking # <span style="color:#f04d1c">'+result._id+'</span> with <span style="color:#f04d1c">Κρατήσεις εισιτήριων</span>:</p>'+
               '                        <table style="width:100%">'+
               '                            <tbody><tr>'+
               '                                <td style="width:50%;vertical-align:top" align="top">'+

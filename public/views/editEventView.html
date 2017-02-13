@@ -3,36 +3,36 @@
 	<div class="col-sm-8 col-xs-offset-2" id="myTabContent">
 <form class="form-horizontal" ng-repeat="promotion in events ">
 	<div class="form-group">
-		<h1>Update Event</h1>
+		<h1>Επεξεργασία εκδήλωσης</h1>
 	</div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="name">Event Name:</label>
+    <label class="control-label col-sm-2" for="name">Ονομασία εκδήλωσης:</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name='name' ng-model='promotion.event_name' placeholder="Name" required>
+      <input type="text" class="form-control" name='name' ng-model='promotion.event_name' placeholder="εκδήλωσης" required>
     </div>
   </div>
 	<div class="form-group">
-    <label class="control-label col-sm-2" for="name">Event Description:</label>
+    <label class="control-label col-sm-2" for="name">Περιγραφή εκδήλωσης:</label>
     <div class="col-sm-10">
 			<textarea class="form-control" rows="5"  name='description' ng-model='promotion.event_description'></textarea>
       <!-- <input type="textarea" class="form-control" name='description' ng-model='promotion.event_description' placeholder="Description" required> -->
     </div>
   </div>
 	<div class="form-group">
-    <label class="control-label col-sm-2" for="name">Electric Ticket:</label>
+    <label class="control-label col-sm-2" for="name">Ηλεκτρονικό εισιτήριο:</label>
     <div class="col-sm-10">
 	    <select class="form-control" ng-model="promotion.is_electronic">
-	      <option value="">Select </option>
+	      <option value="">Επιλογή </option>
 	      <option value="yes">Yes</option>
 	      <option value="no">No</option>
 	    </select>
     </div>
   </div>
 	<div class="form-group">
-    <label class="control-label col-sm-2" for="name">Category Type:</label>
+    <label class="control-label col-sm-2" for="name">Κατηγορία:</label>
     <div class="col-sm-10">
 	    <select class="form-control" ng-model="promotion.event_category">
-	      <option value="">Select Category</option>
+	      <option value="">Επιλογή Κατηγορία</option>
 	      <option value="theater">Theater</option>
 	      <option value="live">Live Show</option>
 	      <option value="festival">Festival</option>
@@ -45,13 +45,13 @@
     </div>
   </div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="name">Image:</label>
+		<label class="control-label col-sm-2" for="name">Εικόνα:</label>
 		<div class="col-sm-10">
 			<img src="{{promotion.banner_Image_url}}" width="200px" height="200px">
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="Image/Pdf">Upload Banner Image and Seating file (pdf)</label>
+		<label class="control-label col-sm-2" for="Image/Pdf">Ανεβάστε εικόνα και αρχείο θέσεων (.pdf)</label>
 		<div class="col-sm-10">
 			    <div class="col-md-9" style="margin-bottom: 40px">
 			        <div class="form-group">
@@ -62,11 +62,11 @@
 			        <table class="table">
 			            <thead>
 			                <tr>
-			                <th width="50%">Name</th>
-			                <th ng-show="uploader.isHTML5">Size</th>
-			                <th ng-show="uploader.isHTML5">Progress</th>
+			                <th width="50%">Ονομασια</th>
+			                <th ng-show="uploader.isHTML5">Μέγεθος</th>
+			                <th ng-show="uploader.isHTML5">Πρόοδος</th>
 			                <!-- <th>Status</th> -->
-			                <th>Actions</th>
+			                <th>Ενέργειες</th>
 			                </tr>
 			            </thead>
 			            <tbody>
@@ -85,13 +85,13 @@
 			                    </td>
 			                    <td nowrap>
 			                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-			                            <span class="glyphicon glyphicon-upload"></span> Upload
+			                            <span class="glyphicon glyphicon-upload"></span> Αποθήκευση
 			                        </button>
 			                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-			                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+			                            <span class="glyphicon glyphicon-ban-circle"></span> Ακύρωση
 			                        </button>
 			                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-			                            <span class="glyphicon glyphicon-trash"></span> Remove
+			                            <span class="glyphicon glyphicon-trash"></span> Διαγραφή
 			                        </button>
 			                    </td>
 			                </tr>
@@ -101,7 +101,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="Image/Pdf">Video</label>
+		<label class="control-label col-sm-2" for="Image/Pdf">Βίντεο</label>
 		<div class="col-sm-10">
 					<div class="col-md-9" style="margin-bottom: 40px">
 							<div class="form-group">
@@ -112,11 +112,11 @@
 							<table class="table">
 									<thead>
 											<tr>
-											<th width="50%">Name</th>
-											<th ng-show="uploader1.isHTML5">Size</th>
-											<th ng-show="uploader1.isHTML5">Progress</th>
+											<th width="50%">Ονομασια</th>
+											<th ng-show="uploader1.isHTML5">Μέγεθος</th>
+											<th ng-show="uploader1.isHTML5">πρόοδος</th>
 											<!-- <th>Status</th> -->
-											<th>Actions</th>
+											<th>Ενέργειες</th>
 											</tr>
 									</thead>
 									<tbody>
@@ -135,13 +135,13 @@
 													</td>
 													<td nowrap>
 															<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-																	<span class="glyphicon glyphicon-upload"></span> Upload
+																	<span class="glyphicon glyphicon-upload"></span> Αποθήκευση
 															</button>
 															<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-																	<span class="glyphicon glyphicon-ban-circle"></span> Cancel
+																	<span class="glyphicon glyphicon-ban-circle"></span> Ακύρωση
 															</button>
 															<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-																	<span class="glyphicon glyphicon-trash"></span> Remove
+																	<span class="glyphicon glyphicon-trash"></span> Διαγραφή
 															</button>
 													</td>
 											</tr>
@@ -151,33 +151,33 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="name">Event Start Date:</label>
+		<label class="control-label col-sm-2" for="name">Ημερομηνία έναρξης:</label>
 		<div class="col-sm-10">
 			<input class="form-control" date-time name="pickerMinDate" ng-model="dates.today" id="pickerMinDate" min-date="minDate" view="date" min-view="hours" timezone="UTC" format="MM-DD-YYYY hh:mm a">
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="name">Event End Date:</label>
+		<label class="control-label col-sm-2" for="name">Ημερομηνία λήξης:</label>
 		<div class="col-sm-10">
 			<input class="form-control" date-time name="pickerMinDate" ng-model="dates.end" id="pickerMinDate" min-date="dates.end" view="date" min-view="hours" timezone="UTC" format="MM-DD-YYYY hh:mm a">
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="name">Event Address:</label>
+		<label class="control-label col-sm-2" for="name">Διέυθυνση εκδήλωσης:</label>
 		<div class="col-sm-10">
-			<input placeholder='Address' class="form-control" g-places-autocomplete name='event_address' ng-model="promotion.event_address" >
+			<input placeholder='εκδήλωσης' class="form-control" g-places-autocomplete name='event_address' ng-model="promotion.event_address" >
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="name">Total Tickets:</label>
+		<label class="control-label col-sm-2" for="name">Σύνολο εισιτηρίων:</label>
 		<div class="col-sm-10">
-			<input placeholder='Totall Tickets' type="text" class="form-control" name='tickets' ng-model='promotion.total_tickets' required>
+			<input placeholder='Σύνολο εισιτηρίων' type="text" class="form-control" name='tickets' ng-model='promotion.total_tickets' required>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="name">Price:</label>
+		<label class="control-label col-sm-2" for="name">Τιμή:</label>
 		<div class="col-sm-10">
-			<input placeholder='Price' type="text" class="form-control" name='price' ng-model='promotion.price' required>
+			<input placeholder='Τιμή' type="text" class="form-control" name='price' ng-model='promotion.price' required>
 		</div>
 	</div>
 	<!-- <div class="form-group">
@@ -194,8 +194,8 @@
 	</div> -->
   <div class="form-group">
     <div class="col-sm-offset-9 col-sm-10">
-			<button type="button" class="btn btn-primary"  ng-click="update(promotion,dates.today,dates.end)">Update</button>
-				<a href="/#!/event" class="btn btn-md btn-primary"> Cancel</a>
+			<button type="button" class="btn btn-primary"  ng-click="update(promotion,dates.today,dates.end)">Ενημέρωση</button>
+				<a href="/#!/event" class="btn btn-md btn-primary"> Ακύρωση	</a>
     </div>
   </div>
 

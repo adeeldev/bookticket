@@ -99,7 +99,7 @@ router.post('/register', function (request,response){
 			verifyModel.register(data)
 			.then(function (result){
 				var message = "Please Use this Authentication code : " + data.emailCode,
-					subject = "Book Ticket";
+					subject = "Κρατήσεις εισιτήριων";
 				response.status(200).send({"message" : "User Added.", "user" : result.user}).end();
 				return helperFun.emailSender(data.email, message, subject);
 				return true;
