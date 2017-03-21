@@ -14,6 +14,8 @@ angular.module('TurkishApp')
 		$scope.surl = 'http://'+$scope.url+':'+$scope.port;
     $scope.uid = $cookies.get('user');
     $scope.type = $cookies.get('type');
+		$scope.langType = $scope.user.langType;
+
 	$scope.getPromotions = function(){
     var data = {
             'uid' : $scope.uid,

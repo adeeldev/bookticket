@@ -6,6 +6,7 @@ angular.module('TurkishApp')
 		$scope.type = $cookies.get('type');
 
 		$scope.login = function login(){
+			console.log($scope.Admin);
 			adminService.login($scope.Admin)
 				.then(function (result){
 					console.log(result);
@@ -21,6 +22,7 @@ angular.module('TurkishApp')
 					$location.path('/home');
 					$scope.user = JSON.parse($cookies.get('data'));
 					$scope.username = $scope.user.owner_name;
+					$scope.langType = $scope.user.langType;
 					$scope.owner_organization = $scope.user.organization_name;
 				})
 				.catch(function (response){

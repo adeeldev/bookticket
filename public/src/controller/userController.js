@@ -8,10 +8,19 @@ angular.module('TurkishApp')
 		$scope.message = 'Hello world';
 		$scope.uid = $cookies.get('user');
 		$scope.type = $cookies.get('type');
-		if($scope.type == 'admin'){
+		$scope.langType = $scope.user.langType;
+		console.log($scope.type);
+
+		if($scope.type == 'admin' && $scope.langType == 'r'){
 		$scope.fields = ["Ονομα χρήστη","Eamil","Oνομα συνεργάτη", "Τύπος", "Κατάσταση", "Μέλος από", "Ενημέρωση", "Διαγραφή"];
 		}else{
 		$scope.fields = ["Ονομα χρήστη","Eamil","Oνομα συνεργάτη","Τύπος","Μέλος από"];
+		}
+
+		if($scope.type == 'admin' && $scope.langType == 'e'){
+		$scope.fieldsEng = ["Username","Eamil","Oranization Name", "Type", "Status", "joinOn", "Update", "Delete"];
+		}else{
+		$scope.fieldsEng = ["Username","Eamil","Oranization Name","Type","joinOn"];
 		}
 
     $scope.success = function () {

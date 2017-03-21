@@ -1,11 +1,14 @@
 angular.module('TurkishApp')
-	.controller('addModalController',['$scope','$rootScope','$uibModalInstance', 'Flash', '$timeout','Flash', function ($scope, $rootScope, $uibModalInstance, Flash , $timeout, Flash){
+	.controller('addModalController',['$scope','$rootScope','$uibModalInstance', 'Flash', '$timeout','Flash', '$cookies', function ($scope, $rootScope, $uibModalInstance, Flash , $timeout, Flash, $cookies){
 		var tz = jstz.determine();
 		$scope.Event = {};
 		$scope.Errors = [];
+		$scope.user = JSON.parse($cookies.get('data'));
 		$scope.timezone = tz.name();
 		$scope.minDate = moment();
 		$scope.maxDate = moment.tz($scope.timezone).add(4, 'd').hour(12).startOf('h');
+		$scope.langType = $scope.user.langType;
+
 		// $scope.Event.eventDate = moment();
 		$scope.ok = function (form){
 

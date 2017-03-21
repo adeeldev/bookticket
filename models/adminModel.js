@@ -7,6 +7,7 @@ var adminSchema = new Schema({
 	"email" : String,
 	"username" : String,
 	"password" : String,
+	"langType": String,
 	"createdOn" : Date
 });
 

@@ -7,6 +7,7 @@ angular.module('TurkishApp')
 			$scope.user = JSON.parse($cookies.get('data'));
 			$scope.username = $scope.user.owner_name;
 			$scope.owner_organization = $scope.user.organization_name;
+			$scope.langType = $scope.user.langType;
 		}else{
 			$location.path('/');
 		}

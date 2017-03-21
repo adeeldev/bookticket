@@ -1,7 +1,7 @@
 <div ng-include src="'views/partial/nav.html'"></div>
 <div class="controller" ng-init="updateEvent()">
 	<div class="col-sm-8 col-xs-offset-2" id="myTabContent">
-<form class="form-horizontal" ng-repeat="promotion in events ">
+<form class="form-horizontal" ng-repeat="promotion in events " ng-show="langType == 'r'">
 	<div class="form-group">
 		<h1>Επεξεργασία εκδήλωσης</h1>
 	</div>
@@ -15,7 +15,6 @@
     <label class="control-label col-sm-2" for="name">Περιγραφή εκδήλωσης:</label>
     <div class="col-sm-10">
 			<textarea class="form-control" rows="5"  name='description' ng-model='promotion.event_description'></textarea>
-      <!-- <input type="textarea" class="form-control" name='description' ng-model='promotion.event_description' placeholder="Description" required> -->
     </div>
   </div>
 	<div class="form-group">
@@ -115,7 +114,6 @@
 											<th width="50%">Ονομασια</th>
 											<th ng-show="uploader1.isHTML5">Μέγεθος</th>
 											<th ng-show="uploader1.isHTML5">πρόοδος</th>
-											<!-- <th>Status</th> -->
 											<th>Ενέργειες</th>
 											</tr>
 									</thead>
@@ -180,18 +178,6 @@
 			<input placeholder='Τιμή' type="text" class="form-control" name='price' ng-model='promotion.price' required>
 		</div>
 	</div>
-	<!-- <div class="form-group">
-		<label class="control-label col-sm-2" for="name">Original Price Per Ticket:</label>
-		<div class="col-sm-10">
-			<input placeholder='Origional Price' type="text" class="form-control" name='original_price' ng-model='promotion.original_price' required>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="control-label col-sm-2" for="name">Share %:</label>
-		<div class="col-sm-10">
-			<input placeholder='Share Percentage' type="text" class="form-control" name='share' ng-model='promotion.share' required>
-		</div>
-	</div> -->
   <div class="form-group">
     <div class="col-sm-offset-9 col-sm-10">
 			<button type="button" class="btn btn-primary"  ng-click="update(promotion,dates.today,dates.end)">Ενημέρωση</button>
@@ -200,5 +186,200 @@
   </div>
 
 </form>
+
+<!-- FOR ENGLISH VIEW PAGE    --->
+
+<form class="form-horizontal" ng-repeat="promotion in events " ng-show="langType == 'e'">
+	<div class="form-group">
+		<h1>Update Event</h1>
+	</div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="name">Event Name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name='name' ng-model='promotion.event_name' placeholder="Name" required>
+    </div>
+  </div>
+	<div class="form-group">
+    <label class="control-label col-sm-2" for="name">Event Description:</label>
+    <div class="col-sm-10">
+			<textarea class="form-control" rows="5"  name='description' ng-model='promotion.event_description'></textarea>
+      <!-- <input type="textarea" class="form-control" name='description' ng-model='promotion.event_description' placeholder="Description" required> -->
+    </div>
+  </div>
+	<div class="form-group">
+    <label class="control-label col-sm-2" for="name">Electric Ticket:</label>
+    <div class="col-sm-10">
+	    <select class="form-control" ng-model="promotion.is_electronic">
+	      <option value="">Select </option>
+	      <option value="yes">Yes</option>
+	      <option value="no">No</option>
+	    </select>
+    </div>
+  </div>
+	<div class="form-group">
+    <label class="control-label col-sm-2" for="name">Category Type:</label>
+    <div class="col-sm-10">
+	    <select class="form-control" ng-model="promotion.event_category">
+	      <option value="">Select Category</option>
+	      <option value="theater">Theater</option>
+	      <option value="live">Live Show</option>
+	      <option value="festival">Festival</option>
+	      <option value="concert">Concert</option>
+	      <option value="athletics">Athletics</option>  Live Show, Festival, Concert, Athletics, Kids, Offers, Others
+	      <option value="kids">Kids</option>
+	      <option value="offers">Offers</option>
+	      <option value="others">Others</option>
+	    </select>
+    </div>
+  </div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="name">Image:</label>
+		<div class="col-sm-10">
+			<img src="{{promotion.banner_Image_url}}" width="200px" height="200px">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="Image/Pdf">Upload Banner Image and Seating file (pdf)</label>
+		<div class="col-sm-10">
+			    <div class="col-md-9" style="margin-bottom: 40px">
+			        <div class="form-group">
+			        <span class="btn btn-default btn-file">
+			            <input  type="file" nv-file-select="" uploader="uploader" multiple /><br/>
+			        </span>
+			        </div>
+			        <table class="table">
+			            <thead>
+			                <tr>
+			                <th width="50%">Name</th>
+			                <th ng-show="uploader.isHTML5">Size</th>
+			                <th ng-show="uploader.isHTML5">Progress</th>
+			                <!-- <th>Status</th> -->
+			                <th>Actions</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <tr ng-repeat="item in uploader.queue">
+			                    <td><strong>{{ item.file.name }}</strong></td>
+			                    <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+			                    <td ng-show="uploader.isHTML5">
+			                    <div class="progress" style="margin-bottom: 0;">
+			                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+			                    </div>
+			                    </td>
+			                    <td class="text-center">
+			                        <!-- <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+			                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+			                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span> -->
+			                    </td>
+			                    <td nowrap>
+			                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+			                            <span class="glyphicon glyphicon-upload"></span> Upload
+			                        </button>
+			                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+			                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+			                        </button>
+			                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+			                            <span class="glyphicon glyphicon-trash"></span> Remove
+			                        </button>
+			                    </td>
+			                </tr>
+			            </tbody>
+			        </table>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="Image/Pdf">Video</label>
+		<div class="col-sm-10">
+					<div class="col-md-9" style="margin-bottom: 40px">
+							<div class="form-group">
+							<span class="btn btn-default btn-file">
+									<input  type="file" nv-file-select="" uploader="uploader1"  /><br/>
+							</span>
+							</div>
+							<table class="table">
+									<thead>
+											<tr>
+											<th width="50%">Name</th>
+											<th ng-show="uploader1.isHTML5">Size</th>
+											<th ng-show="uploader1.isHTML5">Progress</th>
+											<!-- <th>Status</th> -->
+											<th>Actions</th>
+											</tr>
+									</thead>
+									<tbody>
+											<tr ng-repeat="item in uploader1.queue">
+													<td><strong>{{ item.file.name }}</strong></td>
+													<td ng-show="uploader1.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+													<td ng-show="uploader1.isHTML5">
+													<div class="progress" style="margin-bottom: 0;">
+													<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+													</div>
+													</td>
+													<td class="text-center">
+															<!-- <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+															<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+															<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span> -->
+													</td>
+													<td nowrap>
+															<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+																	<span class="glyphicon glyphicon-upload"></span> Upload
+															</button>
+															<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+																	<span class="glyphicon glyphicon-ban-circle"></span> Cancel
+															</button>
+															<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+																	<span class="glyphicon glyphicon-trash"></span> Remove
+															</button>
+													</td>
+											</tr>
+									</tbody>
+							</table>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="name">Event Start Date:</label>
+		<div class="col-sm-10">
+			<input class="form-control" date-time name="pickerMinDate" ng-model="dates.today" id="pickerMinDate" min-date="minDate" view="date" min-view="hours" timezone="UTC" format="MM-DD-YYYY hh:mm a">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="name">Event End Date:</label>
+		<div class="col-sm-10">
+			<input class="form-control" date-time name="pickerMinDate" ng-model="dates.end" id="pickerMinDate" min-date="dates.end" view="date" min-view="hours" timezone="UTC" format="MM-DD-YYYY hh:mm a">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="name">Event Address:</label>
+		<div class="col-sm-10">
+			<input placeholder='Address' class="form-control" g-places-autocomplete name='event_address' ng-model="promotion.event_address" >
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="name">Total Tickets:</label>
+		<div class="col-sm-10">
+			<input placeholder='Totall Tickets' type="text" class="form-control" name='tickets' ng-model='promotion.total_tickets' required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="name">Price:</label>
+		<div class="col-sm-10">
+			<input placeholder='Price' type="text" class="form-control" name='price' ng-model='promotion.price' required>
+		</div>
+	</div>
+  <div class="form-group">
+    <div class="col-sm-offset-9 col-sm-10">
+			<button type="button" class="btn btn-primary"  ng-click="update(promotion,dates.today,dates.end)">Update</button>
+				<a href="/#!/event" class="btn btn-md btn-primary"> Cancel</a>
+    </div>
+  </div>
+
+</form>
+
+
+<!--  END HERE   -->
+
+
 </div>
 </div>

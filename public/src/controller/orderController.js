@@ -1,6 +1,7 @@
 angular.module('TurkishApp')
 	.controller('orderController',['$scope','$uibModal', 'orderService' , 'FileUploader' , '$location','$cookies', function ($scope, $uibModal, orderService,  FileUploader, $location,$cookies){
 		$scope.message = "Orders";
+		$scope.user = JSON.parse($cookies.get('data'));
 		$scope.animationsEnabled = true;
 		$scope.promotion_image = '';
     $scope.url = $location.host();
@@ -8,6 +9,9 @@ angular.module('TurkishApp')
     $scope.base_url = 'http://'+$scope.url+':'+$scope.port+'/images/';
     $scope.uid = $cookies.get('user');
     $scope.type = $cookies.get('type');
+		console.log($scope.user);
+		$scope.langType = $scope.user.langType;
+
 
 
 		$scope.getOwnerDetail = function (){

@@ -44,34 +44,40 @@ var geocoder = NodeGeocoder(options);
 	router.post('/login',function (request,response){
 
 		var username = request.body.username;
-		// var password = md5(request.body.password);
 		var password = request.body.password;
+		var langType = request.body.langType;
 
-		if((username == null || '') || (password == '' || null)){
+		if((username == null || '') || (password == '' || null) || (langType == '' || null)){
 			return response.status(400).send({'message' : 'Parameters are missing'}).end();
 		}
-		ownerModel.findOne({$and :[{"owner_name":username},{"owner_password":password}]},{'__v' : 0}, function (err,admin){
-			console.log(admin);
+		ownerModel.findOne({$and :[{"owner_name":username},{"owner_password":password}]},function (err,User){
 			if(err){
-				return response.status(500).send({'message' : 'Internal Server error. Please try again later','err' :err}).end();
+				return response.status(500).send({"message" : "Internal Server Error", "err" : err}).end();
 			}
-			console.log('admin data ' , admin);
-			if(admin == null){
-				return response.status(400).send({'message' : 'Invalid Username OR Password'}).end();
+			if(User == null){
+				return response.status(400).send({"message" : "Invalid Email OR Code"}).end();
 			}
-			response.status(200).send(admin).end();
+			ownerModel.findByIdAndUpdate(User._id,{ $set: { langType: langType }}, { new: true }, function (err, Admin) {
+			  if (err) return handleError(err);
+				response.status(200).send(Admin).end();
+			});
+
 		})
 	})
-	router.post('/addOwner', function (request, response){
 
+
+
+	router.post('/addOwner', function (request, response){
+		console.log(request.body.langType);
 		var newOwner = {
 			"owner_name" : request.body.owner_name,
 			"owner_email" : request.body.owner_email,
 			"owner_password" : request.body.owner_password,
 			"organization_name" : request.body.organization_name,
+			"langType" : request.body.langType,
 			"type"           : 'admin'
 		};
-
+		console.log(newOwner);
 		ownerModel.addOwner(newOwner)
 		.then(function (event){
 			if(event == null){
@@ -85,6 +91,8 @@ var geocoder = NodeGeocoder(options);
 			response.status(500).send({"code": "NE-Se","message" : "Server Error. Please try agin later.", "err" : err}).end();
 		})
 	})
+
+
 	router.post('/addSubAdmin', function (request, response){
 		geocoder.geocode(request.body.location.formatted_address, function(err, res) {
 			if(err){

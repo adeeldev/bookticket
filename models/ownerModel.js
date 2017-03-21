@@ -10,6 +10,7 @@ var ownersSchema = new Schema({
 	owner_password		: String,
 	organization_name	: String,
 	type							: String,
+	langType					: String,
 	share							: String,
 	courier_charges		: String,
 	amount    				: Number,

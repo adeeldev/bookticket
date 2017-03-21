@@ -1,16 +1,7 @@
 <div ng-include src="'views/partial/nav.html'"></div>
-<div class="container" >
-<!-- <div ng-include src="'views/partial/nav.html'"></div> -->
+<div class="container" ng-show="langType == 'r'">
 <h1>{{message}}</h1 ng-controller="HomeController">
-<!-- <div class='col-sm-4'>
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3 class="panel-title">Promotions</h3>
-		</div>
-		<div class="panel-body">Body</div>
-	</div>
-</div> -->
-<div class="col-sm-4">
+<div class="col-sm-4" >
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">Εκδηλώσεις</h3>
@@ -18,12 +9,19 @@
 		<div class="panel-body">Panel content</div>
 	</div>
 </div>
+
 </div>
-<!-- <div class="col-sm-4">
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3 class="panel-title">Presentations & Videos</h3>
+
+<div class="container" ng-show="langType == 'e'">
+<h1>Events</h1 ng-controller="HomeController">
+	<div class="col-sm-4" >
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Book Ticket</h3>
+			</div>
+			<div class="panel-body">Panel content</div>
 		</div>
-		<div class="panel-body">Panel content</div>
 	</div>
-</div> -->
+	</div>
+
+</div>
